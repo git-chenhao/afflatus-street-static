@@ -27,7 +27,7 @@
 
         <br>
         <span class="input input--minoru">
-        <a href="http://www.bootcss.com/"
+        <a href="#"
            class="button button-block button-rounded button-primary button-large">Go</a>
         </span>
       </section>

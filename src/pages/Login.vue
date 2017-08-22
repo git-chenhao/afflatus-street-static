@@ -32,7 +32,7 @@
         <br>
         <router-link to="/register">
         <span class="input">
-        <a href="http://www.bootcss.com/" class="pull-right ">No Account Click Me!</a>
+        <a href="#" class="pull-right ">No Account Click Me!</a>
         </span>
         </router-link>
 
