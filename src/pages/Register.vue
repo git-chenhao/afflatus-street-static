@@ -1,33 +1,39 @@
 <template>
-  <div class="login">
+  <div class="login" >
     <!--<h1>{{ msg }}</h1>-->
+    <!--<ul id="background" class="background"><li class="fadein"></li></ul>-->
     <div class="container">
       <section class="content">
         <h1>{{ msg }}</h1>
         <span class="input input--minoru">
-					<input class="input__field input__field--minoru" id="nickName"/>
 					<label class="input__label input__label--minoru" for="nickName">
 						<span class="input__label-content input__label-content--minoru">Your NickName</span>
 					</label>
+					<input class="input__field input__field--minoru" id="nickName"/>
 				</span>
         <br>
         <span class="input input--minoru">
-					<input class="input__field input__field--minoru" id="mobile"/>
 					<label class="input__label input__label--minoru" for="mobile">
 						<span class="input__label-content input__label-content--minoru">Your phone number</span>
 					</label>
+					<input class="input__field input__field--minoru" id="mobile"/>
 				</span>
         <br>
         <span class="input input--minoru">
-					<input class="input__field input__field--minoru" id="password"/>
 					<label class="input__label input__label--minoru" for="password">
 						<span class="input__label-content input__label-content--minoru">Your password</span>
 					</label>
+					<input class="input__field input__field--minoru" id="password"/>
 				</span>
-
         <br>
-        <span class="input input--minoru">
-        <a href="#"
+        <router-link to="/">
+          <span class="input">
+            <a href="#" class="pull-right ">I Have Account,To Login!</a>
+          </span>
+        </router-link>
+        <br>
+        <span class="input input--minoru span-register">
+        <a href="http://www.bootcss.com/"
            class="button button-block button-rounded button-primary button-large">Go</a>
         </span>
       </section>
@@ -76,15 +82,7 @@
     margin: 0 10px;
   }
 
-  a {
-    color: #42b983;
-  }
-
-  body {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    background-color: #ffffff;
+  .span-register {
+    margin-top: 20px;
   }
 </style>

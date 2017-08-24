@@ -1,40 +1,41 @@
 <template>
   <div class="login">
     <!--<div class="login" style="float: right;margin-right: 0px">-->
-      <!--<router-link to="/register">-->
-          <!--<span class="input">-->
-          <!--<a href="http://www.bootcss.com/" class="pull-right ">No Account Click Me!</a>-->
-          <!--</span>-->
-      <!--</router-link>-->
+    <!--<router-link to="/register">-->
+    <!--<span class="input">-->
+    <!--<a href="http://www.bootcss.com/" class="pull-right ">No Account Click Me!</a>-->
+    <!--</span>-->
+    <!--</router-link>-->
     <!--</div>-->
+    <!--<ul id="background" class="background"><li class="fadein"></li></ul>-->
     <div class="container">
       <section class="content">
         <h1>{{ msg }}</h1>
         <span class="input input--minoru">
-					<input class="input__field input__field--minoru" id="mobile"/>
 					<label class="input__label input__label--minoru" for="mobile">
 						<span class="input__label-content input__label-content--minoru">Your phone number</span>
 					</label>
+          <input class="input__field input__field--minoru" id="mobile"/>
 				</span>
         <br>
         <span class="input input--minoru">
-					<input class="input__field input__field--minoru" id="password" type="password"/>
 					<label class="input__label input__label--minoru" for="password">
 						<span class="input__label-content input__label-content--minoru">Your password</span>
 					</label>
+					<input class="input__field input__field--minoru" id="password" type="password"/>
 				</span>
-
-        <br>
-        <span class="input input--minoru">
-        <a href="http://www.bootcss.com/"
-           class="button button-block button-rounded button-primary button-large">Go</a>
-        </span>
         <br>
         <router-link to="/register">
         <span class="input">
         <a href="#" class="pull-right ">No Account Click Me!</a>
         </span>
         </router-link>
+        <br>
+        <span class="input input--minoru span-login">
+        <a href="#" @click="login"
+           class="button button-block button-rounded button-primary button-large">Go</a>
+        </span>
+
 
         <!--<a href="#" class="button button-3d button-primary button-rounded">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login in&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>-->
       </section>
@@ -42,6 +43,8 @@
 
   </div>
 </template>
+<script src="https://unpkg.com/vue"></script>
+
 <script src="../../static/js/classie.js"></script>
 <script>
   export default {
@@ -50,8 +53,36 @@
       return {
         msg: 'Welcome To Afflatus Street'
       }
+    },
+    methods: {
+      login: function () {
+        var url = 'http://localhost:8080/v1/uc/login'
+
+        this.$http.post(url).then(function (data) {
+//          console.log(data)
+//          var json = data.body
+//          this.data = eval('(' + json + ')')
+        }, function (response) {
+          console.info(response)
+        })
+      }
     }
   }
+  //  }
+  // var demo = new Vue({
+  //    el:'#app',
+  //    data:{data:""},
+  //    created:function(){
+  //      var url="json.jsp";
+  //
+  //      this.$http.get(url).then(function(data){
+  //        var json=data.body;
+  //        this.data=eval("(" + json +")");
+  //      },function(response){
+  //        console.info(response);
+  //      })
+  //    }
+  //  });
 </script>
 
 
@@ -83,15 +114,7 @@
     margin: 0 10px;
   }
 
-  a {
-    color: #42b983;
-  }
-
-  body {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0px;
-    background-color: #ffffff;
+  .span-login {
+    margin-top: 20px;
   }
 </style>

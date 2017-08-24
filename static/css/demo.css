@@ -16,12 +16,18 @@
 .clearfix:after { clear: both; }
 
 body {
-	background:url("/../../static/image/demo-1-bg.jpg") no-repeat;
-  background-size:cover;
+	/*background:url("/../../static/image/demo-1-bg.jpg") no-repeat;*/
+  background-color: #00b185;
+  background-image: url("https://slack.sendpulse.com/resources/assets__slack/img/hero.png") !important;
+  background-repeat: repeat;
+  background-position: center top;
+  /*background-size: cover;*/
   color: #404d5b;
 	font-weight: 500;
 	font-size: 1.05em;
 	font-family: 'Raleway', Arial, sans-serif;
+  /*width: 100%;*/
+  /*height: 100%;*/
 }
 
 a {
@@ -67,6 +73,9 @@ a:hover, a:focus {
 
 body .nomargin-bottom {
 	margin-bottom: 0;
+}
+a{
+  color: #9a6e71;
 }
 
 /* Header */
