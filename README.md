@@ -1,4 +1,4 @@
-# vue-demo
+# afflatus-street-static
 
 > A Vue.js project
 
