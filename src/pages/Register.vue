@@ -44,7 +44,7 @@
 				</span>
         <br>
         <span class="input input--minoru span-register">
-          <a @click="register" class="button button-royal button-pill button-giant">Go<i class="icon-camera-retro"></i></a>
+          <a @click="register" class="button button-royal button-pill button-giant">Register</a>
         </span>
       </section>
     </div>

@@ -31,7 +31,7 @@
 
         <br>
         <span class="input input--minoru span-login">
-          <a @click="login" class="button button-royal button-pill button-giant">Go</a>
+          <a @click="login" class="button button-royal button-pill button-giant">Login</a>
         </span>
       </section>
     </div>
