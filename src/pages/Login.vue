@@ -3,7 +3,7 @@
     <div style="text-align: right">
       <router-link to="/register">
           <span class="input">
-          <a class="pull-right login-register-jump-a">No Account Click Me!</a>
+          <a class="pull-right login-register-jump-a">No Account,To Register!</a>
           </span>
       </router-link>
     </div>
