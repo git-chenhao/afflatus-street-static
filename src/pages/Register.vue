@@ -69,6 +69,21 @@
     },
     methods: {
       register: function () {
+        if (this.mobile == '') {
+          this.responseCode = 1001
+          this.errorMsg = '手机号不能为空'
+          return
+        }
+        if (this.password == '') {
+          this.responseCode = 1001
+          this.errorMsg = '密码不能为空'
+          return
+        }
+        if (this.nickName == '') {
+          this.responseCode = 1001
+          this.errorMsg = '昵称不能为空'
+          return
+        }
         var _self = this
         var url = global_.host+'/v1/uc/register'
         var params = {mobile: _self.mobile, password: _self.password,nickName:_self.nickName}
