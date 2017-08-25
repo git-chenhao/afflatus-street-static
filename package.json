@@ -14,6 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
+    "vee-validate": "^2.0.0-rc.14",
     "vue": "^2.3.3",
     "vue-resource": "^1.3.4",
     "vue-router": "^2.6.0"

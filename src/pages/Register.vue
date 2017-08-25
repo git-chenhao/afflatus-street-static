@@ -178,5 +178,14 @@
         -webkit-transform: scale(1.0);
       }
   }
+  .container {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    left: 50%;
+    top: 50%;
+    margin-left: -400px;
+    margin-top: -300px;
+  }
 
 </style>

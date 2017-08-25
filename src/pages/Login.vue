@@ -1,5 +1,5 @@
 <template>
-  <div class="login" >
+  <div class="login">
     <div style="text-align: right">
       <router-link to="/register">
           <span class="input">
@@ -272,7 +272,8 @@
 </template>
 <script src="../../static/js/classie.js"></script>
 <script>
-  import global_ from "./config.vue"
+  import global_ from './config.vue'
+
   export default {
     name: 'hello',
     data () {
@@ -289,17 +290,26 @@
     methods: {
       login: function () {
         var _self = this
-        var url = global_.host+'/v1/uc/login'
+        if (this.mobile == '') {
+          this.responseCode = 1001
+          this.errorMsg = '手机号不能为空'
+          return
+        }
+        if (this.password == '') {
+          this.responseCode = 1001
+          this.errorMsg = '密码不能为空'
+          return
+        }
+        var url = global_.host + '/v1/uc/login'
         var params = {mobile: _self.mobile, password: _self.password}
         console.log(params)
         this.$http.post(url, params).then(function (data) {
           if (data.body.responseCode == 1000) {
             this.loginSuccess = true
             this.loading = true
-//            this.$router.push('/loading')
-            window.setTimeout(function(){
+            window.setTimeout(function () {
               _self.$router.push('/home')
-            },2000)
+            }, 2000)
           } else {
             console.log(data)
             this.responseCode = data.body.responseCode
@@ -322,6 +332,7 @@
   @import '../../static/fonts/font-awesome-4.2.0/css/font-awesome.min.css';
   @import '../../static/css/buttons.css';
   @import '../../static/css/style.css';
+
   a.brand svg {
     fill: #00495f;
   }
@@ -351,5 +362,15 @@
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
     -webkit-text-fill-color: #333;
+  }
+
+  .container {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+    left: 50%;
+    top: 50%;
+    margin-left: -400px;
+    margin-top: -300px;
   }
 </style>
