@@ -6,12 +6,14 @@
 </template>
 
 <script>
+  import global_ from "./pages/config.vue"
 export default {
-  name: 'app'
+  name: 'app',
 }
 </script>
 
 <style>
+  @import '../static/css/common.css';
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

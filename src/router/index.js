@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import HomePage from '@/pages/HomePage'
+import Loading from  '@/pages/Loading'
 
 Vue.use(Router)
 
@@ -23,6 +24,11 @@ export default new Router({
       path: '/home',
       name: '',
       component: HomePage
+    },
+    {
+      path: '/loading',
+      name: '',
+      component: Loading
     }
   ]
 })

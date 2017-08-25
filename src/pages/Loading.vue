@@ -1,45 +1,7 @@
 <template>
-  <div class="login" >
-    <div style="text-align: right">
-      <router-link to="/register">
-          <span class="input">
-            <a class="pull-right login-register-jump-a">No Account,To Register!</a>
-          </span>
-      </router-link>
-    </div>
-    <br>
-    <div class="container" v-if="!loginSuccess">
-      <section class="content">
-        <h1>{{ msg }}</h1>
-        <span class="input--minoru" v-if="responseCode!=1000">
-          <span class="input__label-content input__label-content--minoru">{{errorMsg}}</span>
-        </span>
-        <span class="input input--minoru">
-					<label class="input__label input__label--minoru" for="mobile">
-						<span class="input__label-content input__label-content--minoru">Your phone number</span>
-					</label>
-          <input class="input__field input__field--minoru" id="mobile" v-model="mobile" @keyup.13="login()"/>
-				</span>
-        <br>
-        <span class="input input--minoru">
-					<label class="input__label input__label--minoru" for="password">
-						<span class="input__label-content input__label-content--minoru">Your password</span>
-					</label>
-					<input class="input__field input__field--minoru" id="password" type="password" v-model="password"
-                 @keyup.13="login()"/>
-				</span>
-
-        <br>
-        <span class="input input--minoru span-login">
-          <a @click="login" class="button button-royal button-pill button-giant">Login</a>
-        </span>
-      </section>
-    </div>
-
-    <!--loading -->
-    <div v-if='loading'>
-      <div id="screen1">
-        <svg version="1.1" id="devman" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2222 337.5" enable-background="new 0 0 2222 337.5" xml:space="preserve">
+  <div>
+  <div id="screen1">
+    <svg version="1.1" id="devman" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 2222 337.5" enable-background="new 0 0 2222 337.5" xml:space="preserve">
 				<g>
 						<g class="beams" opacity="0.1">
 
@@ -261,95 +223,40 @@
 		C1534.8,173.8,1532.3,181.4,1530.5,182.3z" />
 				</g>
 		</svg>
-      </div>
-      <div class="particles"></div>
-      <div class="particles"></div>
-      <div class="particles"></div>
-      <a class="brand" href="http://wpmudev.org" target="_blank">
-      </a>
-    </div>
+  </div>
+  <div class="particles"></div>
+  <div class="particles"></div>
+  <div class="particles"></div>
+  <a class="brand" href="http://wpmudev.org" target="_blank">
+  </a>
   </div>
 </template>
-<script src="../../static/js/classie.js"></script>
 <script>
-  import global_ from "./config.vue"
   export default {
     name: 'hello',
     data () {
       return {
-        msg: 'Welcome To Afflatus Street',
-        mobile: '',
-        password: '',
-        responseCode: 1000,
-        errorMsg: '',
-        loginSuccess: false,
-        loading: false
+        msg: 'Register Afflatus Loading',
       }
     },
-    methods: {
-      login: function () {
+    mounted(){
+      this.init()
+    },
+    methods:{
+      init(){
         var _self = this
-        var url = global_.host+'/v1/uc/login'
-        var params = {mobile: _self.mobile, password: _self.password}
-        console.log(params)
-        this.$http.post(url, params).then(function (data) {
-          if (data.body.responseCode == 1000) {
-            this.loginSuccess = true
-            this.loading = true
-//            this.$router.push('/loading')
-            window.setTimeout(function(){
-              _self.$router.push('/home')
-            },2000)
-          } else {
-            console.log(data)
-            this.responseCode = data.body.responseCode
-            this.errorMsg = data.body.errorMsg
-          }
-        }, function (response) {
-          this.responseCode = 9999
-          this.errorMsg = '服务器忙,请稍候重试'
-          console.info(response)
-        })
+        window.setTimeout(function(){
+          _self.$router.push('/home')
+        },2000)
       }
     }
   }
 </script>
 
 <style scoped>
-  @import '../../static/css/normalize.css';
-  @import '../../static/css/demo.css';
-  @import '../../static/css/component.css';
-  @import '../../static/fonts/font-awesome-4.2.0/css/font-awesome.min.css';
-  @import '../../static/css/buttons.css';
   @import '../../static/css/style.css';
   a.brand svg {
     fill: #00495f;
   }
 
-  h1, h2 {
-    font-weight: normal;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-
-  li {
-    display: inline-block;
-    margin: 0 10px;
-  }
-
-  .content {
-    padding: 4em 0;
-  }
-
-  .span-login {
-    margin-top: 20px;
-  }
-
-  input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
-    -webkit-text-fill-color: #333;
-  }
 </style>
