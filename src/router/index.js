@@ -4,6 +4,7 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import HomePage from '@/pages/HomePage'
 import Loading from  '@/pages/Loading'
+import 'font-awesome/css/font-awesome.css'
 
 Vue.use(Router)
 
@@ -11,7 +12,7 @@ export default new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: '',
       component: Login
     },
@@ -19,6 +20,11 @@ export default new Router({
       path: '/register',
       name: '',
       component: Register
+    },
+    {
+      path: '/',
+      name: '',
+      component: HomePage
     },
     {
       path: '/home',

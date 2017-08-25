@@ -30,9 +30,11 @@
 				</span>
 
         <br>
+        <router-link to="/" activeClass="disable">
         <span class="input input--minoru span-login">
           <a @click="login" class="button button-royal button-pill button-giant">Login</a>
         </span>
+        </router-link>
       </section>
     </div>
 
@@ -305,11 +307,11 @@
         console.log(params)
         this.$http.post(url, params).then(function (data) {
           if (data.body.responseCode == 1000) {
-            this.loginSuccess = true
-            this.loading = true
+//            this.loginSuccess = true
+//            this.loading = true
             window.setTimeout(function () {
               _self.$router.push('/home')
-            }, 2000)
+            }, 1000)
           } else {
             console.log(data)
             this.responseCode = data.body.responseCode
