@@ -8,7 +8,7 @@
         <!--静极而生灵感，烦极而生智慧-->
       <!--</span>-->
       <span class="homepage-top-span">
-        <router-link to="/login" >
+        <router-link to="/register" >
           <a href="http://www.bootcss.com/" class="button button-primary button-pill ">注册</a>
         </router-link>
       </span>

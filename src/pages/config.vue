@@ -1,5 +1,5 @@
 <script>
-  const host = "http://localhost:8081"
+  const host = "http://39.108.142.92:8080"
   export default {
     host
   }

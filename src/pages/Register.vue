@@ -1,5 +1,5 @@
 <template>
-  <div class="login" >
+  <div class="login">
     <div style="text-align: right">
       <router-link to="/">
           <span class="input">
@@ -53,7 +53,8 @@
 </template>
 <script src="../../static/js/classie.js"></script>
 <script>
-  import global_ from "./config.vue"
+  import global_ from './config.vue'
+
   export default {
     name: 'hello',
     data () {
@@ -61,10 +62,10 @@
         msg: 'Register Afflatus Street Account',
         mobile: '',
         password: '',
-        nickName:'',
+        nickName: '',
         responseCode: 1000,
         errorMsg: '',
-        success:false
+        success: false
       }
     },
     methods: {
@@ -85,16 +86,16 @@
           return
         }
         var _self = this
-        var url = global_.host+'/v1/uc/register'
-        var params = {mobile: _self.mobile, password: _self.password,nickName:_self.nickName}
+        var url = global_.host + '/v1/uc/register'
+        var params = {mobile: _self.mobile, password: _self.password, nickName: _self.nickName}
         console.log(params)
         this.$http.post(url, params).then(function (data) {
           this.responseCode = data.body.responseCode
           if (data.body.responseCode == 1000) {
-            this.success=true
-            window.setTimeout(function(){
+            this.success = true
+            window.setTimeout(function () {
               _self.$router.push('/')
-            },2000)
+            }, 2000)
 
           } else {
             console.log(data)
@@ -147,6 +148,7 @@
   .content {
     padding: 2em 0;
   }
+
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
     -webkit-text-fill-color: #333;
@@ -180,27 +182,30 @@
   }
 
   @-webkit-keyframes bounce {
-    0%, 100% { -webkit-transform: scale(0.0) }
-    50% { -webkit-transform: scale(1.0) }
+    0%, 100% {
+      -webkit-transform: scale(0.0)
+    }
+    50% {
+      -webkit-transform: scale(1.0)
+    }
   }
 
   @keyframes bounce {
     0%, 100% {
       transform: scale(0.0);
       -webkit-transform: scale(0.0);
-    } 50% {
-        transform: scale(1.0);
-        -webkit-transform: scale(1.0);
-      }
+    }
+    50% {
+      transform: scale(1.0);
+      -webkit-transform: scale(1.0);
+    }
   }
+
   .container {
     position: absolute;
-    width: 800px;
-    height: 600px;
-    left: 50%;
     top: 50%;
-    margin-left: -400px;
-    margin-top: -300px;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
   }
 
 </style>

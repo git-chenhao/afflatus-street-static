@@ -30,11 +30,9 @@
 				</span>
 
         <br>
-        <router-link to="/" activeClass="disable">
         <span class="input input--minoru span-login">
           <a @click="login" class="button button-royal button-pill button-giant">Login</a>
         </span>
-        </router-link>
       </section>
     </div>
 
@@ -307,8 +305,8 @@
         console.log(params)
         this.$http.post(url, params).then(function (data) {
           if (data.body.responseCode == 1000) {
-//            this.loginSuccess = true
-//            this.loading = true
+            this.loginSuccess = true
+            this.loading = true
             window.setTimeout(function () {
               _self.$router.push('/home')
             }, 1000)
@@ -367,12 +365,15 @@
   }
 
   .container {
-    position: absolute;
-    width: 800px;
-    height: 600px;
-    left: 50%;
-    top: 50%;
-    margin-left: -400px;
-    margin-top: -300px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    /*position: absolute;*/
+    /*width: 800px;*/
+    /*height: 600px;*/
+    /*left: 50%;*/
+    /*top: 50%;*/
+    /*margin-left: -400px;*/
+    /*margin-top: -300px;*/
   }
 </style>
