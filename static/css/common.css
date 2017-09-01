@@ -16,10 +16,10 @@
 .clearfix:after { clear: both; }
 
 body {
-  background-color: #00b185;
-  background-image: url("https://slack.sendpulse.com/resources/assets__slack/img/hero.png") !important;
-  background-repeat: repeat;
-  background-position: center top;
+  /*background-color: #00b185;*/
+  /*background-image: url("https://slack.sendpulse.com/resources/assets__slack/img/hero.png") !important;*/
+  /*background-repeat: repeat;*/
+  /*background-position: center top;*/
   /*background-size: cover;*/
   color: #404d5b;
 	font-weight: 500;

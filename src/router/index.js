@@ -4,6 +4,7 @@ import Login from '@/pages/Login'
 import Register from '@/pages/Register'
 import HomePage from '@/pages/HomePage'
 import Loading from  '@/pages/Loading'
+import Editor from  '@/pages/Editor'
 import 'font-awesome/css/font-awesome.css'
 
 Vue.use(Router)
@@ -35,6 +36,11 @@ export default new Router({
       path: '/loading',
       name: '',
       component: Loading
+    },
+    {
+      path: '/editor',
+      name: '',
+      component: Editor
     }
   ]
 })

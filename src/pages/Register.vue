@@ -1,7 +1,7 @@
 <template>
   <div class="login">
     <div style="text-align: right">
-      <router-link to="/">
+      <router-link to="/login">
           <span class="input">
           <a class="pull-right login-register-jump-a">I Have Account,To Login!</a>
           </span>

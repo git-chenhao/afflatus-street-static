@@ -13,5 +13,10 @@ new Vue({
   el: '#app',
   router,
   template: '<App/>',
-  components: { App }
+  components: {App}
+})
+
+Vue.http.interceptors.push(function (request, next) {
+  request.withCredentials = true;
+  next();
 })

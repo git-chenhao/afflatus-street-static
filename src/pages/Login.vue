@@ -273,6 +273,7 @@
 <script src="../../static/js/classie.js"></script>
 <script>
   import global_ from './config.vue'
+  import { setCookie } from '../../static/js/util.js'
 
   export default {
     name: 'hello',
@@ -302,14 +303,19 @@
         }
         var url = global_.host + '/v1/uc/login'
         var params = {mobile: _self.mobile, password: _self.password}
-        console.log(params)
         this.$http.post(url, params).then(function (data) {
           if (data.body.responseCode == 1000) {
-            this.loginSuccess = true
-            this.loading = true
-            window.setTimeout(function () {
-              _self.$router.push('/home')
-            }, 1000)
+//            this.loginSuccess = true
+//            this.loading = true
+//            window.setTimeout(function () {
+//              _self.$router.push('/home')
+//            }, 600)
+            console.log(data)
+            var mydata = data.body.data
+            setCookie('SESSION', mydata.sessionId, 0)
+            setCookie('nickName', mydata.nickName, 0)
+            setCookie('avatar', mydata.avatar, 0)
+            window.location.href = '/home'
           } else {
             console.log(data)
             this.responseCode = data.body.responseCode
@@ -365,15 +371,9 @@
   }
 
   .container {
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    /*position: absolute;*/
-    /*width: 800px;*/
-    /*height: 600px;*/
-    /*left: 50%;*/
-    /*top: 50%;*/
-    /*margin-left: -400px;*/
-    /*margin-top: -300px;*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
   }
 </style>
