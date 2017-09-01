@@ -7,7 +7,7 @@
 
         <!-- 右上角 -->
         <!-- 未登录显示登录/注册/写文章 -->
-        <a class="btn write-btn" target="_blank" href="/editor">
+        <a class="btn write-btn" href="/home">
           <i class="fa fa-home" aria-hidden="true"></i>
           回首页
         </a>

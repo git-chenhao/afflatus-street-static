@@ -3,12 +3,12 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href=""><i class="fa fa-ravelry fa-2x"></i> Afflatus Street</a>
+        <a class="logo" href=""><i class="fa fa-home fa-2x"></i> Afflatus Street</a>
 
 
         <!-- 右上角 -->
         <!-- 未登录显示登录/注册/写文章 -->
-        <a class="btn write-btn" target="_blank" href="/editor">
+        <a class="btn write-btn"  href="/editor">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           写文章
         </a>
@@ -16,40 +16,38 @@
         <a class="btn log-in" v-if="nickName == ''" href="/login">登录</a>
         <div class="user">
           <div data-hover="dropdown">
-            <a class="avatar" href=""><img
-              :src="avatar"
-              alt="120"></a>
+            <a class="avatar" href="/u/1817e5e604c0"><img src="//upload.jianshu.io/users/upload_avatars/5885492/0bcc0e77-b030-404a-ba39-b0dc92b704c1?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt="120"></a>
           </div>
           <ul class="dropdown-menu">
             <li>
               <a href="/u/1817e5e604c0">
                 <i class="iconfont ic-navigation-profile"></i><span>我的主页</span>
-              </a></li>
+              </a>          </li>
             <li>
               <!-- TODO bookmarks_path -->
               <a href="/bookmarks">
                 <i class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
-              </a></li>
+              </a>          </li>
             <li>
               <a href="/users/1817e5e604c0/liked_notes">
                 <i class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
-              </a></li>
+              </a>          </li>
             <li>
               <a href="/wallet">
                 <i class="iconfont ic-navigation-wallet"></i><span>我的钱包</span>
-              </a></li>
+              </a>          </li>
             <li>
               <a href="/settings">
                 <i class="iconfont ic-navigation-settings"></i><span>设置</span>
-              </a></li>
+              </a>          </li>
             <li>
               <a href="/faqs">
                 <i class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
-              </a></li>
+              </a>          </li>
             <li>
               <a rel="nofollow" data-method="delete" href="/sign_out">
                 <i class="iconfont ic-navigation-signout"></i><span>退出</span>
-              </a></li>
+              </a>          </li>
           </ul>
         </div>
 
@@ -68,10 +66,10 @@
           </div>
           <div class="collapse navbar-collapse" id="menu">
             <ul class="nav navbar-nav">
-              <li class="active">
-                <a href="">
-                  <i class="fa fa-safari" aria-hidden="true"></i><span class="menu-text">&nbsp;首页</span>
-                </a></li>
+              <!--<li class="active">-->
+                <!--<a href="">-->
+                  <!--<i class="fa fa-safari" aria-hidden="true"></i><span class="menu-text">&nbsp;首页</span>-->
+                <!--</a></li>-->
               <li class="search">
                 <form target="_blank" action="" accept-charset="UTF-8" method="get"><input
                   name="utf8" type="hidden" value="✓">
