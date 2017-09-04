@@ -8,47 +8,36 @@
 
         <!-- 右上角 -->
         <!-- 未登录显示登录/注册/写文章 -->
-        <a class="btn write-btn"  href="/editor">
+        <a class="btn write-btn" href="/editor">
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           写文章
         </a>
-        <a class="btn sign-up" v-if="nickName == ''" href="/register">注册</a>
-        <a class="btn log-in" v-if="nickName == ''" href="/login">登录</a>
-        <div class="user">
-          <div data-hover="dropdown">
-            <a class="avatar" href="/u/1817e5e604c0"><img src="//upload.jianshu.io/users/upload_avatars/5885492/0bcc0e77-b030-404a-ba39-b0dc92b704c1?imageMogr2/auto-orient/strip|imageView2/1/w/120/h/120" alt="120"></a>
-          </div>
-          <ul class="dropdown-menu">
-            <li>
-              <a href="/u/1817e5e604c0">
-                <i class="iconfont ic-navigation-profile"></i><span>我的主页</span>
-              </a>          </li>
-            <li>
-              <!-- TODO bookmarks_path -->
-              <a href="/bookmarks">
-                <i class="iconfont ic-navigation-mark"></i><span>收藏的文章</span>
-              </a>          </li>
-            <li>
-              <a href="/users/1817e5e604c0/liked_notes">
-                <i class="iconfont ic-navigation-like"></i><span>喜欢的文章</span>
-              </a>          </li>
-            <li>
-              <a href="/wallet">
-                <i class="iconfont ic-navigation-wallet"></i><span>我的钱包</span>
-              </a>          </li>
-            <li>
-              <a href="/settings">
-                <i class="iconfont ic-navigation-settings"></i><span>设置</span>
-              </a>          </li>
-            <li>
-              <a href="/faqs">
-                <i class="iconfont ic-navigation-feedback"></i><span>帮助与反馈</span>
-              </a>          </li>
-            <li>
-              <a rel="nofollow" data-method="delete" href="/sign_out">
-                <i class="iconfont ic-navigation-signout"></i><span>退出</span>
-              </a>          </li>
-          </ul>
+        <a class="btn sign-up" v-if="nickName == null" href="/register">注册</a>
+        <a class="btn log-in" v-if="nickName == null" href="/login">登录</a>
+        <div class="user" v-else>
+          <el-dropdown>
+            <span class="el-dropdown-link">
+            <a class="avatar" href="/login"><img
+              :src="avatar"
+              alt="120"></a>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <i class="fa fa-home" aria-hidden="true"></i>
+                &nbsp;个人主页
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                &nbsp;个人设置
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <a href="/login">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                &nbsp;退出登录
+                </a>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
 
 
@@ -67,9 +56,9 @@
           <div class="collapse navbar-collapse" id="menu">
             <ul class="nav navbar-nav">
               <!--<li class="active">-->
-                <!--<a href="">-->
-                  <!--<i class="fa fa-safari" aria-hidden="true"></i><span class="menu-text">&nbsp;首页</span>-->
-                <!--</a></li>-->
+              <!--<a href="">-->
+              <!--<i class="fa fa-safari" aria-hidden="true"></i><span class="menu-text">&nbsp;首页</span>-->
+              <!--</a></li>-->
               <li class="search">
                 <form target="_blank" action="" accept-charset="UTF-8" method="get"><input
                   name="utf8" type="hidden" value="✓">
@@ -82,6 +71,11 @@
       </div>
     </nav>
     <div class="container">
+      <el-carousel :interval="4000" type="card" height="200px">
+        <el-carousel-item v-for="item in 6" :key="item">
+          <img src="http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200"/>
+        </el-carousel-item>
+      </el-carousel>
       <section class="content">
         <div class="list-container">
           <!-- 文章列表模块 -->
@@ -105,7 +99,6 @@
                   </div>
                   <a class="title">{{content.title}}</a>
                   <p class="summary">{{content.summary}}...</p>
-                  <!--<i class="fa fa-eye" aria-hidden="true"></i>-->
                 </div>
               </li>
             </div>
@@ -132,6 +125,7 @@
     mounted () {
       this.nickName = getCookie('nickName')
       this.avatar = getCookie('avatar')
+      console.log(this.nickName)
       this.init()
     },
     methods: {
@@ -155,19 +149,12 @@
     }
   }
 
-
-
-  // WEBPACK FOOTER //
-  // ./javascripts/web/jquery_extensions/twitter-bootstrap-hover-dropdown.js
 </script>
 
 <style scoped>
-  @import "../../static/css/search/normalize.css";
-  @import "../../static/css/search/style.css";
   @import '../../static/css/buttons.css';
   @import "../../static/css/entry-77546c6f8c0324385f5b.css";
   @import "../../static/css/web-21eccb433ed09b492030.css";
-
   .circular {
     width: 30px;
     height: 30px;
@@ -221,6 +208,19 @@
     width: 40px;
     height: 40px;
   }
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 150px;
+    margin: 0;
+  }
 
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
 
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
 </style>

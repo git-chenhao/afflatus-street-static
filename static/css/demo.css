@@ -17,9 +17,9 @@
 
 body {
 	/*background:url("/../../static/image/demo-1-bg.jpg") no-repeat;*/
-  background: #00b185 url("https://slack.sendpulse.com/resources/assets__slack/img/hero.png") repeat center top;
+  background: #ea6f5a url("https://slack.sendpulse.com/resources/assets__slack/img/hero.png") repeat center top;
   /*background-size: cover;*/
-  color: #404d5b;
+  color: #ea6f5a;
 	font-weight: 500;
 	font-size: 1.05em;
 	font-family: 'Raleway', Arial, sans-serif;

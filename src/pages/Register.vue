@@ -11,17 +11,17 @@
 
       <section class="content">
         <h1>{{ msg }}</h1>
-        <span class="input--minoru" v-if="responseCode!=1000">
-          <span class="input__label-content input__label-content--minoru">{{errorMsg}}</span>
-        </span>
-        <span class="input--minoru" v-if='success'>
-          <span class="input__label-content input__label-content--minoru">Register Success,Skipping To Login!
-            <div class="spinner">
-              <div class="double-bounce1"></div>
-              <div class="double-bounce2"></div>
-            </div>
-          </span>
-        </span>
+        <!--<span class="input&#45;&#45;minoru" v-if="responseCode!=1000">-->
+          <!--<span class="input__label-content input__label-content&#45;&#45;minoru">{{errorMsg}}</span>-->
+        <!--</span>-->
+        <!--<span class="input&#45;&#45;minoru" v-if='success'>-->
+          <!--<span class="input__label-content input__label-content&#45;&#45;minoru">Register Success,Skipping To Login!-->
+            <!--<div class="spinner">-->
+              <!--<div class="double-bounce1"></div>-->
+              <!--<div class="double-bounce2"></div>-->
+            <!--</div>-->
+          <!--</span>-->
+        <!--</span>-->
         <span class="input input--minoru">
 					<label class="input__label input__label--minoru" for="nickName">
 						<span class="input__label-content input__label-content--minoru">Your NickName</span>
@@ -44,14 +44,13 @@
 				</span>
         <br>
         <span class="input input--minoru span-register">
-          <a @click="register" class="button button-royal button-pill button-giant">Register</a>
+          <a @click="register" class="button button-primary button-pill button-giant">Register</a>
         </span>
       </section>
     </div>
 
   </div>
 </template>
-<script src="../../static/js/classie.js"></script>
 <script>
   import global_ from './config.vue'
 
@@ -92,18 +91,27 @@
         this.$http.post(url, params).then(function (data) {
           this.responseCode = data.body.responseCode
           if (data.body.responseCode == 1000) {
-            this.success = true
+            this.$notify({
+              title: '成功',
+              message: '注册成功,正在前往登录',
+              type: 'success'
+            });
             window.setTimeout(function () {
-              _self.$router.push('/')
+              _self.$router.push('/login')
             }, 2000)
 
           } else {
             console.log(data)
-            this.errorMsg = data.body.errorMsg
+            this.$notify.error({
+              title: '错误',
+              message: data.body.errorMsg
+            });
           }
         }, function (response) {
-          this.responseCode = 9999
-          this.errorMsg = '服务器忙,请稍候重试'
+          this.$notify.error({
+            title: '糟糕',
+            message: '服务器繁忙,请稍候重试'
+          });
           console.info(response)
         })
       }
