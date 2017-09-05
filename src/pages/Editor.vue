@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="editor">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href=""><i class="fa fa-home fa-2x"></i> Afflatus Street</a>
+        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;首页</a>
 
         <!-- 右上角 -->
         <!-- 未登录显示登录/注册/写文章 -->
@@ -32,10 +32,19 @@
       <input class="title" placeholder="请输入标题" v-model="title"/>
       <br>
     </div>
-    <div id="editorElem" style="text-align:left"></div>
+    <div id="editorElem" style="text-align:left;" ></div>
     <br>
-    <a v-on:click="getContent" class="button button-primary button-pill button-giant">存草稿</a>
-    <a @click="saveOpus" class="button button-royal button-pill button-giant">发布</a>
+    <div>
+      <!--是否公开-->
+      <!--<el-switch-->
+        <!--v-model="open"-->
+        <!--on-text=""-->
+        <!--off-text="">-->
+      <!--</el-switch>-->
+      <a v-if="clickSave" @click="saveOpus" class="disabled button button-glow button-rounded button-raised button-primary">发布</a>
+      <a v-else @click="saveOpus" class="button button-glow button-rounded button-raised button-primary">发布</a>
+
+    </div>
   </div>
 </template>
 
@@ -48,8 +57,9 @@
     data () {
       return {
         editorContent: '',
-        title:'',
-        responseCode: 1000,
+        title: '',
+        open: true,
+        clickSave:false,
         errorMsg: ''
       }
     },
@@ -57,33 +67,49 @@
       getContent: function () {
         alert(this.editorContent)
       },
-      saveOpus:function () {
+      saveOpus: function () {
         var _self = this
         if (this.title == '') {
-          alert("标题不能为空")
+          this.$notify.error({
+            title: '错误',
+            message: '标题不能为空'
+          })
           return
         }
         if (this.editorContent == '') {
-          alert("内容不能为空")
+          this.$notify.error({
+            title: '错误',
+            message: '内容不能为空'
+          })
           return
         }
+        this.clickSave = true
         var url = global_.host + '/v1/as/opus/save'
         var params = {content: _self.editorContent, title: _self.title}
-        console.log(params)
         this.$http.post(url, params).then(function (data) {
           if (data.body.responseCode == 1000) {
-            _self.$router.push('/home')
+            this.$notify.success({
+              title: '成功',
+              message: '发布成功，正在前往首页'
+            })
+            window.setTimeout(function () {
+              _self.$router.push('/')
+            }, 2000)
+
           } else {
-            console.log(data)
-            this.responseCode = data.body.responseCode
-            this.errorMsg = data.body.errorMsg
-            alert(this.errorMsg)
+            this.clickSave = false
+            this.$notify.error({
+              title: '错误',
+              message: data.body.errorMsg
+            })
           }
         }, function (response) {
           console.info(response)
-          this.responseCode = 9999
-          this.errorMsg = '服务器忙,请稍候重试'
-          alert(this.errorMsg)
+          this.clickSave = false
+          this.$notify.error({
+            title: '糟糕',
+            message: '服务器繁忙，请稍候重试'
+          })
         })
       }
     },
@@ -92,6 +118,9 @@
       editor.customConfig.onchange = (html) => {
         this.editorContent = html
       }
+      editor.customConfig.withCredentials = true
+      editor.customConfig.uploadFileName = 'file'
+      editor.customConfig.uploadImgServer =global_.host + '/v1/common/upload/batch'
       editor.create()
     }
   }
@@ -104,7 +133,7 @@
   @import '../../static/css/buttons.css';
 
   .title {
-    width: 100%;
+    width: 98%;
     height: 50px;
     margin-left: 5px;
     background: none;

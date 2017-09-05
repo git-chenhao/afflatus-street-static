@@ -563,7 +563,7 @@ var config = {
     // 自定义上传图片超时时间 ms
     uploadImgTimeout: 5000,
 
-    // 上传图片 hook 
+    // 上传图片 hook
     uploadImgHooks: {
         // customInsert: function (insertLinkImg, result, editor) {
         //     console.log('customInsert')
@@ -3961,7 +3961,7 @@ Editor.prototype = {
 
             // 自行创建的，需要配置默认的样式
             $toolbarElem.css('background-color', '#f1f1f1').css('border', '1px solid #ccc');
-            $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none').css('height', '300px');
+            $textContainerElem.css('border', '1px solid #ccc').css('border-top', 'none').css('height', '500px');
         } else {
             // toolbar 和 text 的选择器都有值，记录属性
             $toolbarElem = $toolbarSelector;

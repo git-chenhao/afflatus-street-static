@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href=""><i class="fa fa-home fa-2x"></i> Afflatus Street</a>
+        <a class="logo" href=""><i class="fa fa-home fa-2x"></i>&nbsp;首页</a>
 
 
         <!-- 右上角 -->
@@ -32,61 +32,58 @@
               </el-dropdown-item>
               <el-dropdown-item>
                 <a href="/login">
-                <i class="fa fa-sign-out" aria-hidden="true"></i>
-                &nbsp;退出登录
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  &nbsp;退出登录
                 </a>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
-
-
-        <!-- 如果用户登录，显示下拉菜单 -->
-
-        <!--<div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>-->
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu"
-                    aria-expanded="false">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
-          <div class="collapse navbar-collapse" id="menu">
-            <ul class="nav navbar-nav">
-              <!--<li class="active">-->
-              <!--<a href="">-->
-              <!--<i class="fa fa-safari" aria-hidden="true"></i><span class="menu-text">&nbsp;首页</span>-->
-              <!--</a></li>-->
-              <li class="search">
-                <form target="_blank" action="" accept-charset="UTF-8" method="get"><input
-                  name="utf8" type="hidden" value="✓">
-                  <input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">
-                </form>
-              </li>
-            </ul>
-          </div>
-        </div>
+        <!--<div class="container">-->
+        <!--<div class="navbar-header">-->
+        <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu"-->
+        <!--aria-expanded="false">-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--<span class="icon-bar"></span>-->
+        <!--</button>-->
+        <!--</div>-->
+        <!--<div class="collapse navbar-collapse" id="menu">-->
+        <!--<ul class="nav navbar-nav">-->
+        <!--<li class="search">-->
+        <!--<form target="_blank" action="" accept-charset="UTF-8" method="get"><input-->
+        <!--name="utf8" type="hidden" value="✓">-->
+        <!--<input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">-->
+        <!--</form>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--</div>-->
+        <!--</div>-->
       </div>
     </nav>
+
+    <!--中间板块-->
     <div class="container">
       <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="item in 6" :key="item">
-          <img src="http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200"/>
+        <el-carousel-item v-for="url in bannerImgUrls" :key="item">
+          <img :src=url />
+          <!--<div style="width:465px;height:200px;background:url(http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200);text-align: center">-->
+          <!--<p>title</p>-->
+          <!--</div>-->
         </el-carousel-item>
       </el-carousel>
       <section class="content">
         <div class="list-container">
-          <!-- 文章列表模块 -->
-          <ul class="note-list" infinite-scroll-url="/">
-            <div class="opus-content" v-for="content in contents">
-              <li id="note-16377151" data-note-id="16377151" class="have-img">
 
-                <a class="wrap-img" href="" target="_blank" v-if="content.coverUrl != ''">
+          <!-- 文章列表模块 -->
+          <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
+              element-loading-text="拼命加载中">
+            <div class="opus-content" v-for="content in contents">
+              <li  class="have-img">
+                <a class="wrap-img" :href='"/opus/" + content.id'  v-if="content.coverUrl != ''">
                   <img class="img-blur-done" :src='content.coverUrl' alt="120">
                 </a>
-                <a class="wrap-img" href="" target="_blank" v-if="content.coverUrl == ''">
+                <a class="wrap-img" :href='"/opus/" + content.id'  v-if="content.coverUrl == ''">
                   <img class="img-blur-done" :src='content.userInfo.avatar' alt="120">
                 </a>
                 <div class="content">
@@ -97,8 +94,12 @@
                       <span> {{content.updateTime}}</span>
                     </div>
                   </div>
-                  <a class="title">{{content.title}}</a>
+                  <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
                   <p class="summary">{{content.summary}}...</p>
+                  <div style="color: #b4b4b4;font-size: 12px;">
+                    <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
+                    &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
+                  </div>
                 </div>
               </li>
             </div>
@@ -120,6 +121,15 @@
         avatar: '',
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
+        bannerImgUrls: [
+          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/1/w/465/h/200',
+          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/1/w/465/h/200',
+          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200',
+          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/1/w/465/h/200'
+        ],
+        loading:true,
+        item:''
+
       }
     },
     mounted () {
@@ -136,12 +146,20 @@
           if (data.body.responseCode == 1000) {
             this.contents = data.body.data.rows
             console.log(this.contents)
+            this.loading = false
           } else {
-            alert(data.body.errorMsg)
+            this.loading = false
+            this.$notify.error({
+              title: '错误',
+              message: data.body.errorMsg
+            });
           }
         }, function (response) {
-          this.responseCode = 9999
-          this.errorMsg = '服务器忙,请稍候重试'
+          this.loading = false
+          this.$notify.error({
+            title: '糟糕',
+            message: '服务器忙,请稍候重试'
+          });
           console.info(response)
         })
       }
@@ -155,6 +173,7 @@
   @import '../../static/css/buttons.css';
   @import "../../static/css/entry-77546c6f8c0324385f5b.css";
   @import "../../static/css/web-21eccb433ed09b492030.css";
+
   .circular {
     width: 30px;
     height: 30px;
@@ -208,6 +227,7 @@
     width: 40px;
     height: 40px;
   }
+
   .el-carousel__item h3 {
     color: #475669;
     font-size: 14px;

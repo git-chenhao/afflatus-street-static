@@ -5,6 +5,7 @@ import Register from '@/pages/Register'
 import HomePage from '@/pages/HomePage'
 import Loading from  '@/pages/Loading'
 import Editor from  '@/pages/Editor'
+import Opus from '@/pages/Opus'
 import 'font-awesome/css/font-awesome.css'
 
 Vue.use(Router)
@@ -41,6 +42,11 @@ export default new Router({
       path: '/editor',
       name: '',
       component: Editor
+    },
+    {
+      path: '/opus/:opusId',
+      name: '',
+      component: Opus
     }
   ]
 })
