@@ -7,6 +7,7 @@ import Loading from  '@/pages/Loading'
 import Editor from  '@/pages/Editor'
 import Opus from '@/pages/Opus'
 import PersonalHome from '@/pages/PersonalHome'
+import PersonalSetting from '@/pages/PersonalSetting'
 import 'font-awesome/css/font-awesome.css'
 
 Vue.use(Router)
@@ -53,6 +54,12 @@ export default new Router({
       path: '/personal/:userId',
       name: '',
       component: PersonalHome
+    },
+    {
+      path: '/setting',
+      name: '',
+      component: PersonalSetting
     }
+
   ]
 })

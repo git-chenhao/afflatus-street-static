@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;首页</a>
+        <a class="logo" href="/"><i class="fa fa-home fa-3x"></i>&nbsp;</a>
 
 
         <!-- 右上角 -->

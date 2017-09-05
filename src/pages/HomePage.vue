@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href=""><i class="fa fa-home fa-2x"></i>&nbsp;首页</a>
+        <a class="logo" href=""><i class="fa fa-home fa-3x"></i>&nbsp;</a>
 
 
         <!-- 右上角 -->
@@ -22,8 +22,10 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <i class="fa fa-cog" aria-hidden="true"></i>
-                &nbsp;个人设置
+                <a href="/setting">
+                  <i class="fa fa-cog" aria-hidden="true"></i>
+                  &nbsp;个人设置
+                </a>
               </el-dropdown-item>
               <el-dropdown-item>
                 <a href="/login">
@@ -73,11 +75,11 @@
           <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
               element-loading-text="拼命加载中">
             <div class="opus-content" v-for="content in contents">
-              <li  class="have-img">
-                <a class="wrap-img" :href='"/opus/" + content.id'  v-if="content.coverUrl != ''">
+              <li class="have-img">
+                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
                   <img class="img-blur-done" :src='content.coverUrl' alt="120">
                 </a>
-                <a class="wrap-img" :href='"/opus/" + content.id'  v-if="content.coverUrl == ''">
+                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
                   <img class="img-blur-done" :src='content.userInfo.avatar' alt="120">
                 </a>
                 <div class="content">
@@ -85,7 +87,7 @@
                     <a :href="'/personal/'+content.userId"><img class="circular" :src="content.userInfo.avatar"/></a>
                     <div class="name">
                       <a :href="'/personal/'+content.userId"><span> {{content.userInfo.nickName}}</span></a>
-                      <span > {{content.updateTime}}</span>
+                      <span> {{content.updateTime}}</span>
                     </div>
                   </div>
                   <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
@@ -113,7 +115,7 @@
       return {
         nickName: '',
         avatar: '',
-        userId:'',
+        userId: '',
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
         bannerImgUrls: [
@@ -122,8 +124,8 @@
           'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200',
           'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/1/w/465/h/200'
         ],
-        loading:true,
-        item:''
+        loading: true,
+        item: ''
 
       }
     },
@@ -148,14 +150,14 @@
             this.$notify.error({
               title: '错误',
               message: data.body.errorMsg
-            });
+            })
           }
         }, function (response) {
           this.loading = false
           this.$notify.error({
             title: '糟糕',
             message: '服务器忙,请稍候重试'
-          });
+          })
           console.info(response)
         })
       }

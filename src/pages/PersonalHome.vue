@@ -1,9 +1,9 @@
 <template>
-  <div class="opus">
+  <div class="personal-home">
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;首页</a>
+        <a class="logo" href="/"><i class="fa fa-home fa-3x"></i>&nbsp</a>
 
         <!-- 右上角 -->
         <!-- 未登录显示登录/注册/写文章 -->
@@ -21,8 +21,10 @@
             </span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>
-                <i class="fa fa-cog" aria-hidden="true"></i>
-                &nbsp;个人设置
+                <a href="/setting">
+                  <i class="fa fa-cog" aria-hidden="true"></i>
+                  &nbsp;个人设置
+                </a>
               </el-dropdown-item>
               <el-dropdown-item>
                 <a href="/login">
@@ -259,7 +261,10 @@
     line-height: 150px;
     margin: 0;
   }
-  .clear { clear: both; }
+
+  .clear {
+    clear: both;
+  }
 
 
 </style>
