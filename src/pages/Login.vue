@@ -318,6 +318,7 @@
             var mydata = data.body.data
             setCookie('SESSION', mydata.sessionId, 0)
             setCookie('nickName', mydata.nickName, 0)
+            setCookie('userId', mydata.userId, 0)
             setCookie('avatar', mydata.avatar, 0)
 
             window.location.href = '/home'

@@ -17,15 +17,10 @@
         <div class="user" v-else>
           <el-dropdown>
             <span class="el-dropdown-link">
-            <a class="avatar" href="/login"><img
-              :src="avatar"
-              alt="120"></a>
+            <a class="avatar" :href="'/personal/'+userId">
+              <img :src="avatar" alt="120"></a>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <i class="fa fa-home" aria-hidden="true"></i>
-                &nbsp;个人主页
-              </el-dropdown-item>
               <el-dropdown-item>
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 &nbsp;个人设置
@@ -114,12 +109,14 @@
         opusId: this.$route.params.opusId,
         data: '',
         userInfo: '',
-        loading: true
+        loading: true,
+        userId:''
       }
     },
     mounted () {
       this.nickName = getCookie('nickName')
       this.avatar = getCookie('avatar')
+      this.userId = getCookie('userId')
       this.init()
     },
     methods: {
@@ -131,11 +128,13 @@
             this.data = data.body.data
             this.userInfo = this.data.userInfo
           } else {
-            this.loading = false
-//            this.$notify.error({
-//              title: '错误',
-//              message: data.body.errorMsg
-//            })
+            this.$notify.error({
+              title: '错误',
+              message: data.body.errorMsg
+            })
+            window.setTimeout(function () {
+              window.location.href = '/'
+            }, 2000)
           }
         }, function (response) {
           this.loading = false
@@ -306,8 +305,8 @@
     border-bottom: 1px solid #f0f0f0;
     margin-bottom: 20px;
     padding-bottom: 20px;
-    word-wrap:break-word;
-    word-break:break-all;
+    word-wrap: break-word;
+    word-break: break-all;
   }
 
   .share {

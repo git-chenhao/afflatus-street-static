@@ -11,20 +11,27 @@
           <i class="fa fa-home" aria-hidden="true"></i>
           回首页
         </a>
-        <a class="btn log-in" href="/">陈浩</a>
-
-        <!-- 如果用户登录，显示下拉菜单 -->
-
-        <!--<div class="style-mode"><a class="style-mode-btn"><i class="iconfont ic-navigation-mode"></i></a> <div class="popover-modal" style="left: 0px; display: none;"><div class="meta"><i class="iconfont ic-navigation-night"></i><span>夜间模式</span></div> <div class="switch day-night-group"><a class="switch-btn">开</a> <a class="switch-btn active">关</a></div> <hr> <div class="switch font-family-group"><a class="switch-btn font-song">宋体</a> <a class="switch-btn font-hei active">黑体</a></div> <div class="switch"><a class="switch-btn active">简</a> <a class="switch-btn">繁</a></div></div></div>-->
-        <div class="container">
-          <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu"
-                    aria-expanded="false">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          </div>
+        <a class="btn sign-up" v-if="nickName == null" href="/register">注册</a>
+        <a class="btn log-in" v-if="nickName == null" href="/login">登录</a>
+        <div class="user" v-else>
+          <el-dropdown>
+            <span class="el-dropdown-link">
+             <a class="avatar" :href="'/personal/'+userId">
+              <img :src="avatar" alt="120"></a>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item>
+                <i class="fa fa-cog" aria-hidden="true"></i>
+                &nbsp;个人设置
+              </el-dropdown-item>
+              <el-dropdown-item>
+                <a href="/login">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  &nbsp;退出登录
+                </a>
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </div>
     </nav>
@@ -32,16 +39,17 @@
       <input class="title" placeholder="请输入标题" v-model="title"/>
       <br>
     </div>
-    <div id="editorElem" style="text-align:left;" ></div>
+    <div id="editorElem" style="text-align:left;"></div>
     <br>
     <div>
       <!--是否公开-->
       <!--<el-switch-->
-        <!--v-model="open"-->
-        <!--on-text=""-->
-        <!--off-text="">-->
+      <!--v-model="open"-->
+      <!--on-text=""-->
+      <!--off-text="">-->
       <!--</el-switch>-->
-      <a v-if="clickSave" @click="saveOpus" class="disabled button button-glow button-rounded button-raised button-primary">发布</a>
+      <a v-if="clickSave" @click="saveOpus"
+         class="disabled button button-glow button-rounded button-raised button-primary">发布</a>
       <a v-else @click="saveOpus" class="button button-glow button-rounded button-raised button-primary">发布</a>
 
     </div>
@@ -51,6 +59,7 @@
 <script>
   import E from 'wangeditor'
   import global_ from './config.vue'
+  import { getCookie } from '../../static/js/util.js'
 
   export default {
     name: 'editor',
@@ -58,8 +67,11 @@
       return {
         editorContent: '',
         title: '',
+        nickName: '',
+        userId: '',
+        avatar: '',
         open: true,
-        clickSave:false,
+        clickSave: false,
         errorMsg: ''
       }
     },
@@ -118,9 +130,12 @@
       editor.customConfig.onchange = (html) => {
         this.editorContent = html
       }
+      this.nickName = getCookie('nickName')
+      this.avatar = getCookie('avatar')
+      this.userId = getCookie('userId')
       editor.customConfig.withCredentials = true
       editor.customConfig.uploadFileName = 'file'
-      editor.customConfig.uploadImgServer =global_.host + '/v1/common/upload/batch'
+      editor.customConfig.uploadImgServer = global_.host + '/v1/common/upload/batch'
       editor.create()
     }
   }

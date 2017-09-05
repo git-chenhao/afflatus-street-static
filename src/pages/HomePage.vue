@@ -17,15 +17,10 @@
         <div class="user" v-else>
           <el-dropdown>
             <span class="el-dropdown-link">
-            <a class="avatar" href="/login"><img
-              :src="avatar"
-              alt="120"></a>
+            <a class="avatar" :href="'/personal/'+userId">
+              <img :src="avatar" alt="120"></a>
             </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <i class="fa fa-home" aria-hidden="true"></i>
-                &nbsp;个人主页
-              </el-dropdown-item>
               <el-dropdown-item>
                 <i class="fa fa-cog" aria-hidden="true"></i>
                 &nbsp;个人设置
@@ -74,7 +69,6 @@
       </el-carousel>
       <section class="content">
         <div class="list-container">
-
           <!-- 文章列表模块 -->
           <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
               element-loading-text="拼命加载中">
@@ -88,10 +82,10 @@
                 </a>
                 <div class="content">
                   <div class="author">
-                    <img class="circular" :src="content.userInfo.avatar"/>
+                    <a :href="'/personal/'+content.userId"><img class="circular" :src="content.userInfo.avatar"/></a>
                     <div class="name">
-                      <span> {{content.userInfo.nickName}}</span>
-                      <span> {{content.updateTime}}</span>
+                      <a :href="'/personal/'+content.userId"><span> {{content.userInfo.nickName}}</span></a>
+                      <span > {{content.updateTime}}</span>
                     </div>
                   </div>
                   <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
@@ -119,6 +113,7 @@
       return {
         nickName: '',
         avatar: '',
+        userId:'',
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
         bannerImgUrls: [
@@ -135,6 +130,7 @@
     mounted () {
       this.nickName = getCookie('nickName')
       this.avatar = getCookie('avatar')
+      this.userId = getCookie('userId')
       console.log(this.nickName)
       this.init()
     },
@@ -184,8 +180,8 @@
 
   .opus-content {
     text-align: left;
-    /*margin-left: 10%;*/
-    width: 60%;
+    margin-left: 5%;
+    width: 90%;
   }
 
   .content {

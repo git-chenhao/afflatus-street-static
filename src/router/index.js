@@ -6,6 +6,7 @@ import HomePage from '@/pages/HomePage'
 import Loading from  '@/pages/Loading'
 import Editor from  '@/pages/Editor'
 import Opus from '@/pages/Opus'
+import PersonalHome from '@/pages/PersonalHome'
 import 'font-awesome/css/font-awesome.css'
 
 Vue.use(Router)
@@ -47,6 +48,11 @@ export default new Router({
       path: '/opus/:opusId',
       name: '',
       component: Opus
+    },
+    {
+      path: '/personal/:userId',
+      name: '',
+      component: PersonalHome
     }
   ]
 })
