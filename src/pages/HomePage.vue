@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href=""><i class="fa fa-home fa-3x"></i>&nbsp;</a>
+        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>
 
 
         <!-- 右上角 -->
@@ -69,6 +69,12 @@
           <!--</div>-->
         </el-carousel-item>
       </el-carousel>
+
+      <!--<el-carousel height="300px" >-->
+        <!--<el-carousel-item v-for="url in bannerImgUrls" :key="item">-->
+          <!--<img :src=url />-->
+        <!--</el-carousel-item>-->
+      <!--</el-carousel>-->
       <section class="content">
         <div class="list-container">
           <!-- 文章列表模块 -->
@@ -119,10 +125,11 @@
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
         bannerImgUrls: [
-          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/1/w/465/h/200',
-          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/1/w/465/h/200',
-          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200',
-          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/1/w/465/h/200'
+          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/1/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/1/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/1/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/1/w/930/h/300'
         ],
         loading: true,
         item: ''

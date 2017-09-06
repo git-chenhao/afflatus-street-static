@@ -120,8 +120,6 @@
 </script>
 
 <style scoped>
-  /*@import '../../static/fonts/font-awesome-4.2.0/css/font-awesome.min.css';*/
-  /*@import '../../static/css/bootstrap.min.css';*/
   @import '../../static/css/buttons.css';
   @import '../../static/css/demo.css';
   @import '../../static/css/normalize.css';

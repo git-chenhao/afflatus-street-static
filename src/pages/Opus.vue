@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-3x"></i>&nbsp;</a>
+        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>
 
 
         <!-- 右上角 -->
@@ -42,7 +42,7 @@
       <h1 class="title">{{data.title}}</h1>
 
       <el-row :gutter="20">
-        <el-col :span="14" :offset="5" class="meta">
+        <el-col :span="16" :offset="4" class="meta">
           <div class="author">
             <img class="circular" :src="userInfo.avatar"/>
             <div class="meta">
@@ -59,9 +59,9 @@
 
 
       <el-row :gutter="20">
-        <el-col :span="14" :offset="5" v-html="data.content" class="meta meta-content">
+        <el-col :span="16" :offset="4" v-html="data.content" class="meta meta-content">
         </el-col>
-        <el-col :span="14" :offset="5" class="meta meta-like-share">
+        <el-col :span="16" :offset="4" class="meta meta-like-share">
           <span class="like">
             <button class="button button-caution button-box button-raised button-giant button-longshadow" v-if="isLike"
                     @click="like">

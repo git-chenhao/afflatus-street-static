@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-3x"></i>&nbsp;</a>
+        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>
 
         <!-- 右上角 -->
         <!-- 未登录显示登录/注册/写文章 -->

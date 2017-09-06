@@ -3,7 +3,7 @@
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
       <div class="width-limit">
         <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-3x"></i>&nbsp</a>
+        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>
 
         <!-- 右上角 -->
         <!-- 未登录显示登录/注册/写文章 -->
@@ -45,9 +45,9 @@
           <el-form ref="form" :model="userInfo" label-width="150px">
             <el-form-item label="头像">
               <img class="maincircular" :src=userInfo.avatar />
-                <el-button type="primary">更改头像<i class="el-icon-upload2 el-icon--right" @click="document.getElementById('file').click();"></i>
-                  <input id="file" type="file" style="display: none"/>
-                </el-button>
+              <el-button type="primary">更改头像<i class="el-icon-upload2 el-icon--right" @click="clickUpload"></i>
+                <input type="file" style="display: none"/>
+              </el-button>
             </el-form-item>
             <el-form-item label="手机号">
               <el-input v-model="userInfo.mobile" :readonly="true"></el-input>
@@ -128,6 +128,9 @@
           })
           console.info(response)
         })
+      },
+      clickUpload:function () {
+//        document.getElementById('file').click()
       },
       uploadAvatar: function () {
         var iconTxtFile
