@@ -119,16 +119,8 @@
   }
 </script>
 
-
-<!--<script src="../../static/js/demo-1.js"></script>-->
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<link rel="stylesheet" type="text/css" href="css/normalize.css"/>
-<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.2.0/css/font-awesome.min.css"/>
-<link rel="stylesheet" type="text/css" href="css/demo.css"/>
-<!--<link rel="stylesheet" type="text/css" href="css/component.css"/>-->
 <style scoped>
-  @import '../../static/fonts/font-awesome-4.2.0/css/font-awesome.min.css';
+  /*@import '../../static/fonts/font-awesome-4.2.0/css/font-awesome.min.css';*/
   /*@import '../../static/css/bootstrap.min.css';*/
   @import '../../static/css/buttons.css';
   @import '../../static/css/demo.css';
