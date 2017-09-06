@@ -14,7 +14,7 @@
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs"
   },
   "dependencies": {
-    "element-ui": "^1.4.3",
+    "element-ui": "^1.4.4",
     "font-awesome": "^4.7.0",
     "jquery": "^3.2.1",
     "vee-validate": "^2.0.0-rc.14",
