@@ -58,8 +58,7 @@
           <div class="clear"></div>
           <div class="list-container">
             <!-- 文章列表模块 -->
-            <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
-                element-loading-text="拼命加载中">
+            <ul class="note-list" infinite-scroll-url="/" >
               <div class="opus-content" v-for="content in contents">
                 <li class="have-img">
                   <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
