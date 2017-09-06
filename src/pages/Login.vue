@@ -348,6 +348,7 @@
   @import '../../static/css/buttons.css';
   @import '../../static/css/style.css';
 
+
   a.brand svg {
     fill: #00495f;
   }
