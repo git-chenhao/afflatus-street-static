@@ -1,5 +1,12 @@
 <template>
   <div class="login">
+    <!--<div style="text-align: left">-->
+      <!--<router-link to="/register">-->
+          <!--<span class="input">-->
+            <!--<a style="float: left" class="login-register-jump-a">Afflatus Street</a>-->
+          <!--</span>-->
+      <!--</router-link>-->
+    <!--</div>-->
     <div style="text-align: right">
       <router-link to="/register">
           <span class="input">
@@ -40,11 +47,6 @@
 <script>
   import global_ from './config.vue'
   import { setCookie } from '../../static/js/util.js'
-  import '../../static/css/normalize.css';
-  import '../../static/css/demo.css';
-  import '../../static/css/component.css';
-  import '../../static/css/buttons.css';
-  import '../../static/css/style.css';
 
   export default {
     name: 'hello',
@@ -115,6 +117,12 @@
 </script>
 
 <style scoped>
+
+  @import '../../static/css/normalize.css';
+  @import '../../static/css/demo.css';
+  @import '../../static/css/component.css';
+  @import '../../static/css/buttons.css';
+  @import '../../static/css/style.css';
 
   a.brand svg {
     fill: #00495f;

@@ -83,10 +83,10 @@
             <div class="opus-content" v-for="content in contents">
               <li class="have-img">
                 <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
-                  <img class="img-blur-done" :src='content.coverUrl' alt="120">
+                  <img class="img-blur-done" :src='content.coverUrl' @error="errorImg" />
                 </a>
                 <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
-                  <img class="img-blur-done" :src='content.userInfo.avatar' alt="120">
+                  <img class="img-blur-done" :src='content.userInfo.avatar' />
                 </a>
                 <div class="content">
                   <div class="author">
@@ -125,14 +125,15 @@
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
         bannerImgUrls: [
-          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/1/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/1/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/1/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/1/w/930/h/300'
+          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/3/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/3/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/3/w/930/h/300',
+          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/3/w/930/h/300'
         ],
         loading: true,
-        item: ''
+        item: '',
+        errorImg:'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30'
 
       }
     },

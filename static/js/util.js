@@ -17,5 +17,6 @@ export function setCookie (name, value, days) {
 
 //删除cookie
 export function delCookie (name) {
-  this.set(name, '', -1)
+  // this.setCookie(name, '', -1)
+  window.document.cookie = name + '=;path=/;expires=' + -1
 };

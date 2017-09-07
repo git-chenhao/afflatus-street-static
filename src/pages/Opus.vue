@@ -12,8 +12,8 @@
           <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           写文章
         </a>
-        <a class="btn sign-up" v-if="nickName == null" href="/register">注册</a>
-        <a class="btn log-in" v-if="nickName == null" href="/login">登录</a>
+        <a class="btn sign-up" v-if="nickName == ''" href="/register">注册</a>
+        <a class="btn log-in" v-if="nickName == ''" href="/login">登录</a>
         <div class="user" v-else>
           <el-dropdown>
             <span class="el-dropdown-link">
@@ -39,7 +39,11 @@
 
     <!--中间板块-->
     <div class="container">
-      <h1 class="title">{{data.title}}</h1>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4" class="meta">
+          <h1 class="title">{{data.title}}</h1>
+        </el-col>
+      </el-row>
 
       <el-row :gutter="20">
         <el-col :span="16" :offset="4" class="meta">
@@ -63,31 +67,16 @@
         </el-col>
         <el-col :span="16" :offset="4" class="meta meta-like-share">
           <span class="like">
-            <button class="button button-caution button-box button-raised button-giant button-longshadow" v-if="isLike"
-                    @click="like">
-            <i class="fa fa-thumbs-up"></i>
-            </button>
-            <button class="button button-box button-raised button-giant button-longshadow" v-else="" @click="like">
-            <i class="fa fa-thumbs-up"></i>
-            </button>
-
+                <el-button :plain="!likeFlag" type="danger" @click="like"><i
+                  class="fa fa-thumbs-up"></i>&nbsp;{{data.likeNum}}</el-button>
           </span>
           <span class="share" @click="share">
-            <button class="button button-primary button-box button-giant button-longshadow-right">
-              <i class="fa fa-weixin"></i>
-            </button>
-            <button class="button button-action button-box button-giant button-longshadow-left">
-              <i class="fa fa-weibo"></i>
-            </button>
-            <button
-              class="button button-highlight button-box button-giant button-longshadow-right button-longshadow-expand">
-              <i class="fa fa-qq"></i>
-            </button>
+             <el-button type="success">分享到微信 &nbsp;<i class="fa fa-weixin"></i></el-button>
+            <el-button type="warning">分享到微博 &nbsp;<i class="fa fa-weibo"></i></el-button>
           </span>
         </el-col>
 
         <el-col :span="14" :offset="5" class="meta meta-comment">
-
         </el-col>
 
       </el-row>
@@ -105,12 +94,12 @@
       return {
         nickName: '',
         avatar: '',
-        isLike: false,
+        likeFlag: false,
         opusId: this.$route.params.opusId,
         data: '',
         userInfo: '',
         loading: true,
-        userId:''
+        userId: ''
       }
     },
     mounted () {
@@ -122,11 +111,12 @@
     methods: {
       init: function () {
         var url = global_.host + '/v1/as/opus/detail/' + this.opusId
-        this.$http.get(url).then(function (data) {
+        this.$http.get(url, this.withCredentials = true).then(function (data) {
           if (data.body.responseCode == 1000) {
             this.loading = false
             this.data = data.body.data
             this.userInfo = this.data.userInfo
+            this.read()
           } else {
             this.$notify.error({
               title: '错误',
@@ -134,7 +124,7 @@
             })
             window.setTimeout(function () {
               window.location.href = '/'
-            }, 2000)
+            }, 20000)
           }
         }, function (response) {
           this.loading = false
@@ -146,14 +136,36 @@
         })
       },
       like: function () {
-        if (this.isLike) {
+        if (this.likeFlag) {
           this.$notify.info({
             title: '提示',
             message: '你已经赞过了'
           })
           return
         }
-        this.isLike = true
+        this.likeFlag = true
+        this.data.likeNum = this.data.likeNum + 1
+        var url = global_.host + '/v1/as/opus/like/' + this.opusId
+        this.$http.post(url).then(function (data) {
+          if (data.body.responseCode == 1000) {
+            this.likeFlag = true
+          } else if (data.body.responseCode == 1004) {
+            this.$notify.info({
+              title: '提示',
+              message: data.body.errorMsg
+            })
+          }
+        }, function (response) {
+          console.info(response)
+        })
+      },
+      read: function () {
+        var url = global_.host + '/v1/as/opus/read/' + this.opusId
+        this.$http.post(url).then(function (data) {
+          console.info(data)
+        }, function (response) {
+          console.info(response)
+        })
       },
       share: function () {
         this.$notify.success({
@@ -307,6 +319,10 @@
     padding-bottom: 20px;
     word-wrap: break-word;
     word-break: break-all;
+  }
+
+  .meta-content img {
+    max-width: 100%;
   }
 
   .share {

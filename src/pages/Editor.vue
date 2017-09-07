@@ -51,6 +51,7 @@
       <!--off-text="">-->
       <!--</el-switch>-->
       <el-button type="primary" :disabled="clickSave" @click="saveOpus">立即发布</el-button>
+      <!--<el-button :plain="true" :disabled="clickSave" @click="saveOpus" type="success">立即发布</el-button>-->
       <!--<a v-if="clickSave" @click="saveOpus"-->
       <!--class="disabled button button-glow button-rounded button-raised button-primary">发布</a>-->
       <!--<a v-else @click="saveOpus" class="button button-glow button-rounded button-raised button-primary">发布</a>-->

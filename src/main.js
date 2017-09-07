@@ -6,6 +6,8 @@ import router from './router'
 import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import { delCookie } from '../static/js/util.js'
+
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
@@ -19,7 +21,21 @@ new Vue({
   components: {App}
 })
 
+Vue.http.options.xhr = { withCredentials: true }
+
 Vue.http.interceptors.push(function (request, next) {
   request.withCredentials = true;
-  next();
+  next(function(response) {
+
+    if (response.body.responseCode == 1004){
+      delCookie('SESSION')
+      delCookie('nickName')
+      delCookie('userId')
+      delCookie('avatar')
+      router.go(0)
+    }
+    // modify response
+    // response.body = '...';
+
+  });
 })
