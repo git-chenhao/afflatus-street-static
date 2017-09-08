@@ -1,42 +1,7 @@
 <template>
   <div class="personal-setting">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="width-limit">
-        <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>
-
-        <!-- 右上角 -->
-        <!-- 未登录显示登录/注册/写文章 -->
-        <a class="btn write-btn" href="/editor">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          写文章
-        </a>
-        <a class="btn sign-up" v-if="nickName == null" href="/register">注册</a>
-        <a class="btn log-in" v-if="nickName == null" href="/login">登录</a>
-        <div class="user" v-else>
-          <el-dropdown>
-            <span class="el-dropdown-link">
-            <a class="avatar" :href="'/personal/'+userId">
-              <img :src="avatar" alt="120"></a>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <a href="/setting">
-                  <i class="fa fa-cog" aria-hidden="true"></i>
-                  &nbsp;个人设置
-                </a>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <a href="/login">
-                  <i class="fa fa-sign-out" aria-hidden="true"></i>
-                  &nbsp;退出登录
-                </a>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div>
-    </nav>
+    <!--top-->
+    <top-bar></top-bar>
 
     <!--中间板块-->
     <div class="container">
@@ -129,7 +94,7 @@
           console.info(response)
         })
       },
-      clickUpload:function () {
+      clickUpload: function () {
 //        document.getElementById('file').click()
       },
       uploadAvatar: function () {

@@ -7,16 +7,16 @@ export function getCookie(name) {
 //设置cookie,增加到vue实例方便全局调用
 export function setCookie (name, value, days) {
   if (days == 0){
-    window.document.cookie = name + '=' + encodeURIComponent(value)+ ';path=/;'
+    window.document.cookie = name + '=' + encodeURIComponent(value)+ ';path=/;domain=.afflatusstreet.com'
     return
   }
   var d = new Date
   d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days)
-  window.document.cookie = name + '=' + encodeURIComponent(value) + ';path=/;expires=' + d.toGMTString()
+  window.document.cookie = name + '=' + encodeURIComponent(value) + ';path=/;domain=.afflatusstreet.com;expires=' + d.toGMTString()
 };
 
 //删除cookie
 export function delCookie (name) {
   // this.setCookie(name, '', -1)
-  window.document.cookie = name + '=;path=/;expires=' + -1
+  window.document.cookie = name + '=;path=/;domain=.afflatusstreet.com;expires=' + -1
 };

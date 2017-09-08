@@ -1,63 +1,7 @@
 <template>
   <div class="login">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="width-limit">
-        <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>
-
-
-        <!-- 右上角 -->
-        <!-- 未登录显示登录/注册/写文章 -->
-        <a class="btn write-btn" href="/editor">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          写文章
-        </a>
-        <a class="btn sign-up" v-if="nickName == null" href="/register">注册</a>
-        <a class="btn log-in" v-if="nickName == null" href="/login">登录</a>
-        <div class="user" v-else>
-          <el-dropdown>
-            <span class="el-dropdown-link">
-            <a class="avatar" :href="'/personal/'+userId">
-              <img :src="avatar" alt="120"></a>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <a href="/setting">
-                  <i class="fa fa-cog" aria-hidden="true"></i>
-                  &nbsp;个人设置
-                </a>
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <a href="/login">
-                  <i class="fa fa-sign-out" aria-hidden="true"></i>
-                  &nbsp;退出登录
-                </a>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-        <!--<div class="container">-->
-        <!--<div class="navbar-header">-->
-        <!--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu"-->
-        <!--aria-expanded="false">-->
-        <!--<span class="icon-bar"></span>-->
-        <!--<span class="icon-bar"></span>-->
-        <!--<span class="icon-bar"></span>-->
-        <!--</button>-->
-        <!--</div>-->
-        <!--<div class="collapse navbar-collapse" id="menu">-->
-        <!--<ul class="nav navbar-nav">-->
-        <!--<li class="search">-->
-        <!--<form target="_blank" action="" accept-charset="UTF-8" method="get"><input-->
-        <!--name="utf8" type="hidden" value="✓">-->
-        <!--<input type="text" name="q" id="q" value="" autocomplete="off" placeholder="搜索" class="search-input">-->
-        <!--</form>-->
-        <!--</li>-->
-        <!--</ul>-->
-        <!--</div>-->
-        <!--</div>-->
-      </div>
-    </nav>
+    <!--top-->
+    <top-bar></top-bar>
 
     <!--中间板块-->
     <div class="container">
@@ -71,9 +15,9 @@
       </el-carousel>
 
       <!--<el-carousel height="300px" >-->
-        <!--<el-carousel-item v-for="url in bannerImgUrls" :key="item">-->
-          <!--<img :src=url />-->
-        <!--</el-carousel-item>-->
+      <!--<el-carousel-item v-for="url in bannerImgUrls" :key="item">-->
+      <!--<img :src=url />-->
+      <!--</el-carousel-item>-->
       <!--</el-carousel>-->
       <section class="content">
         <div class="list-container">
@@ -83,10 +27,10 @@
             <div class="opus-content" v-for="content in contents">
               <li class="have-img">
                 <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
-                  <img class="img-blur-done" :src='content.coverUrl' @error="errorImg" />
+                  <img class="img-blur-done" :src='content.coverUrl' @error="errorImg"/>
                 </a>
                 <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
-                  <img class="img-blur-done" :src='content.userInfo.avatar' />
+                  <img class="img-blur-done" :src='content.userInfo.avatar'/>
                 </a>
                 <div class="content">
                   <div class="author">
@@ -133,7 +77,7 @@
         ],
         loading: true,
         item: '',
-        errorImg:'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30'
+        errorImg: 'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30'
 
       }
     },
@@ -147,7 +91,7 @@
     methods: {
       init: function () {
         var url = global_.host + '/v1/home/content/1'
-        this.$http.get(url,{credentials: true}).then(function (data) {
+        this.$http.get(url, {credentials: true}).then(function (data) {
           console.log(data)
           if (data.body.responseCode == 1000) {
             this.contents = data.body.data.rows

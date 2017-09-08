@@ -92,11 +92,10 @@
             })
             console.log(data)
             var mydata = data.body.data
-            setCookie('SESSION', mydata.sessionId, 0)
-//            Cookies.set('SESSION', mydata.sessionId, { path:'/',domain:".afflatusstreet.com" });
-            setCookie('nickName', mydata.nickName, 0)
-            setCookie('userId', mydata.userId, 0)
-            setCookie('avatar', mydata.avatar, 0)
+            setCookie('SESSION', mydata.sessionId, 7)
+            setCookie('nickName', mydata.nickName, 7)
+            setCookie('userId', mydata.userId, 7)
+            setCookie('avatar', mydata.avatar, 7)
 
             window.location.href = '/home'
           } else {

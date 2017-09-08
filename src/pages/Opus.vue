@@ -1,41 +1,6 @@
 <template>
   <div class="opus">
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-      <div class="width-limit">
-        <!-- 左上方 Logo -->
-        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>
-
-
-        <!-- 右上角 -->
-        <!-- 未登录显示登录/注册/写文章 -->
-        <a class="btn write-btn" href="/editor">
-          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-          写文章
-        </a>
-        <a class="btn sign-up" v-if="nickName == ''" href="/register">注册</a>
-        <a class="btn log-in" v-if="nickName == ''" href="/login">登录</a>
-        <div class="user" v-else>
-          <el-dropdown>
-            <span class="el-dropdown-link">
-            <a class="avatar" :href="'/personal/'+userId">
-              <img :src="avatar" alt="120"></a>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>
-                <i class="fa fa-cog" aria-hidden="true"></i>
-                &nbsp;个人设置
-              </el-dropdown-item>
-              <el-dropdown-item>
-                <a href="/login">
-                  <i class="fa fa-sign-out" aria-hidden="true"></i>
-                  &nbsp;退出登录
-                </a>
-              </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div>
-    </nav>
+    <top-bar></top-bar>
 
     <!--中间板块-->
     <div class="container">
@@ -48,9 +13,9 @@
       <el-row :gutter="20">
         <el-col :span="16" :offset="4" class="meta">
           <div class="author">
-            <img class="circular" :src="userInfo.avatar"/>
+            <a :href="'/personal/'+data.userId"><img class="circular" :src="userInfo.avatar"/></a>
             <div class="meta">
-              <span> {{userInfo.nickName}}</span>
+              <a :href="'/personal/'+data.userId"><span> {{userInfo.nickName}}</span></a>
               <span> {{data.updateTime}}</span>
               <span style="color: #b4b4b4;font-size: 12px;">
                 <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;阅读&nbsp;{{data.readNum}}
@@ -144,12 +109,12 @@
           })
           return
         }
-        this.likeFlag = true
-        this.data.likeNum = this.data.likeNum + 1
+
         var url = global_.host + '/v1/as/opus/like/' + this.opusId
         this.$http.post(url).then(function (data) {
           if (data.body.responseCode == 1000) {
             this.likeFlag = true
+            this.data.likeNum = this.data.likeNum + 1
           } else if (data.body.responseCode == 1004) {
             this.$notify.info({
               title: '提示',
