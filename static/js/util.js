@@ -7,7 +7,7 @@ export function getCookie(name) {
 //设置cookie,增加到vue实例方便全局调用
 export function setCookie (name, value, days) {
   if (days == 0){
-    window.document.cookie = name + '=' + encodeURIComponent(value)+ ';path=/'
+    window.document.cookie = name + '=' + encodeURIComponent(value)+ ';path=/;'
     return
   }
   var d = new Date

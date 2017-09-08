@@ -47,6 +47,7 @@
 <script>
   import global_ from './config.vue'
   import { setCookie } from '../../static/js/util.js'
+  import Cookies from 'js-cookie'
 
   export default {
     name: 'hello',
@@ -92,6 +93,7 @@
             console.log(data)
             var mydata = data.body.data
             setCookie('SESSION', mydata.sessionId, 0)
+//            Cookies.set('SESSION', mydata.sessionId, { path:'/',domain:".afflatusstreet.com" });
             setCookie('nickName', mydata.nickName, 0)
             setCookie('userId', mydata.userId, 0)
             setCookie('avatar', mydata.avatar, 0)

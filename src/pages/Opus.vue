@@ -111,11 +111,12 @@
     methods: {
       init: function () {
         var url = global_.host + '/v1/as/opus/detail/' + this.opusId
-        this.$http.get(url, this.withCredentials = true).then(function (data) {
+        this.$http.get(url,{credentials: true}).then(function (data) {
           if (data.body.responseCode == 1000) {
             this.loading = false
             this.data = data.body.data
             this.userInfo = this.data.userInfo
+            this.likeFlag = this.data.likeFlag
             this.read()
           } else {
             this.$notify.error({

@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-default/index.css'
 import { delCookie } from '../static/js/util.js'
 
 
+
 Vue.use(VueResource)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
@@ -21,7 +22,6 @@ new Vue({
   components: {App}
 })
 
-Vue.http.options.xhr = { withCredentials: true }
 
 Vue.http.interceptors.push(function (request, next) {
   request.withCredentials = true;

@@ -125,11 +125,11 @@
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
         bannerImgUrls: [
-          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/3/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/3/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/3/w/930/h/300',
-          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/3/w/930/h/300'
+          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/w/930/h/300/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/3/w/930/h/300/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/3/w/930/h/300/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/3/w/930/h/300/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/3/w/930/h/300/interlace/1'
         ],
         loading: true,
         item: '',
@@ -147,7 +147,7 @@
     methods: {
       init: function () {
         var url = global_.host + '/v1/home/content/1'
-        this.$http.get(url).then(function (data) {
+        this.$http.get(url,{credentials: true}).then(function (data) {
           console.log(data)
           if (data.body.responseCode == 1000) {
             this.contents = data.body.data.rows
