@@ -11,9 +11,6 @@
           <el-carousel :interval="4000" type="card" height="240px">
             <el-carousel-item v-for="url in bannerImgUrls" :key="item">
               <img :src=url />
-              <!--<div style="width:465px;height:200px;background:url(http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200);text-align: center">-->
-              <!--<p>title</p>-->
-              <!--</div>-->
             </el-carousel-item>
           </el-carousel>
         </el-col>
