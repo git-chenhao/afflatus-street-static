@@ -20,6 +20,10 @@
           </div>
 
           <div class="clear"></div>
+          <div v-if="contents.length==0">
+
+            <h3>当前无作品</h3>
+          </div>
           <div v-for="content in contents">
             <el-row :gutter="20" align="middle " type="flex">
               <el-col :span="18" class="meta">

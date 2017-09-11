@@ -60,10 +60,8 @@
 <script>
   import global_ from './config.vue'
   import { getCookie } from '../../static/js/util.js'
-  import ElCol from 'element-ui/packages/col/src/col'
 
   export default {
-    components: {ElCol},
     name: 'hello',
     data () {
       return {

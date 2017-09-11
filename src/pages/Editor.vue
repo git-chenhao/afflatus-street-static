@@ -117,4 +117,15 @@
   @import '../../static/css/buttons.css';
   @import '../../static/css/topbar.css';
 
+  nav .logo {
+    float: left;
+    height: 56px;
+    padding: 7px 8px 8px;
+  }
+
+  a, body {
+    color: #333;
+    text-decoration: none;
+    overflow-x: hidden;
+  }
 </style>

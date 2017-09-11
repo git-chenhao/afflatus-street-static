@@ -24,7 +24,7 @@ Vue.component('top-bar', {
   '        <div class="user" @mousemove="userMouseMove" @mouseout="userMouseOut" :style="\'background-color:\'+userBackgroundColor+\';\'" v-else>\n' +
   '          <el-dropdown>\n' +
   '            <span class="el-dropdown-link avatar-span">\n' +
-  '            <a class="avatar" :href="\'/personal/\'+userId">\n' +
+  '            <a class="avatar" :href="\'/personal?userId=\'+userId">\n' +
   '              <img :src="avatar" alt="120">' +
   '             </a>\n' +
   '            </span>\n' +
