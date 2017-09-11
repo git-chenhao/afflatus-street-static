@@ -45,6 +45,11 @@ module.exports = {
       //   }
       // },
       {
+        test: /\.css$/,
+        loader: 'css-loader',
+        exclude: /node_modules/
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig

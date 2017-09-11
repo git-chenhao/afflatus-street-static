@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { getCookie,delCookie } from '../../static/js/util.js'
+import { getCookie, delCookie } from '../../static/js/util.js'
 import global_ from '../../src/pages/config.vue'
 
 Vue.component('top-bar', {
@@ -18,11 +18,12 @@ Vue.component('top-bar', {
   '        </a>\n' +
   '        <a class="btn sign-up" v-if="userId == \'\' || userId == null" href="/register">注册</a>\n' +
   '        <a class="btn log-in" v-if="userId == \'\' || userId == null" href="/login">登录</a>\n' +
-  '        <div class="user" v-else>\n' +
+  '        <div class="user" @mousemove="userMouseMove" @mouseout="userMouseOut" :style="\'background-color:\'+userBackgroundColor+\';\'" v-else>\n' +
   '          <el-dropdown>\n' +
-  '            <span class="el-dropdown-link">\n' +
+  '            <span class="el-dropdown-link avatar-span">\n' +
   '            <a class="avatar" :href="\'/personal/\'+userId">\n' +
-  '              <img :src="avatar" alt="120"></a>\n' +
+  '              <img :src="avatar" alt="120">' +
+  '             </a>\n' +
   '            </span>\n' +
   '            <el-dropdown-menu slot="dropdown">\n' +
   '              <el-dropdown-item>\n' +
@@ -47,10 +48,11 @@ Vue.component('top-bar', {
       userId: getCookie('userId'),
       nickName: getCookie('nickName'),
       avatar: getCookie('avatar'),
+      userBackgroundColor: '#fff'
     }
   },
-  methods:{
-    loginout:function () {
+  methods: {
+    loginout: function () {
       var url = global_.host + '/v1/uc/loginout'
       this.$http.post(url).then(function (data) {
         if (data.body.responseCode == 1000) {
@@ -72,6 +74,13 @@ Vue.component('top-bar', {
           message: '服务器繁忙,请稍候重试'
         })
       })
+    },
+    userMouseMove: function () {
+      this.userBackgroundColor = '#f0f0f0'
+    },
+    userMouseOut: function () {
+      this.userBackgroundColor = '#fff'
     }
+
   }
 })

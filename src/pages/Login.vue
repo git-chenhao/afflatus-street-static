@@ -119,11 +119,11 @@
 
 <style scoped>
 
-  @import '../../static/css/normalize.css';
-  @import '../../static/css/demo.css';
-  @import '../../static/css/component.css';
-  @import '../../static/css/buttons.css';
-  @import '../../static/css/style.css';
+  @import '/static/css/normalize.css';
+  @import '/static/css/demo.css';
+  @import '/static/css/component.css';
+  @import '/static/css/buttons.css';
+  @import '/static/css/style.css';
 
   a.brand svg {
     fill: #00495f;

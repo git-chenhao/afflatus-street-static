@@ -150,17 +150,17 @@ nav .user .avatar {
   margin: 8px 28px 8px 20px;
 }
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   display: block;
   cursor: pointer;
 }
 
-nav .user .avatar:before {
+.avatar-span:before {
   content: "";
   position: absolute;
-  top: 18px;
-  right: -14px;
+  top: 26px;
+  right: 10px;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 6px solid #999;
