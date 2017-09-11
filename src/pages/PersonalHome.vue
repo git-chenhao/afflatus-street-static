@@ -32,14 +32,14 @@
                         <li class="have-img">
                           <div class="content">
                             <div class="author">
-                              <a :href="'/personal/'+content.userId"><img class="circular"
+                              <a :href="'/personal?userId='+content.userId"><img class="circular"
                                                                           :src="userInfo.avatar"/></a>
                               <div class="name">
-                                <a :href="'/personal/'+content.userId"><span> {{userInfo.nickName}}</span></a>
+                                <a :href="'/personal?userId='+content.userId"><span> {{userInfo.nickName}}</span></a>
                                 <span> {{content.updateTime}}</span>
                               </div>
                             </div>
-                            <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
+                            <a class="title" :href='"/opus?opusId=" + content.id'>{{content.title}}</a>
                             <p class="summary">{{content.summary}}...</p>
                             <div style="color: #b4b4b4;font-size: 12px;">
                               <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
@@ -53,10 +53,10 @@
                 </section>
               </el-col>
               <el-col :span="6" class="meta">
-                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
+                <a class="wrap-img" :href='"/opus?opusId=" + content.id' v-if="content.coverUrl != ''">
                   <img class="img-blur-done" :src='content.coverUrl' />
                 </a>
-                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
+                <a class="wrap-img" :href='"/opus?opusId=" + content.id' v-if="content.coverUrl == ''">
                   <img class="img-blur-done" :src='userInfo.avatar'/>
                 </a>
               </el-col>
@@ -98,7 +98,7 @@
 </template>
 <script>
   import global_ from './config.vue'
-  import { getCookie } from '../../static/js/util.js'
+  import { getCookie,getUrlKey } from '../../static/js/util.js'
 
   export default {
     name: 'hello',
@@ -107,7 +107,7 @@
         nickName: '',
         avatar: '',
         isLike: false,
-        userId: this.$route.params.userId,
+        userId: getUrlKey("userId"),
         data: '',
         userInfo: '',
         loading: true,

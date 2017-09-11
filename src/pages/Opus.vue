@@ -51,7 +51,7 @@
 </template>
 <script>
   import global_ from './config.vue'
-  import { getCookie } from '../../static/js/util.js'
+  import { getCookie,getUrlKey } from '../../static/js/util.js'
 
   export default {
     name: 'hello',
@@ -60,7 +60,7 @@
         nickName: '',
         avatar: '',
         likeFlag: false,
-        opusId: this.$route.params.opusId,
+        opusId: getUrlKey("opusId"),
         data: '',
         userInfo: '',
         loading: true,
@@ -75,6 +75,7 @@
     },
     methods: {
       init: function () {
+        console.log(this.$route.params)
         var url = global_.host + '/v1/as/opus/detail/' + this.opusId
         this.$http.get(url,{credentials: true}).then(function (data) {
           if (data.body.responseCode == 1000) {

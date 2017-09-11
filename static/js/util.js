@@ -20,3 +20,7 @@ export function delCookie (name) {
   // this.setCookie(name, '', -1)
   window.document.cookie = name + '=;path=/;domain=.afflatusstreet.com;expires=' + -1
 };
+
+export function getUrlKey(name){
+   return decodeURIComponent((new RegExp('[?|&]'+name+'='+'([^&;]+?)(&|#|;|$)').exec(location.href)||[,""])[1].replace(/\+/g,'%20'))||null;
+  }

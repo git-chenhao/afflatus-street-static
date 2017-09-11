@@ -33,12 +33,12 @@ export default new Router({
       component:  resolve => require(['@/pages/Editor.vue'], resolve)
     },
     {
-      path: '/opus/:opusId',
+      path: '/opus',
       name: '',
       component:  resolve => require(['@/pages/Opus.vue'], resolve)
     },
     {
-      path: '/personal/:userId',
+      path: '/personal',
       name: '',
       component:  resolve => require(['@/pages/PersonalHome.vue'], resolve)
     },
