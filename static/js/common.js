@@ -5,7 +5,8 @@ import global_ from '../../src/pages/config.vue'
 Vue.component('top-bar', {
   // camelCase in JavaScript
   props: [],
-  template: '<nav class="navbar navbar-default navbar-fixed-top" role="navigation">\n' +
+  template:
+  '<nav class="navbar navbar-default navbar-fixed-top" role="navigation">\n' +
   '      <div class="width-limit">\n' +
   '        <!-- 左上方 Logo -->\n' +
   '        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>\n' +

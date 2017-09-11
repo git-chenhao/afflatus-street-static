@@ -113,8 +113,7 @@
 
 <style scoped>
   @import '../../static/css/buttons.css';
-  @import "../../static/css/entry-77546c6f8c0324385f5b.css";
-  @import "../../static/css/web-21eccb433ed09b492030.css";
+  @import '../../static/css/topbar.css';
 
   .maincircular {
     width: 80px;

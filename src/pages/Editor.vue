@@ -2,25 +2,27 @@
   <div class="editor">
     <top-bar></top-bar>
 
-    <div class="title">
-      <input class="title" placeholder="请输入标题" v-model="title"/>
+    <div style="margin-top: 60px">
+      <div class="title">
+        <!--<input class="title" placeholder="请输入标题" v-model="title"/>-->
+        <el-input v-model="title" placeholder="请输入标题"></el-input>
+      </div>
+      <div id="editorElem" style="text-align:left;"></div>
       <br>
-    </div>
-    <div id="editorElem" style="text-align:left;"></div>
-    <br>
-    <div>
-      <!--是否公开-->
-      <!--<el-switch-->
-      <!--v-model="open"-->
-      <!--on-text=""-->
-      <!--off-text="">-->
-      <!--</el-switch>-->
-      <el-button type="primary" :disabled="clickSave" @click="saveOpus">立即发布</el-button>
-      <!--<el-button :plain="true" :disabled="clickSave" @click="saveOpus" type="success">立即发布</el-button>-->
-      <!--<a v-if="clickSave" @click="saveOpus"-->
-      <!--class="disabled button button-glow button-rounded button-raised button-primary">发布</a>-->
-      <!--<a v-else @click="saveOpus" class="button button-glow button-rounded button-raised button-primary">发布</a>-->
+      <div>
+        <!--是否公开-->
+        <!--<el-switch-->
+        <!--v-model="open"-->
+        <!--on-text=""-->
+        <!--off-text="">-->
+        <!--</el-switch>-->
+        <el-button type="primary" :disabled="clickSave" @click="saveOpus">立即发布</el-button>
+        <!--<el-button :plain="true" :disabled="clickSave" @click="saveOpus" type="success">立即发布</el-button>-->
+        <!--<a v-if="clickSave" @click="saveOpus"-->
+        <!--class="disabled button button-glow button-rounded button-raised button-primary">发布</a>-->
+        <!--<a v-else @click="saveOpus" class="button button-glow button-rounded button-raised button-primary">发布</a>-->
 
+      </div>
     </div>
   </div>
 </template>
@@ -112,15 +114,7 @@
 
 <style scoped>
   @import "../../static/css/bootstrap.min.css";
-  @import "../../static/css/entry-77546c6f8c0324385f5b.css";
-  @import "../../static/css/web-21eccb433ed09b492030.css";
   @import '../../static/css/buttons.css';
+  @import '../../static/css/topbar.css';
 
-  .title {
-    width: 98%;
-    height: 50px;
-    margin-left: 5px;
-    background: none;
-    border: none;
-  }
 </style>

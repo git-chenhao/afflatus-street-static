@@ -5,61 +5,68 @@
 
     <!--中间板块-->
     <div class="container">
-      <el-carousel :interval="4000" type="card" height="200px">
-        <el-carousel-item v-for="url in bannerImgUrls" :key="item">
-          <img :src=url />
-          <!--<div style="width:465px;height:200px;background:url(http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200);text-align: center">-->
-          <!--<p>title</p>-->
-          <!--</div>-->
-        </el-carousel-item>
-      </el-carousel>
 
-      <!--<el-carousel height="300px" >-->
-      <!--<el-carousel-item v-for="url in bannerImgUrls" :key="item">-->
-      <!--<img :src=url />-->
-      <!--</el-carousel-item>-->
-      <!--</el-carousel>-->
-      <section class="content">
-        <div class="list-container">
-          <!-- 文章列表模块 -->
-          <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
-              element-loading-text="拼命加载中">
-            <div class="opus-content" v-for="content in contents">
-              <li class="have-img">
-                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
-                  <img class="img-blur-done" :src='content.coverUrl' @error="errorImg"/>
-                </a>
-                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
-                  <img class="img-blur-done" :src='content.userInfo.avatar'/>
-                </a>
-                <div class="content">
-                  <div class="author">
-                    <a :href="'/personal/'+content.userId"><img class="circular" :src="content.userInfo.avatar"/></a>
-                    <div class="name">
-                      <a :href="'/personal/'+content.userId"><span> {{content.userInfo.nickName}}</span></a>
-                      <span> {{content.updateTime}}</span>
-                    </div>
+      <el-row :gutter="20">
+        <el-col :span="16" :offset="4" class="meta">
+          <el-carousel :interval="4000" type="card" height="240px">
+            <el-carousel-item v-for="url in bannerImgUrls" :key="item">
+              <img :src=url />
+              <!--<div style="width:465px;height:200px;background:url(http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/1/w/465/h/200);text-align: center">-->
+              <!--<p>title</p>-->
+              <!--</div>-->
+            </el-carousel-item>
+          </el-carousel>
+        </el-col>
+      </el-row>
+
+      <div v-for="content in contents">
+        <el-row  align="middle " type="flex">
+          <el-col :span="12" :offset="4" class="meta">
+                <!-- 文章列表模块 -->
+                <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
+                    element-loading-text="拼命加载中">
+                  <div class="opus-content">
+                    <li class="have-img">
+                      <div class="content">
+                        <div class="author">
+                          <a :href="'/personal/'+content.userId"><img class="circular"
+                                                                      :src="content.userInfo.avatar"/></a>
+                          <div class="name">
+                            <a :href="'/personal/'+content.userId"><span> {{content.userInfo.nickName}}</span></a>
+                            <span> {{content.updateTime}}</span>
+                          </div>
+                        </div>
+                        <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
+                        <p class="summary">{{content.summary}}...</p>
+                        <div style="color: #b4b4b4;font-size: 12px;">
+                          <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
+                          &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
+                        </div>
+                      </div>
+                    </li>
                   </div>
-                  <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
-                  <p class="summary">{{content.summary}}...</p>
-                  <div style="color: #b4b4b4;font-size: 12px;">
-                    <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
-                    &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
-                  </div>
-                </div>
-              </li>
-            </div>
-          </ul>
-        </div>
-      </section>
+                </ul>
+          </el-col>
+          <el-col :span="3" class="meta">
+            <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
+              <img class="img-blur-done" :src='content.coverUrl' @error="errorImg"/>
+            </a>
+            <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
+              <img class="img-blur-done" :src='content.userInfo.avatar'/>
+            </a>
+          </el-col>
+        </el-row>
+      </div>
     </div>
   </div>
 </template>
 <script>
   import global_ from './config.vue'
   import { getCookie } from '../../static/js/util.js'
+  import ElCol from 'element-ui/packages/col/src/col'
 
   export default {
+    components: {ElCol},
     name: 'hello',
     data () {
       return {
@@ -121,8 +128,7 @@
 
 <style scoped>
   @import '../../static/css/buttons.css';
-  @import "../../static/css/entry-77546c6f8c0324385f5b.css";
-  @import "../../static/css/web-21eccb433ed09b492030.css";
+  @import '../../static/css/topbar.css';
 
   .circular {
     width: 30px;

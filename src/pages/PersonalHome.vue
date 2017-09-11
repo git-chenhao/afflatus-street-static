@@ -4,8 +4,8 @@
 
     <!--中间板块-->
     <div class="container">
-      <el-row :gutter="20">
-        <el-col :span="16">
+      <el-row :gutter="20" align="top " type="flex">
+        <el-col :span="12" :offset="4">
           <div style="padding-bottom:140px;border-bottom: 1px solid #f0f0f0;">
             <img class="maincircular" :src=userInfo.avatar style="float: left"/>
             <div style="float:left;text-align: left;margin-left: 10px;display: inline-block">
@@ -20,39 +20,53 @@
           </div>
 
           <div class="clear"></div>
-          <div class="list-container">
-            <!-- 文章列表模块 -->
-            <ul class="note-list" infinite-scroll-url="/" >
-              <div class="opus-content" v-for="content in contents">
-                <li class="have-img">
-                  <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
-                    <img class="img-blur-done" :src='content.coverUrl' alt="120">
-                  </a>
-                  <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
-                    <img class="img-blur-done" :src='userInfo.avatar' alt="120">
-                  </a>
-                  <div class="content">
-                    <div class="author">
-                      <img class="circular" :src="userInfo.avatar"/>
-                      <div class="name">
-                        <span> {{userInfo.nickName}}</span>
-                        <span> {{content.updateTime}}</span>
+          <div v-for="content in contents">
+            <el-row :gutter="20" align="middle " type="flex">
+              <el-col :span="18" class="meta">
+                <section class="content">
+                  <div class="list-container">
+                    <!-- 文章列表模块 -->
+                    <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
+                        element-loading-text="拼命加载中">
+                      <div class="opus-content">
+                        <li class="have-img">
+                          <div class="content">
+                            <div class="author">
+                              <a :href="'/personal/'+content.userId"><img class="circular"
+                                                                          :src="userInfo.avatar"/></a>
+                              <div class="name">
+                                <a :href="'/personal/'+content.userId"><span> {{userInfo.nickName}}</span></a>
+                                <span> {{content.updateTime}}</span>
+                              </div>
+                            </div>
+                            <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
+                            <p class="summary">{{content.summary}}...</p>
+                            <div style="color: #b4b4b4;font-size: 12px;">
+                              <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
+                              &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
+                            </div>
+                          </div>
+                        </li>
                       </div>
-                    </div>
-                    <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
-                    <p class="summary">{{content.summary}}...</p>
-                    <div style="color: #b4b4b4;font-size: 12px;">
-                      <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
-                      &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
-                    </div>
+                    </ul>
                   </div>
-                </li>
-              </div>
-            </ul>
+                </section>
+              </el-col>
+              <el-col :span="6" class="meta">
+                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl != ''">
+                  <img class="img-blur-done" :src='content.coverUrl' />
+                </a>
+                <a class="wrap-img" :href='"/opus/" + content.id' v-if="content.coverUrl == ''">
+                  <img class="img-blur-done" :src='userInfo.avatar'/>
+                </a>
+              </el-col>
+            </el-row>
+
           </div>
 
+
         </el-col>
-        <el-col :span="8" style="text-align: left;">
+        <el-col :span="6" style="text-align: left;">
 
           <el-card class="box-card">
             <div class="text item">
@@ -75,6 +89,46 @@
           <el-alert title="人工智能、人工智能" type="success" :closable="false"></el-alert>
         </el-col>
       </el-row>
+
+      <div v-for="content in contents">
+        <el-row align="middle " type="flex">
+          <el-col :span="12" :offset="4" class="meta">
+            <section class="content">
+              <div class="list-container">
+                <!-- 文章列表模块 -->
+                <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
+                    element-loading-text="拼命加载中">
+                  <div class="opus-content">
+                    <li class="have-img">
+                      <div class="content">
+                        <div class="author">
+                          <a :href="'/personal/'+content.userId"><img class="circular"
+                                                                      :src="userInfo.avatar"/></a>
+                          <div class="name">
+                            <a :href="'/personal/'+content.userId"><span> {{userInfo.nickName}}</span></a>
+                            <span> {{content.updateTime}}</span>
+                          </div>
+                        </div>
+                        <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
+                        <p class="summary">{{content.summary}}...</p>
+                        <div style="color: #b4b4b4;font-size: 12px;">
+                          <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
+                          &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
+                        </div>
+                      </div>
+                    </li>
+                  </div>
+                </ul>
+              </div>
+            </section>
+          </el-col>
+          <el-col :span="3" class="meta">
+            <a class="wrap-img" :href='"/opus/" + content.id'/>
+            <img class="img-blur-done" :src='content.coverUrl'/>
+            </a>
+          </el-col>
+        </el-row>
+      </div>
 
 
     </div>
@@ -157,8 +211,7 @@
 
 <style scoped>
   @import '../../static/css/buttons.css';
-  @import "../../static/css/entry-77546c6f8c0324385f5b.css";
-  @import "../../static/css/web-21eccb433ed09b492030.css";
+  @import '../../static/css/topbar.css';
 
   .maincircular {
     width: 80px;
@@ -169,7 +222,7 @@
   }
 
   .container {
-    margin-top: 30px;
+    margin-top: 80px;
   }
 
   .circular {

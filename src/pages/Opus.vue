@@ -5,13 +5,13 @@
     <!--中间板块-->
     <div class="container">
       <el-row :gutter="20">
-        <el-col :span="16" :offset="4" class="meta">
+        <el-col :span="10" :offset="7" class="meta">
           <h1 class="title">{{data.title}}</h1>
         </el-col>
       </el-row>
 
       <el-row :gutter="20">
-        <el-col :span="16" :offset="4" class="meta">
+        <el-col :span="10" :offset="7" class="meta">
           <div class="author">
             <a :href="'/personal/'+data.userId"><img class="circular" :src="userInfo.avatar"/></a>
             <div class="meta">
@@ -28,9 +28,9 @@
 
 
       <el-row :gutter="20">
-        <el-col :span="16" :offset="4" v-html="data.content" class="meta meta-content">
+        <el-col :span="10" :offset="7" v-html="data.content" class="meta meta-content">
         </el-col>
-        <el-col :span="16" :offset="4" class="meta meta-like-share">
+        <el-col :span="10" :offset="7" class="meta meta-like-share">
           <span class="like">
                 <el-button :plain="!likeFlag" type="danger" @click="like"><i
                   class="fa fa-thumbs-up"></i>&nbsp;{{data.likeNum}}</el-button>
@@ -146,8 +146,7 @@
 
 <style scoped>
   @import '../../static/css/buttons.css';
-  @import "../../static/css/entry-77546c6f8c0324385f5b.css";
-  @import "../../static/css/web-21eccb433ed09b492030.css";
+  @import "../../static/css/topbar.css";
 
   .circular {
     width: 30px;
