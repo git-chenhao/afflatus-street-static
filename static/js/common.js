@@ -11,13 +11,16 @@ Vue.component('top-bar', {
   '        <!-- 左上方 Logo -->\n' +
   '        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>\n' +
   '        <!-- 右上角 -->\n' +
+  '<div class="search ">\n' +
+  '  \n<input type="text" placeholder="搜索从这里开始...">\n' +
+  '</div>' +
   '        <!-- 未登录显示登录/注册/写文章 -->\n' +
   '        <a class="btn write-btn" href="/editor">\n' +
   '          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>\n' +
   '          写文章\n' +
   '        </a>\n' +
-  '        <a class="btn sign-up" v-if="userId == \'\' || userId == null" href="/register">注册</a>\n' +
-  '        <a class="btn log-in" v-if="userId == \'\' || userId == null" href="/login">登录</a>\n' +
+  '        <a class="btn sign-up" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/register">注册</a>\n' +
+  '        <a class="btn log-in" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/login">登录</a>\n' +
   '        <div class="user" @mousemove="userMouseMove" @mouseout="userMouseOut" :style="\'background-color:\'+userBackgroundColor+\';\'" v-else>\n' +
   '          <el-dropdown>\n' +
   '            <span class="el-dropdown-link avatar-span">\n' +

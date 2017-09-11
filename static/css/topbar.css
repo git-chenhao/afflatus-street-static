@@ -165,3 +165,23 @@ nav .user .avatar {
   border-right: 5px solid transparent;
   border-top: 6px solid #999;
 }
+.search{
+  display: inline-block;
+  margin-top: 10px;
+  margin-left: 100px;
+  float: left;
+}
+
+.search input {
+  width: 250px;
+  height: 42px;
+  padding-left: 15px;
+  border-radius: 42px;
+  border: 1px solid #ea6f5a;
+  outline: none;
+  position: relative;
+  transition: .3s linear;
+}
+.search input:focus {
+  width: 300px;
+}

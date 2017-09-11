@@ -71,65 +71,27 @@
           <el-card class="box-card">
             <div class="text item">
               <p style="font-size: 14px">个人介绍</p>
-              <p>{{userInfo.personalIntroduction}}</p>
+              <p v-if="userInfo.personalIntroduction == null || userInfo.personalIntroduction == ''">
+                暂无个人介绍
+              </p>
+              <p >{{userInfo.personalIntroduction}}</p>
             </div>
             <el-tag>读书</el-tag>
             <el-tag type="gray">生活家</el-tag>
             <el-tag type="primary">互联网</el-tag>
             <el-tag type="success">灵感街</el-tag>
-            <el-tag type="warning">人工智能</el-tag>
+            <!--<el-tag type="warning">人工智能</el-tag>-->
             <el-tag type="danger">旅行</el-tag>
           </el-card>
 
           <br>
           <el-alert title="千万不要天真的以为努力就能成功" type="success" :closable="false"></el-alert>
           <br>
-          <el-alert title="为什么需要读书和旅行" type="success" :closable="false"></el-alert>
+          <el-alert title="为什么需要读书和旅行" type="info" :closable="false"></el-alert>
           <br>
-          <el-alert title="人工智能、人工智能" type="success" :closable="false"></el-alert>
+          <el-alert title="人工智能、人工智能" type="warning" :closable="false"></el-alert>
         </el-col>
       </el-row>
-
-      <div v-for="content in contents">
-        <el-row align="middle " type="flex">
-          <el-col :span="12" :offset="4" class="meta">
-            <section class="content">
-              <div class="list-container">
-                <!-- 文章列表模块 -->
-                <ul class="note-list" infinite-scroll-url="/" v-loading="loading"
-                    element-loading-text="拼命加载中">
-                  <div class="opus-content">
-                    <li class="have-img">
-                      <div class="content">
-                        <div class="author">
-                          <a :href="'/personal/'+content.userId"><img class="circular"
-                                                                      :src="userInfo.avatar"/></a>
-                          <div class="name">
-                            <a :href="'/personal/'+content.userId"><span> {{userInfo.nickName}}</span></a>
-                            <span> {{content.updateTime}}</span>
-                          </div>
-                        </div>
-                        <a class="title" :href='"/opus/" + content.id'>{{content.title}}</a>
-                        <p class="summary">{{content.summary}}...</p>
-                        <div style="color: #b4b4b4;font-size: 12px;">
-                          <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
-                          &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
-                        </div>
-                      </div>
-                    </li>
-                  </div>
-                </ul>
-              </div>
-            </section>
-          </el-col>
-          <el-col :span="3" class="meta">
-            <a class="wrap-img" :href='"/opus/" + content.id'/>
-            <img class="img-blur-done" :src='content.coverUrl'/>
-            </a>
-          </el-col>
-        </el-row>
-      </div>
-
 
     </div>
   </div>

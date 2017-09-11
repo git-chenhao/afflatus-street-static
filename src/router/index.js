@@ -1,12 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Login from '@/pages/Login'
-import Register from '@/pages/Register'
-import HomePage from '@/pages/HomePage'
-import Editor from  '@/pages/Editor'
-import Opus from '@/pages/Opus'
-import PersonalHome from '@/pages/PersonalHome'
-import PersonalSetting from '@/pages/PersonalSetting'
 import 'font-awesome/css/font-awesome.css'
 
 Vue.use(Router)
@@ -17,42 +10,42 @@ export default new Router({
     {
       path: '/login',
       name: '',
-      component: Login
+      component:  resolve => require(['@/pages/Login.vue'], resolve)
     },
     {
       path: '/register',
       name: '',
-      component: Register
+      component:  resolve => require(['@/pages/Register.vue'], resolve)
     },
     {
       path: '/',
       name: '',
-      component: HomePage
+      component:  resolve => require(['@/pages/HomePage.vue'], resolve)
     },
     {
       path: '/home',
       name: '',
-      component: HomePage
+      component:  resolve => require(['@/pages/HomePage.vue'], resolve)
     },
     {
       path: '/editor',
       name: '',
-      component: Editor
+      component:  resolve => require(['@/pages/Editor.vue'], resolve)
     },
     {
       path: '/opus/:opusId',
       name: '',
-      component: Opus
+      component:  resolve => require(['@/pages/Opus.vue'], resolve)
     },
     {
       path: '/personal/:userId',
       name: '',
-      component: PersonalHome
+      component:  resolve => require(['@/pages/PersonalHome.vue'], resolve)
     },
     {
       path: '/setting',
       name: '',
-      component: PersonalSetting
+      component:  resolve => require(['@/pages/PersonalSetting.vue'], resolve)
     }
 
   ]

@@ -10,8 +10,8 @@
           <el-form ref="form" :model="userInfo" label-width="150px">
             <el-form-item label="头像">
               <img class="maincircular" :src=userInfo.avatar />
-              <el-button type="primary">更改头像<i class="el-icon-upload2 el-icon--right" @click="clickUpload"></i>
-                <input type="file" style="display: none"/>
+              <el-button type="primary">上传<i class="el-icon-upload2 el-icon--right" @test="clickUpload"></i>
+                <input type="file"  @click.native="test" style="display: none"/>
               </el-button>
             </el-form-item>
             <el-form-item label="手机号">
@@ -31,7 +31,7 @@
             </el-form-item>
             <el-form-item label="微信二维码">
               <img class="wechatQrCode" :src=userInfo.wechatQrCodeUrl />
-              <el-button type="primary">修改<i class="el-icon-upload2 el-icon--right"></i></el-button>
+              <el-button type="primary">上传<i class="el-icon-upload2 el-icon--right"></i></el-button>
             </el-form-item>
             <el-form-item>
               <el-button type="primary" @click="onSubmit">立即修改</el-button>
@@ -64,6 +64,7 @@
         data: '',
         userInfo: '',
         loading: true,
+        test:false,
       }
     },
     mounted () {
@@ -95,7 +96,11 @@
         })
       },
       clickUpload: function () {
-//        document.getElementById('file').click()
+        console.log('我触发了它');
+      },
+      test:function () {
+        console.log('1');
+        this.$emit('test')
       },
       uploadAvatar: function () {
         var iconTxtFile
