@@ -6,22 +6,40 @@
     <div class="container">
       <el-row :gutter="20" align="top " type="flex">
         <el-col :span="12" :offset="4">
-          <div style="padding-bottom:140px;border-bottom: 1px solid #f0f0f0;">
+          <div style="height: 100px;border-bottom: 1px solid #f0f0f0;">
             <img class="maincircular" :src=userInfo.avatar style="float: left"/>
             <div style="float:left;text-align: left;margin-left: 10px;display: inline-block">
-              <div style="height: 30px;margin-top: 10px">{{userInfo.nickName}}</div>
-              <div style="height: 30px"><i class="fa fa-book" aria-hidden="true"></i>&nbsp;作品&nbsp;{{userInfo.opusNum}}
+              <div style="height: 30px;margin-top: 10px">{{userInfo.nickName}}&nbsp;
+                <i class="fa fa-mars" v-if="userInfo.sex == 1"></i>
+                <i class="fa fa-venus" v-else></i>
+              </div>
+              <div style="height: 30px">
+                <i class="fa fa-book" aria-hidden="true"></i>&nbsp;作品&nbsp;{{userInfo.opusNum}}
                 &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;点赞&nbsp;{{userInfo.likeNum}}
               </div>
             </div>
             <!--<div style="display:inline-block; border: 1px red solid;">-->
-            <i style="float: right;margin: 23px 10px 23px 20px;" class="fa fa-weibo fa-2x" aria-hidden="true"></i>
-            <i style="float: right;margin: 23px 10px 23px 20px;" class="fa fa-weixin fa-2x" aria-hidden="true"></i>
+            <el-popover
+              ref="popover"
+              placement="left"
+              width="200"
+              trigger="hover">
+              <img :src="userInfo.wechatQrCodeUrl"
+                   v-if="userInfo.wechatQrCodeUrl != '' && userInfo.wechatQrCodeUrl != undefined"/>
+              <p v-else>未设置微信二维码</p>
+            </el-popover>
+
+            <a :href="userInfo.weiboUrl" target="_blank"
+               v-if="userInfo.weiboUrl != '' && userInfo.weiboUrl != undefined"><i
+              style="float: right;margin: 23px 10px 23px 20px; color: #d32024" class="fa fa-weibo fa-2x"
+              aria-hidden="true" title="点击跳转微博主页"></i></a>
+            <!--<span v-if="userInfo.wechatQrCodeUrl != '' && userInfo.wechatQrCodeUrl != undefined">-->
+            <i style="float: right;margin: 23px 10px 23px 20px; color: #13ce66" class="fa fa-weixin fa-2x"
+               aria-hidden="true" v-popover:popover></i>
+            <!--</span>-->
           </div>
 
-          <div class="clear"></div>
-          <div v-if="contents.length==0">
-
+          <div v-if="noOpus">
             <h3>当前无作品</h3>
           </div>
           <div v-for="content in contents">
@@ -37,7 +55,7 @@
                           <div class="content">
                             <div class="author">
                               <a :href="'/personal?userId='+content.userId"><img class="circular"
-                                                                          :src="userInfo.avatar"/></a>
+                                                                                 :src="userInfo.avatar"/></a>
                               <div class="name">
                                 <a :href="'/personal?userId='+content.userId"><span> {{userInfo.nickName}}</span></a>
                                 <span> {{content.updateTime}}</span>
@@ -58,7 +76,7 @@
               </el-col>
               <el-col :span="6" class="meta">
                 <a class="wrap-img" :href='"/opus?opusId=" + content.id' v-if="content.coverUrl != ''">
-                  <img class="img-blur-done" :src='content.coverUrl' />
+                  <img class="img-blur-done" :src='content.coverUrl'/>
                 </a>
                 <a class="wrap-img" :href='"/opus?opusId=" + content.id' v-if="content.coverUrl == ''">
                   <img class="img-blur-done" :src='userInfo.avatar'/>
@@ -75,25 +93,26 @@
           <el-card class="box-card">
             <div class="text item">
               <p style="font-size: 14px">个人介绍</p>
+              <el-tag>读书</el-tag>
+              <el-tag type="gray">生活家</el-tag>
+              <el-tag type="primary">互联网</el-tag>
+              <el-tag type="success">灵感街</el-tag>
+              <el-tag type="danger">旅行</el-tag>
+
               <p v-if="userInfo.personalIntroduction == null || userInfo.personalIntroduction == ''">
                 暂无个人介绍
               </p>
-              <p >{{userInfo.personalIntroduction}}</p>
+              <p>{{userInfo.personalIntroduction}}</p>
             </div>
-            <el-tag>读书</el-tag>
-            <el-tag type="gray">生活家</el-tag>
-            <el-tag type="primary">互联网</el-tag>
-            <el-tag type="success">灵感街</el-tag>
-            <!--<el-tag type="warning">人工智能</el-tag>-->
-            <el-tag type="danger">旅行</el-tag>
+            <div class="block">
+              <el-carousel height="180px" indicator-position="outside">
+                <el-carousel-item v-for="item in items" :key="item">
+                  <img :src="item"/>
+                </el-carousel-item>
+              </el-carousel>
+            </div>
           </el-card>
 
-          <br>
-          <el-alert title="千万不要天真的以为努力就能成功" type="success" :closable="false"></el-alert>
-          <br>
-          <el-alert title="为什么需要读书和旅行" type="info" :closable="false"></el-alert>
-          <br>
-          <el-alert title="人工智能、人工智能" type="warning" :closable="false"></el-alert>
         </el-col>
       </el-row>
 
@@ -102,7 +121,7 @@
 </template>
 <script>
   import global_ from './config.vue'
-  import { getCookie,getUrlKey } from '../../static/js/util.js'
+  import { getCookie, getUrlKey } from '../../static/js/util.js'
 
   export default {
     name: 'hello',
@@ -111,11 +130,14 @@
         nickName: '',
         avatar: '',
         isLike: false,
-        userId: getUrlKey("userId"),
+        userId: getUrlKey('userId'),
         data: '',
         userInfo: '',
         loading: true,
-        contents: []
+        contents: [],
+        noOpus: false,
+        items: ['http://ov2efupn7.bkt.clouddn.com/35242437080_b34bff7c17_k.jpg?imageView2/4/w/400/h/200/interlace/1'
+        ,'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/3/w/930/h/300/interlace/1']
       }
     },
     mounted () {
@@ -152,6 +174,7 @@
           console.log(data)
           if (data.body.responseCode == 1000) {
             this.contents = data.body.data.rows
+            this.noOpus = this.contents.length == 0
             console.log(this.contents)
             this.loading = false
           } else {
@@ -246,6 +269,34 @@
 
   .clear {
     clear: both;
+  }
+
+  .fa-mars {
+    color: #1B9AF7;
+  }
+
+  .fa-venus {
+    color: #f64c59;
+  }
+
+  .el-carousel__item h3 {
+    color: #475669;
+    font-size: 14px;
+    opacity: 0.75;
+    line-height: 150px;
+    margin: 0;
+  }
+
+  .el-carousel__item:nth-child(2n) {
+    background-color: #99a9bf;
+  }
+
+  .el-carousel__item:nth-child(2n+1) {
+    background-color: #d3dce6;
+  }
+
+  .block {
+    margin-top: 10px;
   }
 
 

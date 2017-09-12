@@ -185,3 +185,7 @@ nav .user .avatar {
 .search input:focus {
   width: 300px;
 }
+
+i{
+  cursor: pointer;
+}
