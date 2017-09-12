@@ -7,6 +7,7 @@
       <el-row :gutter="20">
         <el-col :span="10" :offset="7" class="meta">
           <h1 class="title">{{data.title}}</h1>
+
         </el-col>
       </el-row>
 
@@ -20,13 +21,15 @@
               <span style="color: #b4b4b4;font-size: 12px;">
                 <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;阅读&nbsp;{{data.readNum}}
                 &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;点赞&nbsp;{{data.likeNum}}
+                <span v-for="item in data.labelInfoList">
+                  <el-tag :type="item.styleType">{{item.name}}</el-tag>
+                </span>
               </span>
+
             </div>
           </div>
         </el-col>
       </el-row>
-
-
       <el-row :gutter="20">
         <el-col :span="10" :offset="7" v-html="data.content" class="meta meta-content">
         </el-col>
@@ -51,7 +54,7 @@
 </template>
 <script>
   import global_ from './config.vue'
-  import { getCookie,getUrlKey } from '../../static/js/util.js'
+  import { getCookie, getUrlKey } from '../../static/js/util.js'
 
   export default {
     name: 'hello',
@@ -60,7 +63,7 @@
         nickName: '',
         avatar: '',
         likeFlag: false,
-        opusId: getUrlKey("opusId"),
+        opusId: getUrlKey('opusId'),
         data: '',
         userInfo: '',
         loading: true,
@@ -77,7 +80,7 @@
       init: function () {
         console.log(this.$route.params)
         var url = global_.host + '/v1/as/opus/detail/' + this.opusId
-        this.$http.get(url,{credentials: true}).then(function (data) {
+        this.$http.get(url, {credentials: true}).then(function (data) {
           if (data.body.responseCode == 1000) {
             this.loading = false
             this.data = data.body.data

@@ -36,6 +36,10 @@
                         <a class="title" :href='"/opus?opusId=" + content.id'>{{content.title}}</a>
                         <p class="summary">{{content.summary}}...</p>
                         <div style="color: #b4b4b4;font-size: 12px;">
+
+                          <span v-for="labelInfo in content.labelInfoList">
+                          <el-tag :type="labelInfo.styleType" >{{labelInfo.name}}</el-tag>&nbsp;&nbsp;
+                            </span>
                           <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
                           &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
                         </div>
