@@ -13,9 +13,9 @@
       <el-row :gutter="20">
         <el-col :span="10" :offset="7" class="meta">
           <div class="author">
-            <a :href="'/personal/'+data.userId"><img class="circular" :src="userInfo.avatar"/></a>
+            <a :href="'/personal?userId='+data.userId"><img class="circular" :src="userInfo.avatar"/></a>
             <div class="meta">
-              <a :href="'/personal/'+data.userId"><span> {{userInfo.nickName}}</span></a>
+              <a :href="'/personal?userId='+data.userId"><span> {{userInfo.nickName}}</span></a>
               <span> {{data.updateTime}}</span>
               <span style="color: #b4b4b4;font-size: 12px;">
                 <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;阅读&nbsp;{{data.readNum}}
