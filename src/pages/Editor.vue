@@ -24,22 +24,18 @@
                     <p v-if="opusListInDraft.length == 0" style="color:#7f868e;">
                       <i class="fa fa-inbox"></i>&nbsp;当前无数据
                     </p>
-                  <span v-for="item in opusListInDraft">
+                    <span v-for="item in opusListInDraft">
                     <span v-if="item.id == opusId">
-                    <p @click="switchOpus(item.id,false)"
-                       style="color: #ea6f5a;cursor:pointer;width:60%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom: 0px #f0f0f0 solid;">
-                      <i class="fa fa-bookmark"></i>
+                    <p @click="switchOpus(item.id,false)" class="nav-title nav-title-select">
+                      <i class="fa fa-trash" @click="saveOpus(-1,'成功移至垃圾箱')"></i>
                       &nbsp;{{item.title}}
                     </p>
-
                     </span>
                     <span v-else>
-                    <p @click="switchOpus(item.id,false)"
-                       style="cursor:pointer;width:100%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom: 0px #f0f0f0 solid;">
-                      <i class="fa fa-bookmark"></i> &nbsp;{{item.title}}
+                    <p @click="switchOpus(item.id,false)" class="nav-title">
+                      <i class="fa fa-bookmark" ></i> &nbsp;{{item.title}}
                     </p>
                     </span>
-
                     </span>
                   </div>
                 </el-collapse-item>
@@ -54,15 +50,13 @@
                   <div style="max-height:400px;overflow-y:auto;">
                   <span v-for="item in opusListInDustbin">
                     <span v-if="item.id == opusId">
-                    <p @click="switchOpus(item.id,true)"
-                       style="color: #ea6f5a;cursor:pointer;width:100%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom: 0px #f0f0f0 solid;">
-                      <i class="fa fa-bookmark"></i>
+                    <p @click="switchOpus(item.id,true)" class="nav-title nav-title-select">
+                      <i class="fa fa-trash" @click="deleteOpus"></i>
                       &nbsp;{{item.title}}
                     </p>
                     </span>
                     <span v-else>
-                    <p @click="switchOpus(item.id,true)"
-                       style="cursor:pointer;width:100%; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-bottom: 0px #f0f0f0 solid;">
+                    <p @click="switchOpus(item.id,true)" class="nav-title" >
                       <i class="fa fa-bookmark"></i> &nbsp;{{item.title}}
                     </p>
                     </span>
@@ -110,16 +104,14 @@
                 class="fa  fa-cloud-upload"></i>&nbsp;发布
               </el-button>
             </el-form-item>
-          </el-form >
-            <el-form v-else style="margin-top: 10px">
+          </el-form>
+          <el-form v-else style="margin-top: 10px">
             <el-form-item>
-              <el-button size="large" type="primary" @click="rollback">
-                <i class="fa fa-reply-all">&nbsp;移至草稿箱</i>
+              <el-button type="primary" @click="rollback">
+                <i class="fa fa-reply-all">&nbsp;恢复</i>
               </el-button>
-            </el-form-item>
-              <el-form-item>
-              <el-button size="large" type="danger" @click="deleteOpus">
-                <i class="fa fa-trash">&nbsp;彻底删除</i>
+              <el-button type="danger" @click="deleteOpus">
+                <i class="fa fa-trash">&nbsp;删除</i>
               </el-button>
             </el-form-item>
           </el-form>
@@ -167,7 +159,7 @@
         opusListInDustbin: '',
         saveTimer: '',
         dustbin: false,
-        collapseValue:'1'
+        collapseValue: '1'
       }
     },
     methods: {
@@ -261,10 +253,10 @@
               this.opusListInDustbin = data.body.data.rows
             } else if (state == 1) {
               this.opusListInDraft = data.body.data.rows
-              console.log(this.op)
-              if ( this.opusListInDraft.length >0 && (this.opusId =='' || this.opusId ==undefined || this.opusId ==null)){
+              if (this.opusListInDraft.length > 0) {
                 this.opusId = this.opusListInDraft[0].id
                 this.loadingOpusInfo()
+                history.pushState(null, '', '/editor?opusId=' + this.opusId)
               }
             }
 
@@ -330,22 +322,23 @@
         this.$http.post(url, params).then(function (data) {
           if (data.body.responseCode == 1000) {
 
-            if (notifyMessage !=null && notifyMessage !=''){
+            if (notifyMessage != null && notifyMessage != '') {
               this.$message({
                 showClose: true,
                 message: notifyMessage,
                 type: 'success'
               })
             }
-
             if (state == 3 || state == -1 || state == -2) {
               this.clearContent()
             }
             if (state == 1) {
               this.opusId = data.body.data
             }
+            if (state != -2){
+              this.getOpusList(1)
+            }
             this.getOpusList(-1)
-            this.getOpusList(1)
           } else {
             this.clickSave = false
             if (state == 3) {
@@ -373,20 +366,21 @@
         this.editorContent = ''
         history.pushState(null, '', '/editor')
       },
-      deleteOpus:function () {
+      deleteOpus: function () {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
-          this.saveOpus(-2,'删除成功')
+          this.saveOpus(-2, '删除成功')
         }).catch(() => {
-        });
+        })
       },
-      rollback:function () {
+      rollback: function () {
         this.collapseValue = '1'
         this.dustbin = false
-        this.saveOpus(1,'成功移至草稿箱')
+        this.loadingOpusInfo()
+        this.saveOpus(1, '成功移至草稿箱')
       }
     },
     mounted () {
@@ -427,5 +421,17 @@
 
   .title {
     padding: 5px;
+  }
+
+  .nav-title {
+    cursor: pointer;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .nav-title-select {
+    color: #ea6f5a;
   }
 </style>
