@@ -143,6 +143,9 @@
     mounted () {
       this.nickName = getCookie('nickName')
       this.avatar = getCookie('avatar')
+      if (this.userId == undefined || this.userId =='' || this.userId ==null){
+        window.location.href = '/'
+      }
       this.getUserInfo()
     },
     methods: {
@@ -169,7 +172,7 @@
         })
       },
       getOpusInfo: function () {
-        var url = global_.host + '/v1/as/opus/list/' + this.userId + '/page/1'
+        var url = global_.host + '/v1/as/opus/list/user/' + this.userId + '/state/3/page/1'
         this.$http.get(url).then(function (data) {
           console.log(data)
           if (data.body.responseCode == 1000) {
