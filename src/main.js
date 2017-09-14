@@ -8,9 +8,12 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import { delCookie } from '../static/js/util.js'
 import '../static/js/common.js'
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';    // 使用 CSS
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
+Vue.use(iView);
 Vue.config.productionTip = false
 
 

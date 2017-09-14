@@ -3,17 +3,15 @@ import { getCookie, delCookie } from '../../static/js/util.js'
 import global_ from '../../src/pages/config.vue'
 
 Vue.component('top-bar', {
-  // camelCase in JavaScript
-  props: [],
   template:
   '<nav class="navbar navbar-default navbar-fixed-top" role="navigation">\n' +
   '      <div class="width-limit">\n' +
   '        <!-- 左上方 Logo -->\n' +
   // '        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>\n' +
   '<a class="btn logo" href="/home">\n' +
-'          <i class="fa fa-home" aria-hidden="true"></i>\n' +
-'          首页\n' +
-'        </a>\n' +
+  '          <i class="fa fa-home" aria-hidden="true"></i>\n' +
+  '          首页\n' +
+  '        </a>\n' +
   '        <!-- 右上角 -->\n' +
   // '<div class="search ">\n' +
   // '  \n<input type="text" placeholder="搜索从这里开始...">\n' +
@@ -33,23 +31,25 @@ Vue.component('top-bar', {
   '             </a>\n' +
   '            </span>\n' +
   '            <el-dropdown-menu slot="dropdown">\n' +
-  '              <el-dropdown-item>\n' +
   '                <a href="/setting">\n' +
+  '              <el-dropdown-item>\n' +
   '                  <i class="fa fa-cog" aria-hidden="true"></i>\n' +
   '                  &nbsp;个人设置\n' +
-  '                </a>\n' +
   '              </el-dropdown-item>\n' +
-  '              <el-dropdown-item>\n' +
+  '                </a>\n' +
   '                <a @click="loginout">\n' +
+  '              <el-dropdown-item>\n' +
   '                  <i class="fa fa-sign-out"  aria-hidden="true"></i>\n' +
   '                  &nbsp;退出登录\n' +
-  '                </a>\n' +
   '              </el-dropdown-item>\n' +
+  '                </a>\n' +
   '            </el-dropdown-menu>\n' +
   '          </el-dropdown>\n' +
   '        </div>\n' +
   '      </div>\n' +
   '    </nav>',
+  // camelCase in JavaScript
+  props: [],
   data: function () {
     return {
       userId: getCookie('userId'),
