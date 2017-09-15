@@ -88,20 +88,23 @@
             this.likeFlag = this.data.likeFlag
             this.read()
           } else {
-            this.$notify.error({
-              title: '错误',
-              message: data.body.errorMsg
-            })
+            this.$message({
+              showClose: true,
+              message:  data.body.errorMsg,
+              type: 'error'
+            });
             window.setTimeout(function () {
               window.location.href = '/'
-            }, 20000)
+            }, 2000)
           }
         }, function (response) {
           this.loading = false
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器忙,请稍候重试'
-          })
+          this.$message({
+            showClose: true,
+            message:  '服务器忙,请稍候重试',
+            type: 'error'
+          });
+
           console.info(response)
         })
       },
@@ -116,10 +119,11 @@
             this.likeFlag = true
             this.data.likeNum = this.data.likeNum + 1
           } else if (data.body.responseCode == 1004) {
-            this.$notify.info({
-              title: '提示',
-              message: data.body.errorMsg
-            })
+            this.$message({
+              showClose: true,
+              message:  data.body.errorMsg,
+              type: 'info'
+            });
           }
         }, function (response) {
           console.info(response)
@@ -134,10 +138,11 @@
         })
       },
       share: function () {
-        this.$notify.success({
-          title: '提示',
-          message: '分享功能暂未开放'
-        })
+        this.$message({
+          showClose: true,
+          message:  '分享功能暂未开放',
+          type: 'success'
+        });
       }
     }
   }

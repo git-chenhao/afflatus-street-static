@@ -106,17 +106,19 @@
             this.loading = false
           } else {
             this.loading = false
-            this.$notify.error({
-              title: '错误',
-              message: data.body.errorMsg
-            })
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
+            });
           }
         }, function (response) {
           this.loading = false
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器忙,请稍候重试'
-          })
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
+          });
           console.info(response)
         })
       }

@@ -31,7 +31,7 @@
 					<!--<label class="input__label input__label&#45;&#45;minoru" for="nickName">-->
 						<!--<span class="input__label-content input__label-content&#45;&#45;minoru">Your Captcha</span>-->
 					<!--</label>-->
-					<!--<input class="input__field input__field&#45;&#45;minoru" id="nickName" v-model="nickName" placeholder="点击获取验证码" />-->
+					<!--<input class="input__field input__field&#45;&#45;minoru" id="nickName" v-model="captcha" @dblclick="sendSms" placeholder="双击获取验证码" />-->
 				<!--</span>-->
 
         <!--<span class="input input&#45;&#45;minoru span-register">-->
@@ -57,7 +57,7 @@
 					</label>
 				</span><br><br>
         <span class="input input--hideo">
-					<input class="input__field input__field--hideo" type="text" id="input-42" v-model="captcha" placeholder="点击左侧获取验证码" />
+					<input class="input__field input__field--hideo" type="text" id="input-42" @dblclick="sendSms" v-model="captcha" placeholder="点击左侧获取验证码" />
 					<label class="input__label input__label--hideo" for="input-42" @click="sendSms">
 						<i class="fa fa-fw   fa-paper-plane icon icon--hideo"></i>
 						<span class="input__label-content input__label-content--hideo">Email</span>
@@ -120,8 +120,8 @@
         this.$http.post(url, params).then(function (data) {
           this.responseCode = data.body.responseCode
           if (data.body.responseCode == 1000) {
-            this.$notify({
-              title: '成功',
+            this.$message({
+              showClose: true,
               message: '注册成功,正在前往登录',
               type: 'success'
             });
@@ -131,15 +131,17 @@
 
           } else {
             console.log(data)
-            this.$notify.error({
-              title: '错误',
-              message: data.body.errorMsg
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
             });
           }
         }, function (response) {
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器繁忙,请稍候重试'
+          this.$message({
+            showClose: true,
+            message: '服务器繁忙,请稍候重试',
+            type: 'error'
           });
           console.info(response)
         })
@@ -161,7 +163,7 @@
             this.$message({
               showClose: true,
               message: '验证码已经发送至手机',
-              type: 'warning'
+              type: 'success'
             });
           } else {
             this.$message({
