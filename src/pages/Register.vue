@@ -115,7 +115,7 @@
         }
         var _self = this
         var url = global_.host + '/v1/uc/register'
-        var params = {mobile: _self.mobile, password: _self.password, nickName: _self.nickName}
+        var params = {mobile: _self.mobile, password: _self.password, captcha: _self.captcha}
         console.log(params)
         this.$http.post(url, params).then(function (data) {
           this.responseCode = data.body.responseCode
