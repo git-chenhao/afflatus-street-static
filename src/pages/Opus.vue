@@ -3,7 +3,7 @@
     <top-bar></top-bar>
 
     <!--中间板块-->
-    <div class="container">
+    <div class="container" >
       <el-row :gutter="20">
         <el-col :span="10" :offset="7" class="meta">
           <h1 class="title">{{data.title}}</h1>
@@ -107,10 +107,6 @@
       },
       like: function () {
         if (this.likeFlag) {
-          this.$notify.info({
-            title: '提示',
-            message: '你已经赞过了'
-          })
           return
         }
 

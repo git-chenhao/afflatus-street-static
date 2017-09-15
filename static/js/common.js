@@ -6,17 +6,10 @@ Vue.component('top-bar', {
   template:
   '<nav class="navbar navbar-default navbar-fixed-top" role="navigation">\n' +
   '      <div class="width-limit">\n' +
-  '        <!-- 左上方 Logo -->\n' +
-  // '        <a class="logo" href="/"><i class="fa fa-home fa-2x"></i>&nbsp;Afflatus Street</a>\n' +
   '<a class="btn logo" href="/home">\n' +
   '          <i class="fa fa-home" aria-hidden="true"></i>\n' +
   '          首页\n' +
   '        </a>\n' +
-  '        <!-- 右上角 -->\n' +
-  // '<div class="search ">\n' +
-  // '  \n<input type="text" placeholder="搜索从这里开始...">\n' +
-  // '</div>' +
-  '        <!-- 未登录显示登录/注册/写文章 -->\n' +
   '        <a class="btn write-btn" href="/editor">\n' +
   '          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>\n' +
   '          写文章\n' +

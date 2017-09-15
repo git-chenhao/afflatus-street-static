@@ -199,4 +199,16 @@
   .el-carousel__item:nth-child(2n+1) {
     background-color: #d3dce6;
   }
+
+
+  .login-home-jump-a{
+    color: #ffffff;
+    font-size: 24px;
+    margin-top: 10px;
+    margin-right: 20px;
+  }
+  .pull-left{
+    float: left;
+    margin-left: 10px;
+  }
 </style>
