@@ -24,7 +24,7 @@
 
         <form autocomplete="off">
         <span class="input input--hideo">
-					<input class="input__field input__field--hideo"  type="text" id="input-41" autocomplete="off" v-model="mobile" placeholder="手机号码"/>
+					<input class="input__field input__field--hideo" disableautocomplete type="text" id="input-41" autocomplete="off" v-model="mobile" placeholder="手机号码"/>
 					<label class="input__label input__label--hideo" for="input-41">
 						<i class="fa fa-fw fa-mobile icon icon--hideo"></i>
 						<span class="input__label-content input__label-content--hideo"></span>
@@ -33,7 +33,7 @@
 
         <input type="hidden">
         <span class="input input--hideo">
-					<input class="input__field input__field--hideo"  autocomplete="off" type="text" id="input-43" v-model="password" placeholder="密码"/>
+					<input class="input__field input__field--hideo"  disableautocomplete type="password" id="input-43" v-model="password" placeholder="密码"/>
 					<label class="input__label input__label--hideo" for="input-43">
 						<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 						<span class="input__label-content input__label-content--hideo">Password</span>
