@@ -148,6 +148,9 @@
   @import '../../static/css/buttons.css';
   @import "../../static/css/topbar.css";
 
+  body{
+    font-size: 16px;
+  }
   .circular {
     width: 30px;
     height: 30px;
