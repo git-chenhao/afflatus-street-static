@@ -203,3 +203,15 @@ nav .user .avatar {
 i{
   cursor: pointer;
 }
+
+.home{
+  text-decoration: none;
+  font-size: 30px;
+  margin: 10px;
+  text-decoration: none;
+  color: #ea6f5a;
+  float: left;
+}
+.home:hover{
+  color: #ea6f5a;
+}

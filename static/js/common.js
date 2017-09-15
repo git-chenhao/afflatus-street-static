@@ -6,16 +6,20 @@ Vue.component('top-bar', {
   template:
   '<nav class="navbar navbar-default navbar-fixed-top" role="navigation">\n' +
   '      <div class="width-limit">\n' +
-  '<a class="btn logo" href="/home">\n' +
-  '          <i class="fa fa-home" aria-hidden="true"></i>\n' +
-  '          首页\n' +
-  '        </a>\n' +
+  // '<a class="btn logo" href="/home">\n' +
+  // '          <i class="fa fa-home" aria-hidden="true"></i>\n' +
+  // '          首页\n' +
+  // '        </a>\n' +
+    '<a class="home" href="/" style="text-decoration: none">\n' +
+  '        <!--<i class="fa fa-home fa-2x "></i>Home-->\n' +
+  '        灵感街' +
+  '      </a>'+
   '        <a class="btn write-btn" href="/editor">\n' +
   '          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>\n' +
   '          写文章\n' +
   '        </a>\n' +
-  '        <a class="btn sign-up" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/register">注册</a>\n' +
-  '        <a class="btn log-in" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/login">登录</a>\n' +
+  '        <a class="btn sign-up" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/login">登录</a>\n' +
+  '        <a class="btn log-in" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/register">注册</a>\n' +
   '        <div class="user" @mousemove="userMouseMove" @mouseout="userMouseOut" :style="\'background-color:\'+userBackgroundColor+\';\'" v-else>\n' +
   '          <el-dropdown>\n' +
   '            <span class="el-dropdown-link avatar-span">\n' +
