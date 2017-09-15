@@ -50,7 +50,7 @@
 				</span><br><br>
 
         <span class="input input--hideo">
-					<input class="input__field input__field--hideo" type="text" id="input-43" v-model="password" placeholder="密码" />
+					<input class="input__field input__field--hideo" type="password" id="input-43" v-model="password" placeholder="密码" />
 					<label class="input__label input__label--hideo" for="input-43">
 						<i class="fa fa-fw fa-lock icon icon--hideo"></i>
 						<span class="input__label-content input__label-content--hideo">Password</span>
@@ -173,9 +173,10 @@
             });
           }
         }, function (response) {
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器繁忙,请稍候重试'
+          this.$message({
+            showClose: true,
+            message: '服务器繁忙,请稍候重试',
+            type: 'error'
           });
           console.info(response)
         })
