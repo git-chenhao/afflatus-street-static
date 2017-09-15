@@ -13,7 +13,7 @@ import 'iview/dist/styles/iview.css';    // 使用 CSS
 
 Vue.use(VueResource)
 Vue.use(ElementUI)
-Vue.use(iView);
+// Vue.use(iView);
 Vue.config.productionTip = false
 
 
