@@ -432,6 +432,6 @@
   }
 
   .nav-title-select {
-    color: #ea6f5a;
+    color: #47b755;
   }
 </style>

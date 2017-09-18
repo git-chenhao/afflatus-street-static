@@ -46,6 +46,11 @@ export default new Router({
       path: '/setting',
       name: '',
       component:  resolve => require(['@/pages/PersonalSetting.vue'], resolve)
+    },
+    {
+      path: '/follow',
+      name: '',
+      component:  resolve => require(['@/pages/Follow.vue'], resolve)
     }
 
   ]

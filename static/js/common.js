@@ -14,12 +14,22 @@ Vue.component('top-bar', {
   '        <!--<i class="fa fa-home fa-2x "></i>Home-->\n' +
   '        灵感街' +
   '      </a>'+
+  '<span class="menu-nav menu-nav-first"><a class="menu menu-discover" href="/"><i class="fa fa-safari"></i>&nbsp;发现</a></span>'+
+  '<span class="menu-nav"><a class="menu menu-follow"  href="/follow"><i class="fa fa-snowflake-o"></i>&nbsp;关注</a></span>'+
+  '<span class="menu-nav"><a class="menu menu-message"><i class="fa  fa-commenting"></i>&nbsp;消息</a></span>'+
+  '<el-input style="width: 300px;margin-top: 15px;margin-left: 40px;float: left"' +
+  '  placeholder="搜索"\n' +
+  '  icon="search"\n' +
+  '  :on-icon-click="handleIconClick">\n' +
+  '</el-input>'+
+
   '        <a class="btn write-btn" href="/editor">\n' +
   '          <i class="fa fa-pencil-square-o" aria-hidden="true"></i>\n' +
   '          写文章\n' +
   '        </a>\n' +
   '        <a class="btn sign-up" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/login">登录</a>\n' +
   '        <a class="btn log-in" v-if="userId == \'\' || userId == null || userId == \'undefined\'" href="/register">注册</a>\n' +
+
   '        <div class="user" @mousemove="userMouseMove" @mouseout="userMouseOut" :style="\'background-color:\'+userBackgroundColor+\';\'" v-else>\n' +
   '          <el-dropdown>\n' +
   '            <span class="el-dropdown-link avatar-span">\n' +

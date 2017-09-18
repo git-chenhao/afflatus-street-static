@@ -33,7 +33,7 @@ nav .sign-up {
   border: 1px solid rgba(236,97,73,.7);
   border-radius: 20px;
   font-size: 15px;
-  color: #ea6f5a;
+  color: #47b755;
   background-color: transparent;
 }
 .btn {
@@ -67,7 +67,7 @@ nav .write-btn {
   border-radius: 20px;
   font-size: 15px;
   color: #fff;
-  background-color: #ea6f5a;
+  background-color: #47b755;
 }
 
 
@@ -80,7 +80,7 @@ nav .write-btn {
   border-radius: 10px;
   font-size: 15px;
   color: #fff;
-  background-color: #ea6f5a;
+  background-color: #47b755;
 }
 
 nav .log-in, nav .log-in:hover {
@@ -191,7 +191,7 @@ nav .user .avatar {
   height: 42px;
   padding-left: 15px;
   border-radius: 42px;
-  border: 1px solid #ea6f5a;
+  border: 1px solid #47b755;
   outline: none;
   position: relative;
   transition: .3s linear;
