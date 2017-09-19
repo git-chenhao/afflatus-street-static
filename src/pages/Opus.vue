@@ -7,7 +7,6 @@
       <el-row :gutter="20">
         <el-col :span="10" :offset="7" class="meta">
           <h1 class="title">{{data.title}}</h1>
-
         </el-col>
       </el-row>
 
@@ -17,7 +16,7 @@
             <a :href="'/personal?userId='+data.userId"><img class="circular" :src="userInfo.avatar"/></a>
             <div class="meta">
               <a :href="'/personal?userId='+data.userId"><span> {{userInfo.nickName}}</span></a>
-              <span> {{data.updateTime}}</span>
+              <span style="color: #b4b4b4"> {{data.updateTime}}</span>
               <span style="color: #b4b4b4;font-size: 12px;">
                 <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;阅读&nbsp;{{data.readNum}}
                 &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;点赞&nbsp;{{data.likeNum}}
@@ -31,23 +30,58 @@
         </el-col>
       </el-row>
       <el-row :gutter="20">
-        <el-col :span="10" :offset="7" v-html="data.content" class="meta meta-content">
+        <el-col :span="10" :offset="7" style="line-height: 32px" v-html="data.content" class="meta meta-content">
         </el-col>
+      </el-row>
+
+      <el-row :gutter="20">
+        <el-popover
+          ref="popover"
+          placement="left"
+          width="200"
+          trigger="click">
+          <qr-code :text="location"></qr-code>
+        </el-popover>
         <el-col :span="10" :offset="7" class="meta meta-like-share">
           <span class="like">
                 <el-button :plain="!likeFlag" type="danger" @click="like"><i
                   class="fa fa-thumbs-up"></i>&nbsp;{{data.likeNum}}</el-button>
           </span>
-          <span class="share" @click="share">
-             <el-button type="success">分享到微信 &nbsp;<i class="fa fa-weixin"></i></el-button>
+          <span class="share">
+             <el-button type="success" v-popover:popover>分享到微信 &nbsp;<i class="fa fa-weixin"></i></el-button>
             <el-button type="warning">分享到微博 &nbsp;<i class="fa fa-weibo"></i></el-button>
           </span>
-          <qr-code :text="location"></qr-code>
         </el-col>
+      </el-row>
+      <el-row :gutter="20">
+        <el-col :span="10" :offset="7" class="meta meta-comment-write">
+          <el-input
+            type="textarea"
+            :autosize="{ minRows: 4, maxRows: 6}"
+            placeholder="写下你的评论..."
+            v-model="commentBody">
+          </el-input>
 
-        <el-col :span="14" :offset="5" class="meta meta-comment">
+          <div style="float: right;margin-top: 10px">
+            <el-button type="text">取消</el-button>
+            <el-button type="primary">发送</el-button>
+          </div>
         </el-col>
+        <el-col :span="10" :offset="7" class="meta meta-comment-total">
+          100条评论
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <div class="author">
+            <a href="'/personal?userId=1'"><img class="circular" src="http://oam3t77qi.bkt.clouddn.com/8530902f4d6ae97a99bd34e04a4fe760?imageView2/1/w/150/h/120"/></a>
+            <div class="name">
+              <a href="'/personal?userId=1'"><span style="font-size: 12px"> hahha</span></a>
+              <span style="color: #b4b4b4"> 09月19日 15:59</span>
+            </div>
 
+          </div>
+        </el-col>
       </el-row>
       <BackTop></BackTop>
     </div>
@@ -56,8 +90,15 @@
 <script>
   import global_ from './config.vue'
   import { getCookie, getUrlKey } from '../../static/js/util.js'
+  import ElButton from '../../node_modules/element-ui/packages/button/src/button.vue'
+  import ElRow from 'element-ui/packages/row/src/row'
+  import ElCol from 'element-ui/packages/col/src/col'
 
   export default {
+    components: {
+      ElCol,
+      ElRow,
+      ElButton},
     name: 'hello',
     data () {
       return {
@@ -70,6 +111,7 @@
         userInfo: '',
         loading: true,
         userId: '',
+        commentBody: ''
       }
     },
     mounted () {
@@ -303,5 +345,18 @@
 
   .share {
     float: right;
+  }
+
+  .meta-comment-write{
+    margin-top: 40px;
+  }
+
+  .meta-comment-total {
+    margin-top: 10px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    word-wrap: break-word;
+    word-break: break-all;
   }
 </style>

@@ -92,7 +92,7 @@
                   <div style="height: 60px;border-bottom: 1px solid #f0f0f0;width: 100%">
                     <a :href="'/personal?userId='+item.userId">
                       <img class=" big-circular"
-                           src="http://ov2efupn7.bkt.clouddn.com/WechatIMG4.jpeg?imageView2/1/w/150/h/120"
+                           :src=item.avatar
                            style="float: left"/>
                     </a>
                     <div style="float:left;text-align: left;margin-left: 10px;display: inline-block;height: 55px">
