@@ -9,11 +9,15 @@ import 'element-ui/lib/theme-default/index.css'
 import { delCookie } from '../static/js/util.js'
 import '../static/js/common.js'
 import iView from 'iview';
+import VueQArt from 'vue-qart'
 import 'iview/dist/styles/iview.css';    // 使用 CSS
+import VueQRCodeComponent from 'vue-qrcode-component'
 
+Vue.component('qr-code', VueQRCodeComponent)
 Vue.use(VueResource)
 Vue.use(ElementUI)
 Vue.use(iView);
+Vue.use(VueQArt);
 Vue.config.productionTip = false
 
 

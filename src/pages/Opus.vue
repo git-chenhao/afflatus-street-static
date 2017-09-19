@@ -3,7 +3,7 @@
     <top-bar></top-bar>
 
     <!--中间板块-->
-    <div class="container" >
+    <div class="container">
       <el-row :gutter="20">
         <el-col :span="10" :offset="7" class="meta">
           <h1 class="title">{{data.title}}</h1>
@@ -42,6 +42,7 @@
              <el-button type="success">分享到微信 &nbsp;<i class="fa fa-weixin"></i></el-button>
             <el-button type="warning">分享到微博 &nbsp;<i class="fa fa-weibo"></i></el-button>
           </span>
+          <qr-code :text="location"></qr-code>
         </el-col>
 
         <el-col :span="14" :offset="5" class="meta meta-comment">
@@ -60,6 +61,7 @@
     name: 'hello',
     data () {
       return {
+        location: window.location.href,
         nickName: '',
         avatar: '',
         likeFlag: false,
@@ -67,7 +69,7 @@
         data: '',
         userInfo: '',
         loading: true,
-        userId: ''
+        userId: '',
       }
     },
     mounted () {
@@ -90,9 +92,9 @@
           } else {
             this.$message({
               showClose: true,
-              message:  data.body.errorMsg,
+              message: data.body.errorMsg,
               type: 'error'
-            });
+            })
             window.setTimeout(function () {
               window.location.href = '/'
             }, 2000)
@@ -101,9 +103,9 @@
           this.loading = false
           this.$message({
             showClose: true,
-            message:  '服务器忙,请稍候重试',
+            message: '服务器忙,请稍候重试',
             type: 'error'
-          });
+          })
 
           console.info(response)
         })
@@ -121,9 +123,9 @@
           } else if (data.body.responseCode == 1004) {
             this.$message({
               showClose: true,
-              message:  data.body.errorMsg,
+              message: data.body.errorMsg,
               type: 'info'
-            });
+            })
           }
         }, function (response) {
           console.info(response)
@@ -140,9 +142,9 @@
       share: function () {
         this.$message({
           showClose: true,
-          message:  '分享功能暂未开放',
+          message: '分享功能暂未开放',
           type: 'success'
-        });
+        })
       }
     }
   }
@@ -153,9 +155,10 @@
   @import '../../static/css/buttons.css';
   @import "../../static/css/topbar.css";
 
-  body{
+  body {
     font-size: 16px;
   }
+
   .circular {
     width: 30px;
     height: 30px;

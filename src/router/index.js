@@ -51,6 +51,11 @@ export default new Router({
       path: '/follow',
       name: '',
       component:  resolve => require(['@/pages/Follow.vue'], resolve)
+    },
+    {
+      path: '/label',
+      name: '',
+      component:  resolve => require(['@/pages/Label.vue'], resolve)
     }
 
   ]

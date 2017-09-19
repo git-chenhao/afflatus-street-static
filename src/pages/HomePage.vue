@@ -38,16 +38,15 @@
                                                                              :src="content.userInfo.avatar"/></a>
                           <div class="name">
                             <a
-                              :href="'/personal?userId='+content.userId"><span> {{content.userInfo.nickName}}</span></a>
-                            <span> {{content.updateTime}}</span>
+                              :href="'/personal?userId='+content.userId"><span style="font-size: 12px"> {{content.userInfo.nickName}}</span></a>
+                            <span style="color: #b4b4b4"> {{content.updateTime}}</span>
                           </div>
                         </div>
                         <a class="title" :href='"/opus?opusId=" + content.id'>{{content.title}}</a>
                         <p class="summary">{{content.summary}}...</p>
                         <div style="color: #b4b4b4;font-size: 12px;">
-
                           <span v-for="labelInfo in content.labelInfoList">
-                          <el-tag :type="labelInfo.styleType">{{labelInfo.name}}</el-tag>&nbsp;&nbsp;
+                            <a href="/label"><el-tag :type="labelInfo.styleType">{{labelInfo.name}}</el-tag>&nbsp;&nbsp;</a>
                             </span>
                           <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
                           &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
@@ -70,36 +69,56 @@
         </el-col>
         <el-col span="4" style="margin-top: 30px;" v-if="contents.length != 0">
           <el-col :span="24" class="label">
-            <a class="label-banner"><img class="label-img"
-                                         src="http://ov2efupn7.bkt.clouddn.com/banner-s-1-b8ff9ec59f72ea88ecc8c42956f41f78.png"/></a>
-            <a class="label-banner"><img class="label-img"
-                                         src="http://ov2efupn7.bkt.clouddn.com/banner-s-4-b70da70d679593510ac93a172dfbaeaa.png"/></a>
-            <a class="label-banner"><img class="label-img"
-                                         src="http://ov2efupn7.bkt.clouddn.com/banner-s-3-7123fd94750759acf7eca05b871e9d17.png"/></a>
-            <div class="title" style="text-align: left;margin-top: 30px">
-              <span style="color: #969696">推荐作者</span>
-              <span style="float: right;color: #969696;"><i class="fa fa-refresh"></i>&nbsp;换一批</span>
-            </div>
-            <ul>
-              <li style="float: left">
-                <div style="height: 60px;border-bottom: 1px solid #f0f0f0;width: 100%">
-                  <img class=" big-circular" src="http://ov2efupn7.bkt.clouddn.com/WechatIMG4.jpeg?imageView2/1/w/150/h/120"
-                       style="float: left"/>
-                  <div style="float:left;text-align: left;margin-left: 10px;display: inline-block">
-                    <div style="height: 30px;margin-top: 0px">chenhao
-                      <i class="fa fa-mars"></i>
+            <Card dis-hover>
+              <p slot="title">热门标签</p>
+              <div class="homepage-tag-div">
+                 <span v-for="labelInfo in labelList">
+                          <el-tag :type="labelInfo.styleType">{{labelInfo.name}}</el-tag>&nbsp;&nbsp;
+                            </span>
+              </div>
+            </Card>
+            <br>
+            <Alert><i class="fa fa-star"></i>&nbsp;7日热门</Alert>
+            <Alert type="success"><i class="fa fa-line-chart"></i>&nbsp;30日热门</Alert>
+            <Alert type="warning"><i class="fa fa-paint-brush"></i>&nbsp;新上榜</Alert>
+            <Alert type="error"><i class="fa fa-heart"></i>&nbsp;灵感鸡汤</Alert>
+            <div v-if="recommendFollows.length > 0">
+              <div class="title" style="text-align: left;margin-top: 30px">
+                <span style="color: #969696;font-size: 16px">推荐作者</span>
+                <span class="recommend-follow-change" @click="getRecommendFollows"><i class="fa fa-refresh"></i>&nbsp;换一批</span>
+              </div>
+              <ul style="margin-top: 10px" v-for="item in recommendFollows">
+                <li style="float: left;width: 100%;margin-top: 5px">
+                  <div style="height: 60px;border-bottom: 1px solid #f0f0f0;width: 100%">
+                    <a :href="'/personal?userId='+item.userId">
+                      <img class=" big-circular"
+                           src="http://ov2efupn7.bkt.clouddn.com/WechatIMG4.jpeg?imageView2/1/w/150/h/120"
+                           style="float: left"/>
+                    </a>
+                    <div style="float:left;text-align: left;margin-left: 10px;display: inline-block;height: 55px">
+                      <a :href="'/personal?userId='+item.userId">
+                        <div style="height: 20px;margin-top: 0px;font-size: 1px">{{item.nickName}}
+                          <i class="fa fa-mars"></i>
+                        </div>
+                      </a>
+                      <div style="font-size: 5px;display: inline-block">
+                        {{item.opusNum}}作品 {{item.likeNum}}点赞
+                      </div>
                     </div>
-                    <div style="font-size: 8px;display: inline-block">
-                      302作品 2022点赞
-                    </div>
-                  </div>
-                  <div style="float: right;">
-                    <i class="fa fa-plus"></i>关注
-                  </div>
 
-                </div>
-              </li>
-            </ul>
+                    <div v-if="followList.indexOf(item.userId) != -1"
+                         style="float: right;color: #969696;height: 60px;line-height:50px;cursor: pointer"
+                         @click="follow(item.userId)">
+                      <i class="fa fa-check"></i>已关注
+                    </div>
+                    <div v-else style="float: right;color: #47b755;height: 60px;line-height:50px;cursor: pointer"
+                         @click="follow(item.userId)">
+                      <i class="fa fa-plus"></i>关注
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </el-col>
         </el-col>
       </el-row>
@@ -129,16 +148,18 @@
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
         bannerImgUrls: [
-          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/w/950/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/3/w/950/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/3/w/950/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/3/w/950/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/3/w/950/h/300/interlace/1'
+          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/1/w/950/h/350/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/1/w/950/h/350/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/51332686_xl.jpg?imageView2/1/w/950/h/350/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/1/w/950/h/350/interlace/1',
+          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/1/w/950/h/350/interlace/1',
         ],
         loading: true,
         item: '',
-        errorImg: 'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30'
-
+        errorImg: 'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30',
+        recommendFollows: [],
+        followList: [],
+        labelList: []
       }
     },
     mounted () {
@@ -174,6 +195,78 @@
           })
           console.info(response)
         })
+        this.getRecommendFollows()
+        this.getAllLabel()
+      },
+      getRecommendFollows: function () {
+        var url = global_.host + '/v1/as/follow/recommend'
+        this.$http.get(url, {credentials: true}).then(function (data) {
+          console.log(data)
+          if (data.body.responseCode == 1000) {
+            this.recommendFollows = data.body.data
+          } else {
+//            this.loading = false
+//            this.$message({
+//              showClose: true,
+//              message: data.body.errorMsg,
+//              type: 'error'
+//            })
+          }
+        }, function (response) {
+          console.info(response)
+        })
+      },
+      follow: function (userId) {
+        var url = global_.host + '/v1/as/follow/' + userId
+        this.$http.post(url).then(function (data) {
+          console.log(data)
+          if (data.body.responseCode == 1000) {
+            if (this.followList.indexOf(userId) != -1) {
+              for (var i = 0; i < this.followList.length; i++) {
+                if (this.followList[i] == userId) {
+                  this.followList.splice(i, 1)
+                  break
+                }
+              }
+            } else {
+              this.followList.push(userId)
+            }
+          } else {
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
+            })
+          }
+        }, function (response) {
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
+          })
+          console.info(response)
+        })
+      },
+      getAllLabel: function () {
+        var url = global_.host + '/v1/as/label/all'
+        this.$http.get(url).then(function (data) {
+          if (data.body.responseCode == 1000) {
+            this.labelList = data.body.data
+          } else {
+            this.clickSave = false
+            this.$notify.error({
+              title: '错误',
+              message: data.body.errorMsg
+            })
+          }
+        }, function (response) {
+          console.info(response)
+          this.clickSave = false
+          this.$notify.error({
+            title: '糟糕',
+            message: '服务器繁忙，请稍候重试'
+          })
+        })
       }
 
     }
@@ -192,7 +285,8 @@
     border-radius: 50%;
     vertical-align: middle;
   }
-  .big-circular{
+
+  .big-circular {
     width: 50px;
     height: 50px;
     border: 1px solid #ddd;
@@ -236,6 +330,9 @@
     color: #333333;
     font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
   }
+  .name{
+    font-size: 12px;
+  }
 
   .list-container {
     margin-top: 40px;
@@ -276,6 +373,26 @@
 
   .label-img {
     margin-bottom: 20px;
+  }
+
+  .homepage-tag-div span {
+    margin-top: 5px;
+  }
+
+  .recommend-follow-change:hover {
+    color: #777777;
+
+  }
+
+  .recommend-follow-change {
+    font-size: 16px;
+    float: right;
+    color: #969696;
+    cursor: pointer
+  }
+
+  .ivu-alert {
+    cursor: pointer
   }
 
 

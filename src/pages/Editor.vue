@@ -164,7 +164,7 @@
     },
     methods: {
       init: function () {
-        var url = global_.host + '/v1/as/lable/all'
+        var url = global_.host + '/v1/as/label/all'
         this.$http.get(url).then(function (data) {
           if (data.body.responseCode == 1000) {
             this.labelInfoList = data.body.data
@@ -315,7 +315,7 @@
         var params = {
           content: this.editorContent,
           title: this.title,
-          labelList: this.labelIdList.join(','),
+          labelList: this.labelIdList,
           id: this.opusId,
           state: state
         }

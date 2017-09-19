@@ -256,3 +256,9 @@ i {
   cursor: pointer;
   background-color: #f5f5f5;
 }
+.search-input:focus{
+  width: 300px;
+}
+.el-tag{
+  cursor: pointer;
+}

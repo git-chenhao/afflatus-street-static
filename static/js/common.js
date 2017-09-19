@@ -17,8 +17,8 @@ Vue.component('top-bar', {
   '<span class="menu-nav menu-nav-first"><a class="menu menu-discover" href="/"><i class="fa fa-safari"></i>&nbsp;发现</a></span>'+
   '<span class="menu-nav"><a class="menu menu-follow"  href="/follow"><i class="fa fa-snowflake-o"></i>&nbsp;关注</a></span>'+
   '<span class="menu-nav"><a class="menu menu-message"><i class="fa  fa-commenting"></i>&nbsp;消息</a></span>'+
-  '<el-input style="width: 300px;margin-top: 15px;margin-left: 40px;float: left"' +
-  '  placeholder="搜索"\n' +
+  '<el-input  style="width: 200px;margin-top: 15px;margin-left: 40px;float: left;" ' +
+  '  placeholder="搜索从这里开始"\n' +
   '  icon="search"\n' +
   '  :on-icon-click="handleIconClick">\n' +
   '</el-input>'+

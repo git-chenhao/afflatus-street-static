@@ -6,7 +6,6 @@
     <!--中间板块-->
     <div class="container">
 
-
       <div v-for="content in contents">
         <el-row align="middle " type="flex">
           <el-col :span="12" :offset="4" class="meta">
@@ -127,6 +126,27 @@
             type: 'error'
           })
           console.info(response)
+        })
+      },
+      getAllLabel: function () {
+        var url = global_.host + '/v1/as/label/all'
+        this.$http.get(url).then(function (data) {
+          if (data.body.responseCode == 1000) {
+            this.labelList = data.body.data
+          } else {
+            this.clickSave = false
+            this.$notify.error({
+              title: '错误',
+              message: data.body.errorMsg
+            })
+          }
+        }, function (response) {
+          console.info(response)
+          this.clickSave = false
+          this.$notify.error({
+            title: '糟糕',
+            message: '服务器繁忙，请稍候重试'
+          })
         })
       }
 
