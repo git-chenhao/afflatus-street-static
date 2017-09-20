@@ -54,7 +54,7 @@
         <el-col :span="12" :offset="6" class="meta">
           <div v-if="noFollow">
             <img width="100px" style="margin-top: 100px"
-                 src="http://cdn2.jianshu.io/assets/web/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
+                 src="http://ov2efupn7.bkt.clouddn.com/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
             <div>当前还没有关注</div>
           </div>
         </el-col>
@@ -65,8 +65,10 @@
 <script>
   import global_ from './config.vue'
   import { getCookie } from '../../static/js/util.js'
+  import ElButton from '../../node_modules/element-ui/packages/button/src/button.vue'
 
   export default {
+    components: {ElButton},
     name: 'hello',
     data () {
       return {

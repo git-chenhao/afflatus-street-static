@@ -45,8 +45,8 @@
                         <a class="title" :href='"/opus?opusId=" + content.id'>{{content.title}}</a>
                         <p class="summary">{{content.summary}}...</p>
                         <div style="color: #b4b4b4;font-size: 12px;">
-                          <span v-for="labelInfo in content.labelInfoList">
-                            <a href="/label"><el-tag :type="labelInfo.styleType">{{labelInfo.name}}</el-tag>&nbsp;&nbsp;</a>
+                          <span v-for="label in content.labelInfoList">
+                            <a :href="'/label?labelId='+label.id"><el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
                             </span>
                           <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
                           &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
@@ -72,9 +72,9 @@
             <Card dis-hover>
               <p slot="title">热门标签</p>
               <div class="homepage-tag-div">
-                 <span v-for="labelInfo in labelList">
-                          <el-tag :type="labelInfo.styleType">{{labelInfo.name}}</el-tag>&nbsp;&nbsp;
-                            </span>
+                 <span v-for="label in labelList">
+                   <a :href="'/label?labelId='+label.id"> <el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
+                  </span>
               </div>
             </Card>
             <br>
@@ -253,18 +253,19 @@
           if (data.body.responseCode == 1000) {
             this.labelList = data.body.data
           } else {
-            this.clickSave = false
-            this.$notify.error({
-              title: '错误',
-              message: data.body.errorMsg
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
             })
           }
         }, function (response) {
           console.info(response)
           this.clickSave = false
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器繁忙，请稍候重试'
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
           })
         })
       }

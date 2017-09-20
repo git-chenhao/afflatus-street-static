@@ -53,8 +53,8 @@
         <el-col :span="12" :offset="6" class="meta">
           <div v-if="noFollow">
             <img width="100px" style="margin-top: 100px"
-                 src="http://cdn2.jianshu.io/assets/web/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
-            <div>当前还没有关注</div>
+                 src="http://ov2efupn7.bkt.clouddn.com/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
+            <div>当前标签下无作品</div>
           </div>
         </el-col>
       </el-row>
@@ -63,9 +63,11 @@
 </template>
 <script>
   import global_ from './config.vue'
-  import { getCookie } from '../../static/js/util.js'
+  import { getCookie, getUrlKey } from '../../static/js/util.js'
+  import ElTag from '../../node_modules/element-ui/packages/tag/src/tag.vue'
 
   export default {
+    components: {ElTag},
     name: 'hello',
     data () {
       return {
@@ -84,8 +86,8 @@
         loading: true,
         item: '',
         noFollow: false,
-        errorImg: 'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30'
-
+        errorImg: 'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30',
+        labelId: getUrlKey('labelId')
       }
     },
     mounted () {
@@ -97,12 +99,15 @@
     },
     methods: {
       init: function () {
-        var url = global_.host + '/v1/as/follow/opus/list/1'
+        if (this.labelId == '' || this.labelId == null || this.labelId == undefined) {
+          window.location.href = '/'
+        }
+        var url = global_.host + '/v1/as/opus/list/label/' + this.labelId + '/page/1'
         this.$http.get(url, {credentials: true}).then(function (data) {
           console.log(data)
           if (data.body.responseCode == 1000) {
             this.loading = false
-            this.contents = data.body.data.rows
+            this.contents = data.body.data
             if (this.contents.length == 0) {
               this.noFollow = true
             }
@@ -204,9 +209,6 @@
     font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
   }
 
-  .list-container {
-    margin-top: 40px;
-  }
 
   .circular {
     width: 40px;
@@ -221,29 +223,8 @@
     margin: 0;
   }
 
-  .el-carousel__item:nth-child(2n) {
-    background-color: #99a9bf;
+  .label-title{
+    text-align: left;
   }
 
-  .el-carousel__item:nth-child(2n+1) {
-    background-color: #d3dce6;
-  }
-
-  .login-home-jump-a {
-    color: #ffffff;
-    font-size: 24px;
-    margin-top: 10px;
-    margin-right: 20px;
-  }
-
-  .pull-left {
-    float: left;
-    margin-left: 10px;
-  }
-
-</style>
-<style>
-  .menu-follow {
-    color: #47b755;
-  }
 </style>
