@@ -1,6 +1,6 @@
 <template>
   <div class="editor">
-    <top-bar></top-bar>
+    <Header></Header>
 
     <div style="margin-top: 60px;text-align: left;">
       <div class="title">
@@ -130,9 +130,11 @@
   import E from 'wangeditor'
   import global_ from './config.vue'
   import { getCookie, getUrlKey } from '../../static/js/util.js'
+  import Header from './Header.vue'
 
   export default {
     components: {
+      Header
     },
     name: 'editor',
     data () {

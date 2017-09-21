@@ -1,7 +1,6 @@
 <template>
   <div class="login">
-    <!--top-->
-    <top-bar></top-bar>
+    <Header></Header>
 
     <!--中间板块-->
     <div class="container">
@@ -125,8 +124,10 @@
 <script>
   import global_ from './config.vue'
   import { getCookie } from '../../static/js/util.js'
+  import Header from './Header.vue'
   export default {
     components: {
+      Header
     },
     name: 'hello',
     data () {
