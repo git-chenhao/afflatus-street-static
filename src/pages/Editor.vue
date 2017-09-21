@@ -169,19 +169,19 @@
           if (data.body.responseCode == 1000) {
             this.labelInfoList = data.body.data
           } else {
-            this.clickSave = false
-            this.$notify.error({
-              title: '错误',
-              message: data.body.errorMsg
-            })
+//            this.clickSave = false
+//            this.$notify.error({
+//              title: '错误',
+//              message: data.body.errorMsg
+//            })
           }
         }, function (response) {
           console.info(response)
-          this.clickSave = false
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器繁忙，请稍候重试'
-          })
+//          this.clickSave = false
+//          this.$notify.error({
+//            title: '糟糕',
+//            message: '服务器繁忙，请稍候重试'
+//          })
         })
 
         //拉取垃圾箱、草稿数据
@@ -220,16 +220,18 @@
             }
             this.editor.txt.html(this.editorContent)
           } else {
-            this.$notify.error({
-              title: '错误',
-              message: data.body.errorMsg
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
             })
           }
         }, function (response) {
           this.loading = false
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器忙,请稍候重试'
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
           })
           console.info(response)
         })
@@ -262,16 +264,18 @@
 
           } else {
             this.loading = false
-            this.$notify.error({
-              title: '错误',
-              message: data.body.errorMsg
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
             })
           }
         }, function (response) {
           this.loading = false
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器忙,请稍候重试'
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
           })
           console.info(response)
         })
@@ -342,18 +346,20 @@
           } else {
             this.clickSave = false
             if (state == 3) {
-              this.$notify.error({
-                title: '错误',
-                message: data.body.errorMsg
+              this.$message({
+                showClose: true,
+                message: data.body.errorMsg,
+                type: 'error'
               })
             }
           }
         }, function (response) {
           console.info(response)
           this.clickSave = false
-          this.$notify.error({
-            title: '糟糕',
-            message: '服务器繁忙，请稍候重试'
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
           })
         })
       },

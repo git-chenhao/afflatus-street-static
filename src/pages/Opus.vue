@@ -63,8 +63,7 @@
             :autosize="{ minRows: 4, maxRows: 6}"
             placeholder="写下你的评论..."
             v-model="commentBody"
-            v-focus="true"
-          >
+            v-focus>
           </el-input>
           <div style="float: right;margin-top: 10px">
             <el-button type="text">取消</el-button>
@@ -72,10 +71,17 @@
           </div>
         </el-col>
         <el-col :span="10" :offset="7" class="meta meta-comment-total">
-          100条评论
+          {{commentCount}}条评论
         </el-col>
       </el-row>
 
+      <el-row v-if="noComment">
+        <el-col :span="10" :offset="7">
+          <img width="100px" style="margin-top: 0px"
+               src="http://ov2efupn7.bkt.clouddn.com/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
+          <div>暂时还木有评论哦</div>
+        </el-col>
+      </el-row>
       <!--评论内容区域-->
       <el-row v-if="data != ''">
         <el-col :span="10" :offset="7" style="text-align: left">
@@ -93,7 +99,16 @@
               </div>
               <div style="margin: 10px;color: #969696;font-size: 13px">
                 <i class="fa fa-thumbs-up">&nbsp;{{item.likeCount}}人赞</i>
-                &nbsp;&nbsp;<i class="fa fa-comment hover-black" @click="openChildCommentFrame(item.id)">&nbsp;回复</i>
+                &nbsp;&nbsp;<i class="fa fa-comment hover-black" @click="openChildCommentFrame(item.id)">&nbsp;回复</i>&nbsp;&nbsp;&nbsp;
+                <Poptip
+                  style="float: right"
+                  v-if="item.userId == userId"
+                  confirm
+                  title="确认删除此评论？"
+                  @on-ok="deleteComment(item.id)"
+                  @on-cancel="cancel">
+                  <i class="fa fa-trash hover-black">&nbsp;删除</i>
+                </Poptip>
               </div>
 
               <!--子评论 -->
@@ -108,24 +123,35 @@
                     <span
                       style="color: #969696;font-size: 13px;"> {{chlidItem.createTime}}&nbsp;&nbsp;&nbsp;
                     <i class="fa fa-comment hover-black"
-                       @click="openChildCommentFrame(item.id,'回复了'+ chlidItem.userInfo.nickName +'：')">&nbsp;回复</i>
+                       @click="openChildCommentFrame(item.id,'回复了'+ chlidItem.userInfo.nickName +'：')">&nbsp;回复</i>&nbsp;&nbsp;&nbsp;
                   </span>
                   </div>
+                  <Poptip
+                    style="float: right;color: #969696;font-size: 13px;margin-top: 30px"
+                    v-if="chlidItem.userId == userId"
+                    confirm
+                    title="确认删除此评论？"
+                    @on-ok="deleteComment(chlidItem.id)"
+                    @on-cancel="cancel">
+                    <i class="fa fa-trash hover-black">&nbsp;删除</i>
+                  </Poptip>
                 </div>
-                <div style="padding: 10px;color: #969696;font-size: 14px;" v-if="item.childCommentDto !=null && item.childCommentDto.length != 0">
+                <div style="padding: 10px;color: #969696;font-size: 14px;"
+                     v-if="item.childCommentDto !=null && item.childCommentDto.length != 0">
                   <i class="fa fa-pencil hover-black" @click="openChildCommentFrame(item.id)">&nbsp;添加新评论</i>
                 </div>
               </div>
 
               <!--子评论框-->
-              <div style="margin-left: 20px;border-left: 2px solid #d9d9d9;padding: 10px;" transiton="fade" v-show="childCommentShowId==item.id">
+              <div style="margin-left: 20px;border-left: 2px solid #d9d9d9;padding: 10px;" transiton="fade"
+                   v-show="childCommentShowId==item.id">
                 <el-input
                   :id="item.id"
                   type="textarea"
                   :autosize="{ minRows: 2, maxRows: 6}"
                   placeholder="写下你的评论..."
                   v-model="childCommentBody"
-                  :autofocus="childCommentShowId==item.id">
+                  v-focus>
                 </el-input>
                 <div style="text-align: right;margin-top: 10px;">
                   <el-button type="text" @click="closeChildCommentFram">取消</el-button>
@@ -148,7 +174,13 @@
   import ElRow from 'element-ui/packages/row/src/row'
   import ElCol from 'element-ui/packages/col/src/col'
   import ElInput from '../../node_modules/element-ui/packages/input/src/input.vue'
+  import Vue from 'vue'
 
+  Vue.directive('focus', {
+    inserted: function (el) {
+      el.focus()
+    }
+  })
   export default {
     components: {
       ElInput,
@@ -172,7 +204,9 @@
         childCommentBody: '',
         comments: '',
         childCommentShowId: '',
-        handleFocus: true
+        handleFocus: true,
+        commentCount: 0,
+        noComment: false,
       }
     },
     inserted: function (el) {
@@ -185,6 +219,7 @@
       this.userId = getCookie('userId')
       this.init()
       this.getComments()
+      console.log(window)
     },
     methods: {
       init: function () {
@@ -258,7 +293,11 @@
         var url = global_.host + '/v1/as/comment/list/opus/' + this.opusId + '/page/1'
         this.$http.get(url).then(function (data) {
           if (data.body.responseCode == 1000) {
-            this.comments = data.body.data
+            this.comments = data.body.data.comments
+            this.commentCount = data.body.data.commentCount
+            if (this.commentCount == 0) {
+              this.noComment = true
+            }
           } else {
           }
         }, function (response) {
@@ -291,6 +330,8 @@
               this.closeChildCommentFram()
             }
             this.getComments()
+          } else if (data.body.responseCode == 1004) {
+            window.location.href = '/login?jumpUrl=' + window.location.href.split(window.location.host)[1]
           } else {
             this.$message({
               showClose: true,
@@ -314,10 +355,39 @@
           this.childCommentBody = ''
         }
         this.childCommentShowId = childCommentShowId
-        document.getElementById(childCommentShowId).getElementsByTagName('textarea')[0].focus()
+        this.$nextTick(function () {
+          document.getElementById(childCommentShowId).getElementsByTagName('textarea')[0].focus()
+        })
       },
       closeChildCommentFram: function () {
         this.childCommentShowId = ''
+      },
+      deleteComment: function (commentId) {
+        var url = global_.host + '/v1/as/comment/delete/' + commentId
+        this.$http.post(url).then(function (data) {
+          if (data.body.responseCode == 1000) {
+            this.$message({
+              showClose: true,
+              message: '删除成功',
+              type: 'success'
+            })
+            this.getComments()
+          } else {
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
+            })
+          }
+        }, function (response) {
+          this.loading = false
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
+          })
+          console.info(response)
+        })
       }
     }
   }
