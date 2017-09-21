@@ -7,6 +7,19 @@
     <div class="container">
       <el-row align="middle " type="flex">
         <el-col :span="13" :offset="4" class="meta">
+
+          <Card v-if="type == 'weekly'" dis-hover style="background-color: #eaf4fe;text-align: left;margin-top: 20px">
+              <h1><i class="fa fa-star"></i>&nbsp;7日热门</h1>
+          </Card>
+          <Card v-else-if="type == 'monthly'" dis-hover style="background-color: #e8f9f0;text-align: left;margin-top: 20px">
+            <h1><i class="fa fa-line-chart"></i>&nbsp;30日热门</h1>
+          </Card>
+          <Card v-else-if="type == 'like'" dis-hover style="background-color: #fdece8;text-align: left;margin-top: 20px">
+            <h1><i class="fa fa-heart"></i>&nbsp;最受喜欢</h1>
+          </Card>
+          <Card v-else dis-hover style="background-color: #fff5e7;text-align: left;margin-top: 20px">
+            <h1><i class="fa fa-paint-brush"></i>&nbsp;新上榜</h1>
+          </Card>
         </el-col>
       </el-row>
       <div v-for="content in contents">
@@ -54,7 +67,7 @@
       </div>
       <el-row align="middle " type="flex">
         <el-col :span="12" :offset="6" class="meta">
-          <div v-if="noFollow">
+          <div v-if="noContent">
             <img width="100px" style="margin-top: 100px"
                  src="http://ov2efupn7.bkt.clouddn.com/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
             <div>暂时还木有内容哦</div>
@@ -79,18 +92,10 @@
         userId: '',
         msg: 'Welcome  Afflatus Street Home!',
         contents: [],
-        bannerImgUrls: [
-          'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/w/930/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/image_large_2x.jpg?imageView2/3/w/930/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/16875441_xl.jpg?imageView2/3/w/930/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/33963984465_6a9dcd84a3_k.jpg?imageView2/3/w/930/h/300/interlace/1',
-          'http://ov2efupn7.bkt.clouddn.com/25596863_xl.jpg?imageView2/3/w/930/h/300/interlace/1'
-        ],
+        type: getUrlKey('type'),
         loading: true,
-        item: '',
-        noFollow: false,
-        errorImg: 'http://ov2efupn7.bkt.clouddn.com/default.jpg?imageView2/3/q/30',
-        labelId: getUrlKey('labelId')
+        labelId: getUrlKey('labelId'),
+        noContent:false
       }
     },
     mounted () {
@@ -102,17 +107,22 @@
     },
     methods: {
       init: function () {
-        if (this.labelId == '' || this.labelId == null || this.labelId == undefined) {
-          window.location.href = '/'
+        var url = global_.host + '/v1/as/opus/list/hot/new/page/1'
+        if (this.type == 'weekly'){
+          url = global_.host + '/v1/as/opus/list/hot/weekly/page/1'
+        }else if (this.type == 'monthly'){
+          url = global_.host + '/v1/as/opus/list/hot/monthly/page/1'
+        }else if (this.type == 'like'){
+          url = global_.host + '/v1/as/opus/list/like/ranking/page/1'
         }
-        var url = global_.host + '/v1/as/opus/list/label/' + this.labelId + '/page/1'
+
         this.$http.get(url, {credentials: true}).then(function (data) {
           console.log(data)
           if (data.body.responseCode == 1000) {
             this.loading = false
             this.contents = data.body.data
             if (this.contents.length == 0) {
-              this.noFollow = true
+              this.noContent = true
             }
             console.log(this.contents)
 
@@ -177,6 +187,7 @@
 
   .opus-content {
     text-align: left;
+    margin-left: 2%;
     width: 90%;
   }
 

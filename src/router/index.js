@@ -56,6 +56,11 @@ export default new Router({
       path: '/label',
       name: '',
       component:  resolve => require(['@/pages/Label.vue'], resolve)
+    },
+    {
+      path: '/hot',
+      name: '',
+      component:  resolve => require(['@/pages/HotOpus.vue'], resolve)
     }
 
   ]

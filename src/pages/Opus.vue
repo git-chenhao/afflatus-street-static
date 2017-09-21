@@ -21,7 +21,8 @@
                 <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;阅读&nbsp;{{data.readNum}}
                 &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;点赞&nbsp;{{data.likeNum}}
                 <span v-for="item in data.labelInfoList">
-                  <el-tag :type="item.styleType">{{item.name}}</el-tag>
+                  <a :href="'/label?labelId='+item.id" target="_blank"> <el-tag
+                    :type="item.styleType">{{item.name}}</el-tag></a>
                 </span>
               </span>
 
@@ -34,7 +35,7 @@
         </el-col>
       </el-row>
 
-      <el-row :gutter="20">
+      <el-row :gutter="20" v-if="data != ''">
         <el-popover
           ref="popover"
           placement="left"
@@ -53,31 +54,84 @@
           </span>
         </el-col>
       </el-row>
-      <el-row :gutter="20">
+
+      <!--主评论框 -->
+      <el-row :gutter="20" v-if="data != ''">
         <el-col :span="10" :offset="7" class="meta meta-comment-write">
           <el-input
             type="textarea"
             :autosize="{ minRows: 4, maxRows: 6}"
             placeholder="写下你的评论..."
-            v-model="commentBody">
+            v-model="commentBody"
+            v-focus="true"
+          >
           </el-input>
-
           <div style="float: right;margin-top: 10px">
             <el-button type="text">取消</el-button>
-            <el-button type="primary">发送</el-button>
+            <el-button type="primary" @click="comment(-1,1)">发送</el-button>
           </div>
         </el-col>
         <el-col :span="10" :offset="7" class="meta meta-comment-total">
           100条评论
         </el-col>
       </el-row>
-      <el-row>
-        <el-col>
-          <div class="author">
-            <a href="'/personal?userId=1'"><img class="circular" src="http://oam3t77qi.bkt.clouddn.com/8530902f4d6ae97a99bd34e04a4fe760?imageView2/1/w/150/h/120"/></a>
-            <div class="name">
-              <a href="'/personal?userId=1'"><span style="font-size: 12px"> hahha</span></a>
-              <span style="color: #b4b4b4"> 09月19日 15:59</span>
+
+      <!--评论内容区域-->
+      <el-row v-if="data != ''">
+        <el-col :span="10" :offset="7" style="text-align: left">
+          <div v-for="item in comments" class="comment">
+            <div>
+              <a :href="'/personal?userId='+item.userId"><img class="circular" :src="item.userInfo.avatar"/></a>
+              <div class="name">
+                <a :href="'/personal?userId='+item.userId"><span
+                  style="font-size: 13px"> {{item.userInfo.nickName}}</span></a><br>
+                <span style="font-size: 10px"><span style="color: #969696">{{item.floor}}楼</span><span
+                  style="color: #969696"> {{item.createTime}}</span></span>
+              </div>
+              <div style="margin: 10px">
+                {{item.commentBody}}
+              </div>
+              <div style="margin: 10px;color: #969696;font-size: 13px">
+                <i class="fa fa-thumbs-up">&nbsp;{{item.likeCount}}人赞</i>
+                &nbsp;&nbsp;<i class="fa fa-comment hover-black" @click="openChildCommentFrame(item.id)">&nbsp;回复</i>
+              </div>
+
+              <!--子评论 -->
+              <div style="margin-left: 20px;border-left: 2px solid #d9d9d9;padding-left: 10px">
+                <div v-for="(chlidItem, index) in item.childCommentDto"
+                     style="padding: 10px;border-bottom: 1px dashed #f0f0f0 ">
+                  <div class="name">
+                    <a :href="'/personal?userId='+chlidItem.userId"
+                       style="color: #3194d0;font-size: 14px"><span> {{chlidItem.userInfo.nickName}} </span></a>
+                    <span style="font-size: 14px">: {{chlidItem.commentBody}}</span>
+                    <br>
+                    <span
+                      style="color: #969696;font-size: 13px;"> {{chlidItem.createTime}}&nbsp;&nbsp;&nbsp;
+                    <i class="fa fa-comment hover-black"
+                       @click="openChildCommentFrame(item.id,'回复了'+ chlidItem.userInfo.nickName +'：')">&nbsp;回复</i>
+                  </span>
+                  </div>
+                </div>
+                <div style="padding: 10px;color: #969696;font-size: 14px;" v-if="item.childCommentDto !=null && item.childCommentDto.length != 0">
+                  <i class="fa fa-pencil hover-black" @click="openChildCommentFrame(item.id)">&nbsp;添加新评论</i>
+                </div>
+              </div>
+
+              <!--子评论框-->
+              <div style="margin-left: 20px;border-left: 2px solid #d9d9d9;padding: 10px;" transiton="fade" v-show="childCommentShowId==item.id">
+                <el-input
+                  :id="item.id"
+                  type="textarea"
+                  :autosize="{ minRows: 2, maxRows: 6}"
+                  placeholder="写下你的评论..."
+                  v-model="childCommentBody"
+                  :autofocus="childCommentShowId==item.id">
+                </el-input>
+                <div style="text-align: right;margin-top: 10px;">
+                  <el-button type="text" @click="closeChildCommentFram">取消</el-button>
+                  <el-button type="primary" @click="comment(item.id,2)">发送</el-button>
+                </div>
+              </div>
             </div>
 
           </div>
@@ -93,12 +147,15 @@
   import ElButton from '../../node_modules/element-ui/packages/button/src/button.vue'
   import ElRow from 'element-ui/packages/row/src/row'
   import ElCol from 'element-ui/packages/col/src/col'
+  import ElInput from '../../node_modules/element-ui/packages/input/src/input.vue'
 
   export default {
     components: {
+      ElInput,
       ElCol,
       ElRow,
-      ElButton},
+      ElButton
+    },
     name: 'hello',
     data () {
       return {
@@ -111,14 +168,23 @@
         userInfo: '',
         loading: true,
         userId: '',
-        commentBody: ''
+        commentBody: '',
+        childCommentBody: '',
+        comments: '',
+        childCommentShowId: '',
+        handleFocus: true
       }
+    },
+    inserted: function (el) {
+      // 聚焦元素
+      el.focus()
     },
     mounted () {
       this.nickName = getCookie('nickName')
       this.avatar = getCookie('avatar')
       this.userId = getCookie('userId')
       this.init()
+      this.getComments()
     },
     methods: {
       init: function () {
@@ -187,6 +253,71 @@
           message: '分享功能暂未开放',
           type: 'success'
         })
+      },
+      getComments: function () {
+        var url = global_.host + '/v1/as/comment/list/opus/' + this.opusId + '/page/1'
+        this.$http.get(url).then(function (data) {
+          if (data.body.responseCode == 1000) {
+            this.comments = data.body.data
+          } else {
+          }
+        }, function (response) {
+        })
+      },
+      comment: function (parentId, type) {
+        var url = global_.host + '/v1/as/comment'
+        var commentBody = type == 1 ? this.commentBody : this.childCommentBody
+        if (commentBody == '' || commentBody == undefined || commentBody == null) {
+          this.$message({
+            showClose: true,
+            message: '请输入评论内容',
+            type: 'error'
+          })
+          return
+        }
+        var params = {opusId: this.opusId, parentId: parentId, commentBody: commentBody}
+        this.$http.post(url, params).then(function (data) {
+          if (data.body.responseCode == 1000) {
+            if (type == 1) {
+              this.$message({
+                showClose: true,
+                message: '评论成功',
+                type: 'success'
+              })
+            }
+            if (type == 1) {
+              this.commentBody = ''
+            } else {
+              this.closeChildCommentFram()
+            }
+            this.getComments()
+          } else {
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
+            })
+          }
+        }, function (response) {
+          this.loading = false
+          this.$message({
+            showClose: true,
+            message: '服务器忙,请稍候重试',
+            type: 'error'
+          })
+        })
+      },
+      openChildCommentFrame: function (childCommentShowId, content) {
+        if (content != '' && content != undefined && content != null) {
+          this.childCommentBody = content
+        } else {
+          this.childCommentBody = ''
+        }
+        this.childCommentShowId = childCommentShowId
+        document.getElementById(childCommentShowId).getElementsByTagName('textarea')[0].focus()
+      },
+      closeChildCommentFram: function () {
+        this.childCommentShowId = ''
       }
     }
   }
@@ -196,6 +327,14 @@
 <style scoped>
   @import '../../static/css/buttons.css';
   @import "../../static/css/topbar.css";
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+
+  .fade-enter, .fade-leave-active {
+    opacity: 0
+  }
 
   body {
     font-size: 16px;
@@ -237,6 +376,10 @@
     opacity: 0.75;
     line-height: 150px;
     margin: 0;
+  }
+
+  .hover-black:hover {
+    color: #333333;
   }
 
   .el-row {
@@ -339,6 +482,12 @@
     word-break: break-all;
   }
 
+  .comment {
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+  }
+
   .meta-content img {
     max-width: 100%;
   }
@@ -347,14 +496,13 @@
     float: right;
   }
 
-  .meta-comment-write{
+  .meta-comment-write {
     margin-top: 40px;
   }
 
   .meta-comment-total {
     margin-top: 10px;
     border-bottom: 1px solid #f0f0f0;
-    margin-bottom: 20px;
     padding-bottom: 20px;
     word-wrap: break-word;
     word-break: break-all;

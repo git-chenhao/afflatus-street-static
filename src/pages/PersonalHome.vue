@@ -41,8 +41,8 @@
 
           <div v-if="noOpus">
             <img width="100px" style="margin-top: 100px"
-                 src="http://cdn2.jianshu.io/assets/web/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
-            <div>当前无作品</div>
+                 src="http://ov2efupn7.bkt.clouddn.com/icon_nocontent-00c423de394b9184d467f2f2a7284b54.png"/>
+            <div>暂时还木有内容哦</div>
           </div>
           <div v-for="content in contents">
             <el-row :gutter="20" align="middle " type="flex">

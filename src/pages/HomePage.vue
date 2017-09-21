@@ -13,11 +13,6 @@
               <img :src=item class="aaa"/>
             </el-carousel-item>
           </el-carousel>
-          <!--<el-carousel :interval="4000" type="card" height="240px">-->
-          <!--<el-carousel-item v-for="url in bannerImgUrls" :key="item">-->
-          <!--<img :src=url />-->
-          <!--</el-carousel-item>-->
-          <!--</el-carousel>-->
         </el-col>
       </el-row>
 
@@ -34,19 +29,18 @@
                     <li class="have-img">
                       <div class="content">
                         <div class="author">
-                          <a :href="'/personal?userId='+content.userId"><img class="circular"
+                          <a :href="'/personal?userId='+content.userId" target="_blank"><img class="circular"
                                                                              :src="content.userInfo.avatar"/></a>
                           <div class="name">
-                            <a
-                              :href="'/personal?userId='+content.userId"><span style="font-size: 12px"> {{content.userInfo.nickName}}</span></a>
+                            <a :href="'/personal?userId='+content.userId" target="_blank"><span style="font-size: 12px"> {{content.userInfo.nickName}}</span></a>
                             <span style="color: #b4b4b4"> {{content.updateTime}}</span>
                           </div>
                         </div>
-                        <a class="title" :href='"/opus?opusId=" + content.id'>{{content.title}}</a>
+                        <a class="title" :href='"/opus?opusId=" + content.id' target="_blank">{{content.title}}</a>
                         <p class="summary">{{content.summary}}...</p>
                         <div style="color: #b4b4b4;font-size: 12px;">
                           <span v-for="label in content.labelInfoList">
-                            <a :href="'/label?labelId='+label.id"><el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
+                            <a :href="'/label?labelId='+label.id" target="_blank"><el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
                             </span>
                           <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
                           &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
@@ -57,10 +51,10 @@
                 </ul>
               </el-col>
               <el-col :span="6" class="meta">
-                <a class="wrap-img" :href='"/opus?opusId=" + content.id' v-if="content.coverUrl != ''">
+                <a class="wrap-img" :href='"/opus?opusId=" + content.id' target="_blank" v-if="content.coverUrl != ''">
                   <img class="img-blur-done" :src='content.coverUrl' @error="errorImg"/>
                 </a>
-                <a class="wrap-img" :href='"/opus?opusId=" + content.id' v-if="content.coverUrl == ''">
+                <a class="wrap-img" :href='"/opus?opusId=" + content.id' target="_blank" v-if="content.coverUrl == ''">
                   <img class="img-blur-done" :src='content.userInfo.avatar'/>
                 </a>
               </el-col>
@@ -73,15 +67,15 @@
               <p slot="title">热门标签</p>
               <div class="homepage-tag-div">
                  <span v-for="label in labelList">
-                   <a :href="'/label?labelId='+label.id"> <el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
+                   <a :href="'/label?labelId='+label.id" target="_blank"> <el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
                   </span>
               </div>
             </Card>
             <br>
-            <Alert><i class="fa fa-star"></i>&nbsp;7日热门</Alert>
-            <Alert type="success"><i class="fa fa-line-chart"></i>&nbsp;30日热门</Alert>
-            <Alert type="warning"><i class="fa fa-paint-brush"></i>&nbsp;新上榜</Alert>
-            <Alert type="error"><i class="fa fa-heart"></i>&nbsp;灵感鸡汤</Alert>
+            <a href="/hot?type=weekly" target="_blank"><Alert><i class="fa fa-star"></i>&nbsp;7日热门</Alert></a>
+            <a href="/hot?type=monthly" target="_blank"><Alert type="success"><i class="fa fa-line-chart"></i>&nbsp;30日热门</Alert></a>
+            <a href="/hot?type=new" target="_blank"><Alert type="warning"><i class="fa fa-paint-brush"></i>&nbsp;新上榜</Alert></a>
+            <a href="/hot?type=like" target="_blank"><Alert type="error"><i class="fa fa-heart"></i>&nbsp;最受喜欢</Alert></a>
             <div v-if="recommendFollows.length > 0">
               <div class="title" style="text-align: left;margin-top: 30px">
                 <span style="color: #969696;font-size: 16px">推荐作者</span>
