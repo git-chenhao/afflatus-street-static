@@ -125,6 +125,7 @@
 <script>
   import global_ from './config.vue'
   import { getCookie } from '../../static/js/util.js'
+  import  '../../static/js/common.js'
 
   export default {
     components: {

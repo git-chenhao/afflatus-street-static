@@ -7,7 +7,7 @@ import VueResource from 'vue-resource'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import { delCookie } from '../static/js/util.js'
-import '../static/js/common.js'
+import './../static/js/common.js'
 import iView from 'iview';
 import VueQArt from 'vue-qart'
 import 'iview/dist/styles/iview.css';    // 使用 CSS
