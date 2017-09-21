@@ -130,15 +130,9 @@
   import E from 'wangeditor'
   import global_ from './config.vue'
   import { getCookie, getUrlKey } from '../../static/js/util.js'
-  import ElFormItem from '../../node_modules/element-ui/packages/form/src/form-item.vue'
-  import ElButton from '../../node_modules/element-ui/packages/button/src/button.vue'
-  import ElForm from '../../node_modules/element-ui/packages/form/src/form.vue'
 
   export default {
     components: {
-      ElForm,
-      ElButton,
-      ElFormItem
     },
     name: 'editor',
     data () {

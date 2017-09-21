@@ -170,10 +170,6 @@
 <script>
   import global_ from './config.vue'
   import { getCookie, getUrlKey } from '../../static/js/util.js'
-  import ElButton from '../../node_modules/element-ui/packages/button/src/button.vue'
-  import ElRow from 'element-ui/packages/row/src/row'
-  import ElCol from 'element-ui/packages/col/src/col'
-  import ElInput from '../../node_modules/element-ui/packages/input/src/input.vue'
   import Vue from 'vue'
 
   Vue.directive('focus', {
@@ -183,10 +179,6 @@
   })
   export default {
     components: {
-      ElInput,
-      ElCol,
-      ElRow,
-      ElButton
     },
     name: 'hello',
     data () {

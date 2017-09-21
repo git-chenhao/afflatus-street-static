@@ -80,10 +80,9 @@
 <script>
   import global_ from './config.vue'
   import { getCookie, getUrlKey } from '../../static/js/util.js'
-  import ElTag from '../../node_modules/element-ui/packages/tag/src/tag.vue'
 
   export default {
-    components: {ElTag},
+    components: {},
     name: 'hello',
     data () {
       return {

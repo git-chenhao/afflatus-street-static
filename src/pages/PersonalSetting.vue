@@ -6,7 +6,7 @@
     <!--中间板块-->
     <div class="container">
 
-      <el-row >
+      <el-row>
         <el-col :span="16" offset="1" style="text-align: left;margin-top: 40px">
           <el-form ref="form" :model="userInfo" label-width="150px">
             <el-form-item label="头像">
@@ -33,18 +33,19 @@
               <el-input v-model="userInfo.weiboUrl" placeholder="请输入微博主页地址"></el-input>
             </el-form-item>
             <el-form-item label="个人介绍">
-            <el-input
-              type="textarea"
-              :autosize="{ minRows: 2, maxRows: 10}"
-              placeholder="请输入内容"
-              v-model="userInfo.personalIntroduction">
-            </el-input>
+              <el-input
+                type="textarea"
+                :autosize="{ minRows: 2, maxRows: 10}"
+                placeholder="请输入内容"
+                v-model="userInfo.personalIntroduction">
+              </el-input>
             </el-form-item>
             <el-form-item label="微信二维码">
               <img class="wechatQrCode" :src=userInfo.wechatQrCodeUrl
                    v-if="userInfo.wechatQrCodeUrl != '' && userInfo.wechatQrCodeUrl !=undefined"/>
               <input id="wechatQrCodeFile" type="file" style="display: none" @change="uploadWechatQrCode"/>
-              <el-button type="primary" @click="clickWechatQrCodeUpload">上传<i class="el-icon-upload2 el-icon--right" ></i></el-button>
+              <el-button type="primary" @click="clickWechatQrCodeUpload">上传<i
+                class="el-icon-upload2 el-icon--right"></i></el-button>
               <el-progress style="width: 150px" :percentage="wechatQrCodeUploadPercentage"
                            :status="wechatQrCodeUploadStatus"
                            v-if="wechatQrCodeUploadPercentage > 0"></el-progress>
@@ -66,14 +67,10 @@
 </template>
 <script>
   import global_ from './config.vue'
-  import { getCookie,setCookie } from '../../static/js/util.js'
-  import ElUploadDrag from '../../node_modules/element-ui/packages/upload/src/upload-dragger.vue'
-  import ElFormItem from '../../node_modules/element-ui/packages/form/src/form-item.vue'
+  import { getCookie, setCookie } from '../../static/js/util.js'
 
   export default {
-    components: {
-      ElFormItem,
-      ElUploadDrag},
+    components: {},
     name: 'hello',
     data () {
       return {
@@ -110,7 +107,7 @@
               showClose: true,
               message: data.body.errorMsg,
               type: 'error'
-            });
+            })
           }
         }, function (response) {
           this.loading = false
@@ -118,14 +115,14 @@
             showClose: true,
             message: '服务器忙,请稍候重试',
             type: 'error'
-          });
+          })
           console.info(response)
         })
       },
       clickUpload: function () {
         $('#avatarFile').click()
       },
-      clickWechatQrCodeUpload:function () {
+      clickWechatQrCodeUpload: function () {
         $('#wechatQrCodeFile').click()
       },
       uploadAvatar: function () {
@@ -171,7 +168,7 @@
               showClose: true,
               message: data.body.errorMsg,
               type: 'error'
-            });
+            })
           }
         }, function (response) {
           this.loading = false
@@ -179,7 +176,7 @@
             showClose: true,
             message: '服务器忙,请稍候重试',
             type: 'error'
-          });
+          })
           console.info(response)
         })
 
@@ -228,7 +225,7 @@
               showClose: true,
               message: data.body.errorMsg,
               type: 'error'
-            });
+            })
           }
         }, function (response) {
           this.loading = false
@@ -236,33 +233,33 @@
             showClose: true,
             message: '服务器忙,请稍候重试',
             type: 'error'
-          });
+          })
           console.info(response)
         })
 
       },
       onSubmit: function () {
         var url = global_.host + '/v1/uc/update'
-        var params = this.userInfo;
+        var params = this.userInfo
         this.$http.post(url, params).then(function (data) {
           if (data.body.responseCode == 1000) {
             this.$message({
               showClose: true,
               message: '资料修改成功',
               type: 'success'
-            });
-            this.status='success'
+            })
+            this.status = 'success'
             setCookie('avatar', this.userInfo.avatar, 7)
             setCookie('nickName', this.userInfo.nickName, 7)
             window.setTimeout(function () {
 //              window.location.reload()
-            },1500)
+            }, 1500)
           } else {
             this.$message({
               showClose: true,
               message: data.body.errorMsg,
               type: 'error'
-            });
+            })
           }
         }, function (response) {
           this.loading = false
@@ -270,7 +267,7 @@
             showClose: true,
             message: '服务器忙,请稍候重试',
             type: 'error'
-          });
+          })
           console.info(response)
         })
       },

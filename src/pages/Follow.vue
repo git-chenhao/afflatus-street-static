@@ -65,10 +65,9 @@
 <script>
   import global_ from './config.vue'
   import { getCookie } from '../../static/js/util.js'
-  import ElButton from '../../node_modules/element-ui/packages/button/src/button.vue'
 
   export default {
-    components: {ElButton},
+    components: {},
     name: 'hello',
     data () {
       return {
