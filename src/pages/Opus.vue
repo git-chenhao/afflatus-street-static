@@ -292,8 +292,11 @@
             this.commentCount = data.body.data.commentCount
             if (this.commentCount == 0) {
               this.noComment = true
+            }else {
+              this.noComment = false
             }
           } else {
+            console.log(data)
           }
         }, function (response) {
         })
