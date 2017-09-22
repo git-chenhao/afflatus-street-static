@@ -29,7 +29,7 @@
                       <div class="content">
                         <div class="author">
                           <a :href="'/personal?userId='+content.userId" target="_blank"><img class="circular"
-                                                                             :src="content.userInfo.avatar"/></a>
+                                                                                             :src="content.userInfo.avatar"/></a>
                           <div class="name">
                             <a :href="'/personal?userId='+content.userId" target="_blank"><span style="font-size: 12px"> {{content.userInfo.nickName}}</span></a>
                             <span style="color: #b4b4b4"> {{content.updateTime}}</span>
@@ -39,10 +39,14 @@
                         <p class="summary">{{content.summary}}...</p>
                         <div style="color: #b4b4b4;font-size: 12px;">
                           <span v-for="label in content.labelInfoList">
-                            <a :href="'/label?labelId='+label.id" target="_blank"><el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
+                            <a :href="'/label?labelId='+label.id" target="_blank"><el-tag
+                              :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
                             </span>
-                          <i class="fa fa-eye" aria-hidden="true"></i>&nbsp;{{content.readNum}}
-                          &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"></i>&nbsp;{{content.likeNum}}
+                            <i class="fa fa-eye" aria-hidden="true" title="阅读">&nbsp;{{content.readNum}}</i>
+                            &nbsp;&nbsp;<i class="fa fa-comment" aria-hidden="true"
+                                           title="评论">&nbsp;{{content.commentCount}}</i>&nbsp;
+                            &nbsp;&nbsp;<i class="fa fa-heart" aria-hidden="true"
+                                           title="点赞">&nbsp;{{content.likeNum}}</i>
                         </div>
                       </div>
                     </li>
@@ -66,15 +70,24 @@
               <p slot="title">热门标签</p>
               <div class="homepage-tag-div">
                  <span v-for="label in labelList">
-                   <a :href="'/label?labelId='+label.id" target="_blank"> <el-tag :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
+                   <a :href="'/label?labelId='+label.id" target="_blank"> <el-tag
+                     :type="label.styleType">{{label.name}}</el-tag>&nbsp;&nbsp;</a>
                   </span>
               </div>
             </Card>
             <br>
-            <a href="/hot?type=weekly" target="_blank"><Alert><i class="fa fa-star"></i>&nbsp;7日热门</Alert></a>
-            <a href="/hot?type=monthly" target="_blank"><Alert type="success"><i class="fa fa-line-chart"></i>&nbsp;30日热门</Alert></a>
-            <a href="/hot?type=new" target="_blank"><Alert type="warning"><i class="fa fa-paint-brush"></i>&nbsp;新上榜</Alert></a>
-            <a href="/hot?type=like" target="_blank"><Alert type="error"><i class="fa fa-heart"></i>&nbsp;最受喜欢</Alert></a>
+            <a href="/hot?type=weekly" target="_blank">
+              <Alert><i class="fa fa-star"></i>&nbsp;7日热门</Alert>
+            </a>
+            <a href="/hot?type=monthly" target="_blank">
+              <Alert type="success"><i class="fa fa-line-chart"></i>&nbsp;30日热门</Alert>
+            </a>
+            <a href="/hot?type=new" target="_blank">
+              <Alert type="warning"><i class="fa fa-paint-brush"></i>&nbsp;新上榜</Alert>
+            </a>
+            <a href="/hot?type=like" target="_blank">
+              <Alert type="error"><i class="fa fa-heart"></i>&nbsp;最受喜欢</Alert>
+            </a>
             <div v-if="recommendFollows.length > 0">
               <div class="title" style="text-align: left;margin-top: 30px">
                 <span style="color: #969696;font-size: 16px">推荐作者</span>
@@ -125,6 +138,7 @@
   import global_ from './config.vue'
   import { getCookie } from '../../static/js/util.js'
   import Header from './Header.vue'
+
   export default {
     components: {
       Header
@@ -321,7 +335,8 @@
     color: #333333;
     font-family: -apple-system, SF UI Display, Arial, PingFang SC, Hiragino Sans GB, Microsoft YaHei, WenQuanYi Micro Hei, sans-serif;
   }
-  .name{
+
+  .name {
     font-size: 12px;
   }
 
@@ -391,5 +406,8 @@
 <style>
   .menu-discover {
     color: #47b755;
+  }
+  .menu-follow:hover {
+    color: #47b755 !important;
   }
 </style>

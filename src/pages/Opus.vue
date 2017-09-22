@@ -71,7 +71,7 @@
           </div>
         </el-col>
         <el-col :span="10" :offset="7" class="meta meta-comment-total">
-          {{commentCount}}条评论
+          {{commentCount}} 条评论
         </el-col>
       </el-row>
 
@@ -98,8 +98,15 @@
                 {{item.commentBody}}
               </div>
               <div style="margin: 10px;color: #969696;font-size: 13px">
-                <i class="fa fa-thumbs-up">&nbsp;{{item.likeCount}}人赞</i>
-                &nbsp;&nbsp;<i class="fa fa-comment hover-black" @click="openChildCommentFrame(item.id)">&nbsp;回复</i>&nbsp;&nbsp;&nbsp;
+
+                <span v-else style="cursor: pointer"  @click="likeComment(item.id)" v-if="item.likeFlag == 1">
+                  <i style="color: #ea6f5a" class="fa fa-thumbs-up"></i>&nbsp;{{item.likeCount}}人赞
+                </span>
+                <i class="fa fa-thumbs-o-up" @click="likeComment(item.id)" v-else>&nbsp;
+                  <span v-if="item.likeCount !=0">{{item.likeCount}}人赞</span>
+                  <span v-else>赞</span>
+                </i>
+                &nbsp;&nbsp;<i class="fa  fa-reply hover-black" @click="openChildCommentFrame(item.id)">&nbsp;回复</i>&nbsp;&nbsp;&nbsp;
                 <Poptip
                   style="float: right"
                   v-if="item.userId == userId"
@@ -122,8 +129,8 @@
                     <br>
                     <span
                       style="color: #969696;font-size: 13px;"> {{chlidItem.createTime}}&nbsp;&nbsp;&nbsp;
-                    <i class="fa fa-comment hover-black"
-                       @click="openChildCommentFrame(item.id,'回复了'+ chlidItem.userInfo.nickName +'：')">&nbsp;回复</i>&nbsp;&nbsp;&nbsp;
+                    <i class="fa  fa-reply hover-black"
+                       @click="openChildCommentFrame(item.id,'回复了 '+ chlidItem.userInfo.nickName +'：')">&nbsp;回复</i>&nbsp;&nbsp;&nbsp;
                   </span>
                   </div>
                   <Poptip
@@ -372,6 +379,28 @@
           this.$message({
             showClose: true,
             message: '服务器忙,请稍候重试',
+            type: 'error'
+          })
+          console.info(response)
+        })
+      },
+      likeComment: function (commentId) {
+        var url = global_.host + '/v1/as/comment/like/' + commentId
+        this.$http.post(url).then(function (data) {
+          if (data.body.responseCode == 1000) {
+            this.getComments()
+          } else {
+            this.$message({
+              showClose: true,
+              message: data.body.errorMsg,
+              type: 'error'
+            })
+          }
+        }, function (response) {
+          this.loading = false
+          this.$message({
+            showClose: true,
+            message: '点赞失败,请稍候重试',
             type: 'error'
           })
           console.info(response)

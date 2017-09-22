@@ -6,7 +6,9 @@
         <span class="menu-nav menu-nav-first"><a class="menu menu-discover" href="/"><i class="fa fa-safari"></i>&nbsp;发现</a></span>
         <span class="menu-nav"><a class="menu menu-follow" @click="checkLogin('/follow')"><i
           class="fa fa-snowflake-o"></i>&nbsp;关注</a></span>
-        <span class="menu-nav"><a class="menu menu-message"><i class="fa  fa-commenting"></i>&nbsp;消息</a></span>
+        <span class="menu-nav"><a class="menu menu-message" href="/message">
+            <i class="fa  fa-commenting"></i>&nbsp;消息
+        </a></span>
         <el-input style="width: 200px;margin-top: 15px;margin-left: 40px;float: left;"
                   placeholder="搜索从这里开始"
                   icon="search"
@@ -22,10 +24,10 @@
         <div class="user" @mousemove="userMouseMove" @mouseout="userMouseOut"
              :style="'background-color:'+userBackgroundColor" v-else>
           <el-dropdown>
-                       <span class="el-dropdown-link avatar-span">
-              <a class="avatar" :href="'/personal?userId='+userId">
-               <img :src="avatar" alt="120">
-              </a>
+               <span class="el-dropdown-link avatar-span" >
+                <a class="avatar" :href="'/personal?userId='+userId">
+                 <img :src="avatar" alt="120">
+                </a>
               </span>
             <el-dropdown-menu slot="dropdown">
               <a href="/setting">
@@ -113,5 +115,6 @@
 </script>
 
 <style scoped>
+  @import "../../static/css/topbar.css"
 
 </style>

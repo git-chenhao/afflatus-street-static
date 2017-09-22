@@ -61,6 +61,11 @@ export default new Router({
       path: '/hot',
       name: '',
       component:  resolve => require(['@/pages/HotOpus.vue'], resolve)
+    },
+    {
+      path: '/message',
+      name: '',
+      component:  resolve => require(['@/pages/Message.vue'], resolve)
     }
 
   ]

@@ -230,4 +230,8 @@
   .menu-follow {
     color: #47b755;
   }
+  .menu-follow:hover {
+    color: #47b755 !important;
+  }
+
 </style>

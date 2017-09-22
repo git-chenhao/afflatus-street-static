@@ -251,6 +251,13 @@ i {
 .menu:hover {
   color: black;
 }
+a:hover{
+  text-decoration: none;
+}
+.menu-nav:hover{
+  background-color: #f5f5f5;
+}
+
 
 .menu-follow:hover {
   cursor: pointer;
